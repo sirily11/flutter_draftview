@@ -47,20 +47,10 @@ class _DraftViewState extends State<DraftView> {
 
     while (i < blocks.length) {
       var curBlock = blocks[i];
-      var prevBlock = i > 1 ? blocks[i - 1] : null;
-      var nextBlock = i < blocks.length - 1 ? blocks[i + 1] : null;
 
       var span = curBlock.render(context);
       spans.add(span);
 
-      if (curBlock.text.length > 0 && (nextBlock?.text.length ?? 0) > 0) {
-        spans.add(TextSpan(text: '\n'));
-        spans.add(TextSpan(text: '\n'));
-      } else if (curBlock.text.length > 0 &&
-          (prevBlock?.text.length ?? 0) > 0) {
-        spans.add(TextSpan(text: '\n'));
-        spans.add(TextSpan(text: '\n'));
-      }
       i++;
     }
     return spans;

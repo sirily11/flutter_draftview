@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:draft_view/draft_view/block/base_block.dart';
+import 'package:draft_view/draft_view/block/blocks/text_block.dart';
 import 'package:draft_view/draft_view/block/draft_object.dart';
 import 'package:draft_view/draft_view/plugin/base_plugin.dart';
 
@@ -49,16 +50,27 @@ class Converter {
     int i = 0;
 
     while (i < draftBlocks.length) {
-      var draftBlock = draftBlocks[i];
+      var curDraftBlock = draftBlocks[i];
       var block = blocks[i];
+      var prevDraftBlock = i > 1 ? draftBlocks[i - 1] : null;
+      var nextDraftBlock =
+          i < draftBlocks.length - 1 ? draftBlocks[i + 1] : null;
+
       var bs = splitBlock(
         block: block,
-        entities: draftBlock.entityRanges,
-        inlines: draftBlock.inlineStyleRanges,
+        entities: curDraftBlock.entityRanges,
+        inlines: curDraftBlock.inlineStyleRanges,
         entityMap: entityMap,
       );
 
       retBlocks.addAll(bs);
+      if (curDraftBlock.text.length > 0 &&
+          (nextDraftBlock?.text.length ?? 0) > 0) {
+        retBlocks.add(NewlineBlock());
+      } else if (curDraftBlock.text.length > 0 &&
+          (prevDraftBlock?.text.length ?? 0) > 0) {
+        retBlocks.add(NewlineBlock());
+      }
       i += 1;
     }
 

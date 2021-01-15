@@ -1,4 +1,5 @@
 import 'package:draft_view/draft_view/block/base_block.dart';
+import 'package:flutter/material.dart';
 
 class TextBlock extends BaseBlock {
   final int start;
@@ -32,4 +33,22 @@ class TextBlock extends BaseBlock {
           entityTypes: entityTypes,
           blockType: blockType,
         );
+}
+
+class NewlineBlock extends BaseBlock {
+  NewlineBlock()
+      : super(
+          start: 0,
+          end: 0,
+          inlineStyles: [],
+          data: {},
+          text: "",
+          entityTypes: [],
+          blockType: "newline",
+        );
+
+  @override
+  InlineSpan render(BuildContext context) {
+    return TextSpan(text: "\n\n", style: renderStyle(context));
+  }
 }
