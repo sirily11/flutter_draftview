@@ -8,7 +8,7 @@ class Demo1 extends StatelessWidget {
     return Scaffold(
       body: DraftView(
         rawDraftData: data,
-        plugins: [],
+        plugins: [TextPlugin()],
       ),
     );
   }

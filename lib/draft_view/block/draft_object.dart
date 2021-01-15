@@ -136,7 +136,7 @@ class RawDraftEntityRange {
 
   factory RawDraftEntityRange.fromJson(Map<String, dynamic> json) =>
       RawDraftEntityRange(
-        key: json["key"],
+        key: json["key"].toString(),
         length: json["length"].toDouble(),
         offset: json["offset"].toDouble(),
       );
