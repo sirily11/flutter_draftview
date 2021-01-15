@@ -108,7 +108,7 @@ class RawDraftContentBlock {
 }
 
 class RawDraftEntityRange {
-  final double key;
+  final String key;
   final double length;
   final double offset;
 
@@ -119,7 +119,7 @@ class RawDraftEntityRange {
   });
 
   RawDraftEntityRange copyWith({
-    double? key,
+    String? key,
     double? length,
     double? offset,
   }) =>
@@ -136,7 +136,7 @@ class RawDraftEntityRange {
 
   factory RawDraftEntityRange.fromJson(Map<String, dynamic> json) =>
       RawDraftEntityRange(
-        key: json["key"].toDouble(),
+        key: json["key"],
         length: json["length"].toDouble(),
         offset: json["offset"].toDouble(),
       );

@@ -6,27 +6,54 @@ class BaseBlock {
   final int start;
   final int end;
   final String text;
-  final List<String> styles;
+
+  /// Block Type
+  final String blockType;
+
+  /// Inline styles
+  final List<String> inlineStyles;
+
+  /// Entity type
   final List<String> entityTypes;
   final Map<String, dynamic> data;
 
   BaseBlock({
     required this.start,
     required this.end,
-    required this.styles,
+    required this.inlineStyles,
     required this.data,
     required this.text,
     required this.entityTypes,
+    required this.blockType,
   });
 
   BaseBlock copyWith({BaseBlock? block}) => BaseBlock(
         start: block?.start ?? this.start,
         end: block?.end ?? this.end,
-        styles: block?.styles ?? this.styles,
+        inlineStyles: block?.inlineStyles ?? this.inlineStyles,
         entityTypes: block?.entityTypes ?? this.entityTypes,
         data: block?.data ?? this.data,
         text: block?.text ?? this.text,
+        blockType: block?.blockType ?? this.blockType,
       );
+
+  bool withinRange(int start, int end) {
+    if (start == end) {
+      return false;
+    }
+
+    if (start <= this.start) {
+      if (end > this.start) {
+        return true;
+      }
+    } else if (end >= this.end) {
+      if (start < this.end) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 
   /// Get text content based on the start and end
   String get textContent {
@@ -35,7 +62,7 @@ class BaseBlock {
 
   /// Add inline style to the block
   List<String> addStyle(String? style) {
-    var copiedStyles = (jsonDecode(jsonEncode(this.styles)) as List)
+    var copiedStyles = (jsonDecode(jsonEncode(this.inlineStyles)) as List)
         .map((e) => e as String)
         .toList();
     if (style != null) {
@@ -68,9 +95,13 @@ class BaseBlock {
   /// get block from plugins' rendering map
   BaseBlock getBlock(BaseBlock block, List<BasePlugin> plugins) {
     for (var plugin in plugins) {
-      for (var style in block.styles) {
-        if (plugin.blockStyleFn?.containsKey(style) ?? false) {
-          return plugin.blockStyleFn![style]!.copyWith(block: block);
+      if (plugin.blockRenderFn?.containsKey(block.blockType) ?? false) {
+        return plugin.blockRenderFn![block.blockType]!.copyWith(block: block);
+      }
+
+      for (var style in block.inlineStyles) {
+        if (plugin.inlineStyleRenderFn?.containsKey(style) ?? false) {
+          return plugin.inlineStyleRenderFn![style]!.copyWith(block: block);
         }
       }
       for (var entity in block.entityTypes) {
@@ -84,15 +115,21 @@ class BaseBlock {
   }
 
   /// Apply inline styles or entity data to the block
-  List<BaseBlock> split(int start, int end, String? style, String? entity,
-      final Map<String, dynamic> data, List<BasePlugin> plugins) {
+  List<BaseBlock> split(
+      {required int start,
+      required int end,
+      String? style,
+      String? entity,
+      required Map<String, dynamic> data,
+      required List<BasePlugin> plugins}) {
     List<BaseBlock> blocks = [];
     if (start <= this.start && end >= this.end) {
       return [
         BaseBlock(
+          blockType: this.blockType,
           start: this.start,
           end: this.end,
-          styles: this.addStyle(style),
+          inlineStyles: this.addStyle(style),
           data: this.addData(data),
           entityTypes: this.addEntityType(entity),
           text: this.text,
@@ -100,18 +137,20 @@ class BaseBlock {
       ];
     } else if (start > this.start && end >= this.end) {
       var first = BaseBlock(
+        blockType: this.blockType,
         start: this.start,
         end: start,
         data: this.addData({}),
-        styles: addStyle(null),
+        inlineStyles: addStyle(null),
         entityTypes: this.addEntityType(null),
         text: this.text,
       );
       var middle = BaseBlock(
+        blockType: this.blockType,
         start: start,
         end: this.end,
         data: this.addData(data),
-        styles: this.addStyle(style),
+        inlineStyles: this.addStyle(style),
         entityTypes: this.addEntityType(entity),
         text: this.text,
       );
@@ -119,19 +158,21 @@ class BaseBlock {
       blocks = [first, middle];
     } else if (start <= this.start && end < this.end) {
       var first = BaseBlock(
+        blockType: this.blockType,
         start: this.start,
         end: end,
         data: this.addData(data),
-        styles: this.addStyle(style),
+        inlineStyles: this.addStyle(style),
         entityTypes: this.addEntityType(entity),
         text: this.text,
       );
 
       var middle = BaseBlock(
+        blockType: this.blockType,
         start: end,
         end: this.end,
         data: this.addData({}),
-        styles: this.addStyle(null),
+        inlineStyles: this.addStyle(null),
         entityTypes: this.addEntityType(null),
         text: this.text,
       );
@@ -139,28 +180,31 @@ class BaseBlock {
       blocks = [first, middle];
     } else if (start > this.start && end < this.end) {
       var first = BaseBlock(
+        blockType: this.blockType,
         start: this.start,
         end: start,
         data: this.addData({}),
-        styles: this.addStyle(null),
+        inlineStyles: this.addStyle(null),
         entityTypes: this.addEntityType(null),
         text: this.text,
       );
 
       var middle = BaseBlock(
+        blockType: this.blockType,
         start: start,
         end: end,
         data: this.addData(data),
-        styles: this.addStyle(style),
+        inlineStyles: this.addStyle(style),
         entityTypes: this.addEntityType(entity),
         text: this.text,
       );
 
       var last = BaseBlock(
+        blockType: this.blockType,
         start: end,
         end: this.end,
         data: this.addData({}),
-        styles: this.addStyle(null),
+        inlineStyles: this.addStyle(null),
         entityTypes: this.addEntityType(null),
         text: this.text,
       );
@@ -174,17 +218,19 @@ class BaseBlock {
   }
 
   TextStyle renderStyle() {
-    FontWeight fontWeight =
-        this.styles.contains("BOLD") ? FontWeight.bold : FontWeight.normal;
-    FontStyle fontStyle =
-        this.styles.contains("ITALIC") ? FontStyle.italic : FontStyle.normal;
+    FontWeight fontWeight = this.inlineStyles.contains("BOLD")
+        ? FontWeight.bold
+        : FontWeight.normal;
+    FontStyle fontStyle = this.inlineStyles.contains("ITALIC")
+        ? FontStyle.italic
+        : FontStyle.normal;
     return TextStyle(
       fontWeight: fontWeight,
       fontStyle: fontStyle,
     );
   }
 
-  TextSpan render() {
+  InlineSpan render() {
     return TextSpan(text: this.textContent, style: renderStyle());
   }
 }

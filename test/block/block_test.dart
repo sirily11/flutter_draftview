@@ -6,15 +6,16 @@ void main() {
     test("Create a new block and split", () {
       var text = "Hello World";
       var block = BaseBlock(
+        blockType: "unstyled",
         start: 0,
         end: text.length,
-        styles: [],
+        inlineStyles: [],
         data: {},
         text: text,
         entityTypes: [],
       );
 
-      var blocks = block.split(0, 5, null, null, {}, []);
+      var blocks = block.split(start: 0, end: 5, data: {}, plugins: []);
       expect(blocks.length, 2);
       expect(blocks[0].textContent, "Hello");
       expect(blocks[1].textContent, " World");
@@ -23,15 +24,16 @@ void main() {
     test("Create a new block and split 2", () {
       var text = "Hello World";
       var block = BaseBlock(
+        blockType: "unstyled",
         start: 0,
         end: text.length,
-        styles: [],
+        inlineStyles: [],
         data: {},
         text: text,
         entityTypes: [],
       );
 
-      var blocks = block.split(2, 4, null, null, {}, []);
+      var blocks = block.split(start: 2, end: 4, data: {}, plugins: []);
       expect(blocks.length, 3);
       expect(blocks[0].textContent, "He");
       expect(blocks[1].textContent, "ll");
@@ -41,15 +43,17 @@ void main() {
     test("Create a new block and split 3", () {
       var text = "Hello World";
       var block = BaseBlock(
+        blockType: "unstyled",
         start: 0,
         end: text.length,
-        styles: [],
+        inlineStyles: [],
         data: {},
         text: text,
         entityTypes: [],
       );
 
-      var blocks = block.split(2, text.length, null, null, {}, []);
+      var blocks =
+          block.split(start: 2, end: text.length, data: {}, plugins: []);
       expect(blocks.length, 2);
       expect(blocks[0].textContent, "He");
       expect(blocks[1].textContent, "llo World");
@@ -58,23 +62,24 @@ void main() {
     test("Create a new block and split 4", () {
       var text = "Hello World";
       var block = BaseBlock(
+        blockType: "unstyled",
         start: 0,
         end: text.length,
-        styles: [],
+        inlineStyles: [],
         data: {},
         text: text,
         entityTypes: [],
       );
 
-      var blocks = block.split(2, 4, null, null, {}, []);
+      var blocks = block.split(start: 2, end: 4, data: {}, plugins: []);
       //He ll o_World
-      var newBlocks = blocks[1].split(1, 5, null, null, {}, []);
+      var newBlocks = blocks[1].split(start: 1, end: 5, data: {}, plugins: []);
       expect(newBlocks.length, 1);
 
-      newBlocks = blocks[1].split(1, 4, null, null, {}, []);
+      newBlocks = blocks[1].split(start: 1, end: 4, data: {}, plugins: []);
       expect(newBlocks.length, 1);
 
-      newBlocks = blocks[1].split(3, 4, null, null, {}, []);
+      newBlocks = blocks[1].split(start: 3, end: 4, data: {}, plugins: []);
       expect(newBlocks.length, 2);
     });
   });
