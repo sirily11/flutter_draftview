@@ -64,12 +64,14 @@ class Converter {
       );
 
       retBlocks.addAll(bs);
-      if (curDraftBlock.text.length > 0 &&
-          (nextDraftBlock?.text.length ?? 0) > 0) {
-        retBlocks.add(NewlineBlock());
-      } else if (curDraftBlock.text.length > 0 &&
-          (prevDraftBlock?.text.length ?? 0) > 0) {
-        retBlocks.add(NewlineBlock());
+      if (i < draftBlocks.length - 1) {
+        if (curDraftBlock.text.isNotEmpty && nextDraftBlock!.text.isNotEmpty) {
+          retBlocks.add(NewlineBlock());
+        }
+
+        if (curDraftBlock.type != nextDraftBlock!.type) {
+          retBlocks.add(NewlineBlock());
+        }
       }
       i += 1;
     }

@@ -149,5 +149,98 @@ void main() {
       var blocks = converter.convert();
       expect(blocks.length, 3);
     });
+
+    test("Test convert with newline", () {
+      var data = {
+        "blocks": [
+          {
+            "key": "755mk",
+            "text":
+                "莉莱心想，这个貌似是叫2ao的游戏，好像是一个设定在名叫天辉夜宴的魔法世界。斯文应该很喜欢。结果就在这个时候，电视上又传来一个新闻：“刚刚发售的2ao游戏，因为制作人茅场晶彦的关系，多达20000名玩家被困在游戏中无法登出。”莉莱看到了电视上一闪而过的斯文的名字，哭了出来。立马跑回自己的小镇（十年未回的），见到了斯文。只见斯文虚弱的躺在床上，脸色十分不好。因为斯文家里不是很有钱，没办法给他最新型的阴养供给机，所以他已经长时间没怎么好好吃饭了。一想到这样，莉莱泣不成声，跑到了街上。就在这个时候，遇到在那里的凤凰院凶真（我）。凤凰院说：你怎么了，为啥哭了？”莉莱说，从小我就因为体型被同学欺负，被家长嫌弃，被姐姐玩弄。现在连我唯一的依靠——斯文，也可能",
+            "type": "unstyled",
+            "depth": 0,
+            "inlineStyleRanges": [],
+            "entityRanges": [],
+            "data": {}
+          },
+          {
+            "key": "f1o2m",
+            "text": "",
+            "type": "unstyled",
+            "depth": 0,
+            "inlineStyleRanges": [],
+            "entityRanges": [],
+            "data": {}
+          },
+          {
+            "key": "aljgi",
+            "text":
+                "要离我而去了，为什么，为什么，为什么！！老天要这么玩弄我！凤凰院说：别哭啊，小妹妹，现在还有一个解决方法，你要不要听？ 什么方法！快说！莉莱急破脸，呐喊到。凤凰院胸针（我）扔出了个海报，上面写的叫厌食症互助小组。你去那看看，一定能找到和你志同道合的人的。",
+            "type": "unstyled",
+            "depth": 0,
+            "inlineStyleRanges": [],
+            "entityRanges": [],
+            "data": {}
+          },
+          {
+            "key": "67icf",
+            "text":
+                "在那个小组里，莉莱很快的认识到了很多和自己有这同样问题的女生，她们大多有着和自己相同的经历。莉莱很开心能够来到这里，原来世界不只是自己有着这样的遭遇。莉莱在一次见面会上说道：”谢谢你 米拉娜，谢谢你露娜，谢谢你卓尔飞侠，谢谢你邪影芳龄，不是你们我不可能坚持下来。“说这便和其他的哦朋友一起",
+            "type": "unstyled",
+            "depth": 0,
+            "inlineStyleRanges": [],
+            "entityRanges": [],
+            "data": {}
+          }
+        ],
+        "entityMap": {}
+      };
+
+      var converter = Converter(plugins: [TextPlugin()], draftData: data);
+
+      var blocks = converter.convert();
+      expect(blocks.length, 5);
+      expect(blocks[0] is TextBlock, true);
+    });
+  });
+
+  group("Test convert image", () {
+    test("Convert image 1", () {
+      var data = {
+        "blocks": [
+          {
+            "key": "69rah",
+            "text": " ",
+            "type": "atomic",
+            "depth": 0,
+            "inlineStyleRanges": [],
+            "entityRanges": [
+              {"offset": 0, "length": 1, "key": 0}
+            ],
+            "data": {}
+          },
+        ],
+        "entityMap": {
+          "0": {
+            "type": "image",
+            "mutability": "IMMUTABLE",
+            "data": {
+              "src":
+                  "https://sirileepage-website-data.s3.amazonaws.com/static/image/2020/06/25/cover-13.png",
+              "id": 51,
+              "alignment": "center",
+              "description": "2077 Art Online 示意图"
+            }
+          }
+        }
+      };
+
+      var converter =
+          Converter(plugins: [TextPlugin(), ImagePlugin()], draftData: data);
+      var blocks = converter.convert();
+
+      expect(blocks.length, 1);
+      expect(blocks[0] is ImageBlock, true);
+    });
   });
 }

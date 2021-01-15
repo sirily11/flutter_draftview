@@ -50,36 +50,25 @@ class HeaderBlock extends BaseBlock {
   TextStyle renderStyle(BuildContext context) {
     switch (level) {
       case 1:
-        return TextStyle(
-          color: Theme.of(context).textTheme.headline1?.color,
-          fontSize: Theme.of(context).textTheme.headline1?.fontSize,
-        );
+        var textStyle = Theme.of(context).textTheme.headline1!;
+        return textStyle;
 
       case 2:
-        return TextStyle(
-          color: Theme.of(context).textTheme.headline2?.color,
-          fontSize: Theme.of(context).textTheme.headline2?.fontSize,
-        );
+        var textStyle = Theme.of(context).textTheme.headline2!;
+        return textStyle;
+
       case 3:
-        return TextStyle(
-          color: Theme.of(context).textTheme.headline3?.color,
-          fontSize: Theme.of(context).textTheme.headline3?.fontSize,
-        );
+        var textStyle = Theme.of(context).textTheme.headline3!;
+        return textStyle;
       case 4:
-        return TextStyle(
-          color: Theme.of(context).textTheme.headline4?.color,
-          fontSize: Theme.of(context).textTheme.headline4?.fontSize,
-        );
+        var textStyle = Theme.of(context).textTheme.headline4!;
+        return textStyle;
       case 5:
-        return TextStyle(
-          color: Theme.of(context).textTheme.headline5?.color,
-          fontSize: Theme.of(context).textTheme.headline5?.fontSize,
-        );
+        var textStyle = Theme.of(context).textTheme.headline5!;
+        return textStyle;
       default:
-        return TextStyle(
-          color: Theme.of(context).textTheme.headline6?.color,
-          fontSize: Theme.of(context).textTheme.headline6?.fontSize,
-        );
+        var textStyle = Theme.of(context).textTheme.headline6!;
+        return textStyle;
     }
   }
 }

@@ -58,14 +58,9 @@ class _DraftViewState extends State<DraftView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scrollbar(
-      showTrackOnHover: true,
-      child: SingleChildScrollView(
-        child: RichText(
-          text: TextSpan(
-            children: _renderText(),
-          ),
-        ),
+    return RichText(
+      text: TextSpan(
+        children: _renderText(),
       ),
     );
   }

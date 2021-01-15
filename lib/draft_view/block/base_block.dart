@@ -54,7 +54,7 @@ class BaseBlock {
       if (end < this.end) {
         return true;
       }
-    } 
+    }
 
     return false;
   }
@@ -100,10 +100,6 @@ class BaseBlock {
   /// If no match, then use default
   BaseBlock getBlock(BaseBlock block, List<BasePlugin> plugins) {
     for (var plugin in plugins) {
-      if (plugin.blockRenderFn?.containsKey(block.blockType) ?? false) {
-        return plugin.blockRenderFn![block.blockType]!.copyWith(block: block);
-      }
-
       for (var style in block.inlineStyles) {
         if (plugin.inlineStyleRenderFn?.containsKey(style) ?? false) {
           return plugin.inlineStyleRenderFn![style]!.copyWith(block: block);
@@ -129,7 +125,7 @@ class BaseBlock {
       required List<BasePlugin> plugins}) {
     List<BaseBlock> blocks = [];
     if (start <= this.start && end >= this.end) {
-      return [
+      blocks = [
         BaseBlock(
           blockType: this.blockType,
           start: this.start,
@@ -230,12 +226,9 @@ class BaseBlock {
       : FontStyle.normal;
 
   TextStyle renderStyle(BuildContext context) {
-    return TextStyle(
-      fontWeight: fontWeight,
-      fontStyle: fontStyle,
-      color: Theme.of(context).textTheme.bodyText1?.color,
-      fontSize: Theme.of(context).textTheme.bodyText1?.fontSize,
-    );
+    var textStyle = Theme.of(context).textTheme.bodyText1!;
+
+    return textStyle.copyWith(fontWeight: fontWeight, fontStyle: fontStyle);
   }
 
   InlineSpan render(BuildContext context) {
