@@ -19,16 +19,27 @@ class Converter {
     for (var block in this.draftData['blocks']) {
       var draftBlock = RawDraftContentBlock.fromJson(block);
       draftBlocks.add(draftBlock);
-      blocks.add(
-        BaseBlock(
-            start: 0,
-            end: draftBlock.text.length,
-            inlineStyles: [],
-            data: {},
-            text: draftBlock.text,
-            entityTypes: [],
-            blockType: draftBlock.type),
+      var hasAdded = false;
+      var tmpB = BaseBlock(
+        start: 0,
+        end: draftBlock.text.length,
+        inlineStyles: [],
+        data: {},
+        text: draftBlock.text,
+        entityTypes: [],
+        blockType: draftBlock.type,
       );
+      for (var plugin in plugins) {
+        if (plugin.blockRenderFn?.containsKey(draftBlock.type) ?? false) {
+          var b = plugin.blockRenderFn![draftBlock.type]!.copyWith(block: tmpB);
+          blocks.add(b);
+          hasAdded = true;
+          break;
+        }
+      }
+      if (!hasAdded) {
+        blocks.add(tmpB);
+      }
     }
 
     (draftData['entityMap'] as Map).forEach((key, value) {
@@ -48,6 +59,7 @@ class Converter {
       );
 
       retBlocks.addAll(bs);
+      i += 1;
     }
 
     return retBlocks;

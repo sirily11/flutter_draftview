@@ -50,7 +50,11 @@ class BaseBlock {
       if (start < this.end) {
         return true;
       }
-    }
+    } else if (start > this.start) {
+      if (end < this.end) {
+        return true;
+      }
+    } 
 
     return false;
   }
@@ -93,6 +97,7 @@ class BaseBlock {
   }
 
   /// get block from plugins' rendering map
+  /// If no match, then use default
   BaseBlock getBlock(BaseBlock block, List<BasePlugin> plugins) {
     for (var plugin in plugins) {
       if (plugin.blockRenderFn?.containsKey(block.blockType) ?? false) {
@@ -217,20 +222,23 @@ class BaseBlock {
     return blocks;
   }
 
-  TextStyle renderStyle() {
-    FontWeight fontWeight = this.inlineStyles.contains("BOLD")
-        ? FontWeight.bold
-        : FontWeight.normal;
-    FontStyle fontStyle = this.inlineStyles.contains("ITALIC")
-        ? FontStyle.italic
-        : FontStyle.normal;
+  FontWeight get fontWeight =>
+      this.inlineStyles.contains("BOLD") ? FontWeight.bold : FontWeight.normal;
+
+  FontStyle get fontStyle => this.inlineStyles.contains("ITALIC")
+      ? FontStyle.italic
+      : FontStyle.normal;
+
+  TextStyle renderStyle(BuildContext context) {
     return TextStyle(
       fontWeight: fontWeight,
       fontStyle: fontStyle,
+      color: Theme.of(context).textTheme.bodyText1?.color,
+      fontSize: Theme.of(context).textTheme.bodyText1?.fontSize,
     );
   }
 
-  InlineSpan render() {
-    return TextSpan(text: this.textContent, style: renderStyle());
+  InlineSpan render(BuildContext context) {
+    return TextSpan(text: this.textContent, style: renderStyle(context));
   }
 }
