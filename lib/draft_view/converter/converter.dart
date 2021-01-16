@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:draft_view/draft_view/block/base_block.dart';
+import 'package:draft_view/draft_view/block/blocks/list_block.dart';
 import 'package:draft_view/draft_view/block/blocks/text_block.dart';
 import 'package:draft_view/draft_view/block/draft_object.dart';
 import 'package:draft_view/draft_view/plugin/base_plugin.dart';
@@ -37,7 +38,7 @@ class Converter {
       for (var plugin in plugins) {
         if (plugin.blockRenderFn(tmpB)?.containsKey(draftBlock.type) ?? false) {
           var b = plugin
-              .blockRenderFn(tmpB)![draftBlock.type]!
+              .blockRenderFn(tmpB, shouldWrite: true)![draftBlock.type]!
               .copyWith(block: tmpB);
           blocks.add(b);
           hasAdded = true;
@@ -81,10 +82,16 @@ class Converter {
       }
 
       if (i < draftBlocks.length - 1) {
-        if (curDraftBlock.text.isNotEmpty && nextDraftBlock!.text.isNotEmpty) {
-          retBlocks.add(NewlineBlock());
-        } else if (curDraftBlock.type != nextDraftBlock!.type) {
-          retBlocks.add(NewlineBlock());
+        if (block is ListBlock) {
+          /// If the block is above types, then add nothing
+        } else {
+          /// Add new line
+          if (curDraftBlock.text.isNotEmpty &&
+              nextDraftBlock!.text.isNotEmpty) {
+            retBlocks.add(NewlineBlock());
+          } else if (curDraftBlock.type != nextDraftBlock!.type) {
+            retBlocks.add(NewlineBlock());
+          }
         }
       }
 

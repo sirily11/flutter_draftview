@@ -19,9 +19,11 @@ class ListBlock extends BaseBlock {
   final List<String> entityTypes;
   final Map<String, dynamic> data;
   final bool isOrderedList;
+  final int order;
 
   ListBlock({
     this.current,
+    required this.order,
     required this.depth,
     required this.start,
     required this.end,
@@ -53,6 +55,7 @@ class ListBlock extends BaseBlock {
         text: block?.text ?? this.text,
         blockType: block?.blockType ?? this.blockType,
         isOrderedList: isOrderedList,
+        order: this.order,
       );
 
   String getDepthSpacing() {
@@ -62,14 +65,13 @@ class ListBlock extends BaseBlock {
       spacing += ' ';
       i += 1;
     }
-
     return spacing;
   }
 
   @override
   InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
     return TextSpan(
-      text: "${getDepthSpacing()}- $text",
+      text: "${getDepthSpacing()}${isOrderedList ? "$order." : "-"} $text\n",
       style: renderStyle(context),
     );
   }

@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group("Test listTreeNode", () {
     var listblock1 = ListBlock(
-      depth: 1,
+      depth: 0,
       start: 0,
       end: 0,
       inlineStyles: [],
@@ -14,10 +14,11 @@ void main() {
       entityTypes: [],
       blockType: "ordered-list-item",
       isOrderedList: true,
+      order: 0,
     );
 
     var listblock2 = ListBlock(
-      depth: 1,
+      depth: 0,
       start: 0,
       end: 0,
       inlineStyles: [],
@@ -25,12 +26,12 @@ void main() {
       text: "1",
       entityTypes: [],
       blockType: "ordered-list-item",
-  
+      order: 0,
       isOrderedList: true,
     );
 
     var listblock3 = ListBlock(
-      depth: 1,
+      depth: 0,
       start: 0,
       end: 0,
       inlineStyles: [],
@@ -38,12 +39,12 @@ void main() {
       text: "1",
       entityTypes: [],
       blockType: "ordered-list-item",
-  
+      order: 0,
       isOrderedList: true,
     );
 
     var listblock4 = ListBlock(
-      depth: 1,
+      depth: 0,
       start: 0,
       end: 0,
       inlineStyles: [],
@@ -52,6 +53,7 @@ void main() {
       entityTypes: [],
       blockType: "ordered-list-item",
       isOrderedList: true,
+      order: 0,
     );
 
     late ListTreeNode root;
@@ -74,10 +76,10 @@ void main() {
       expect(node3.order, 3);
       expect(node4.order, 4);
 
-      expect(node1.depth, 1);
-      expect(node2.depth, 1);
-      expect(node3.depth, 1);
-      expect(node4.depth, 1);
+      expect(node1.depth, 0);
+      expect(node2.depth, 0);
+      expect(node3.depth, 0);
+      expect(node4.depth, 0);
     });
 
     test("multiple depth tree", () {
@@ -93,10 +95,10 @@ void main() {
       expect(node3.order, 1);
       expect(node4.order, 3);
 
-      expect(node1.depth, 1);
-      expect(node2.depth, 1);
-      expect(node3.depth, 2);
-      expect(node4.depth, 1);
+      expect(node1.depth, 0);
+      expect(node2.depth, 0);
+      expect(node3.depth, 1);
+      expect(node4.depth, 0);
     });
   });
 }

@@ -242,10 +242,18 @@ class BaseBlock {
       ? FontStyle.italic
       : FontStyle.normal;
 
+  TextDecoration get decoration => this.inlineStyles.contains("UNDERLINE")
+      ? TextDecoration.underline
+      : TextDecoration.none;
+
   TextStyle renderStyle(BuildContext context) {
     var textStyle = Theme.of(context).textTheme.bodyText1!;
 
-    return textStyle.copyWith(fontWeight: fontWeight, fontStyle: fontStyle);
+    return textStyle.copyWith(
+      fontWeight: fontWeight,
+      fontStyle: fontStyle,
+      decoration: decoration,
+    );
   }
 
   InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {

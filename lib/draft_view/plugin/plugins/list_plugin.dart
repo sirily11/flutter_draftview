@@ -6,36 +6,70 @@ import 'package:draft_view/draft_view/plugin/base_plugin.dart';
 import '../../../draft_view.dart';
 
 class ListPlugin extends BasePlugin {
+  ListTreeNode root = ListTreeNode(isRoot: true);
+  ListTreeNode? prevNode;
+  ListTreeNode? currentLevel;
+
   @override
-  blockRenderFn(BaseBlock block) => {
-        "ordered-list-item": ListBlock(
-          depth: 0,
-          blockType: '',
-          data: {},
-          end: 0,
-          entityTypes: [],
-          inlineStyles: [],
-          start: 0,
-          text: '',
-          isOrderedList: true,
-        ),
-        "unordered-list-item": ListBlock(
-          depth: 0,
-          blockType: '',
-          data: {},
-          end: 0,
-          entityTypes: [],
-          inlineStyles: [],
-          start: 0,
-          text: '',
-          isOrderedList: false,
-        ),
-      };
+  blockRenderFn(BaseBlock block, {bool shouldWrite = false}) {
+    if (currentLevel == null) {
+      currentLevel = root;
+    }
+
+    if (shouldWrite) {
+      if (block.blockType == "ordered-list-item") {
+        if (block.depth == prevNode?.depth || prevNode == null) {
+          prevNode = currentLevel!.addChild(block);
+        } else {
+          if (block.depth > prevNode!.depth) {
+            currentLevel = prevNode;
+            prevNode = prevNode!.addChild(block);
+          } else {
+            currentLevel = currentLevel!.parent;
+            prevNode = currentLevel!.addChild(block);
+          }
+        }
+      } else {
+        root = ListTreeNode(isRoot: true);
+        prevNode = null;
+        currentLevel = root;
+      }
+    }
+
+    var map = {
+      "ordered-list-item": ListBlock(
+        depth: prevNode?.depth ?? 0,
+        blockType: '',
+        data: {},
+        end: 0,
+        entityTypes: [],
+        inlineStyles: [],
+        start: 0,
+        text: '',
+        isOrderedList: true,
+        order: prevNode?.order ?? 0,
+      ),
+      "unordered-list-item": ListBlock(
+        depth: block.depth,
+        blockType: '',
+        data: {},
+        end: 0,
+        entityTypes: [],
+        inlineStyles: [],
+        start: 0,
+        text: '',
+        isOrderedList: false,
+        order: 0,
+      ),
+    };
+
+    return map;
+  }
 }
 
 class ListTreeNode {
   final ListTreeNode? parent;
-  final ListBlock? content;
+  final BaseBlock? content;
   final List<ListTreeNode> children = [];
   final bool isRoot;
 
@@ -45,7 +79,8 @@ class ListTreeNode {
     required this.isRoot,
   });
 
-  ListTreeNode addChild(ListBlock listBlock) {
+  /// Add child to the current node. Return the newly created node
+  ListTreeNode addChild(BaseBlock listBlock) {
     var treeNode =
         ListTreeNode(isRoot: false, parent: this, content: listBlock);
     this.children.add(treeNode);
@@ -53,7 +88,7 @@ class ListTreeNode {
   }
 
   int get depth {
-    int dep = 0;
+    int dep = -1;
     var parent = this.parent;
     while (parent != null) {
       parent = parent.parent;

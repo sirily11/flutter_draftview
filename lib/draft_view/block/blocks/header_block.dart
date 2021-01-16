@@ -57,26 +57,53 @@ class HeaderBlock extends BaseBlock {
 
   @override
   TextStyle renderStyle(BuildContext context) {
+    var prevStyle = super.renderStyle(context);
+
     switch (level) {
       case 1:
-        var textStyle = Theme.of(context).textTheme.headline1!;
+        var textStyle = Theme.of(context).textTheme.headline1!.copyWith(
+              fontWeight: prevStyle.fontWeight,
+              fontStyle: prevStyle.fontStyle,
+              decoration: prevStyle.decoration,
+            );
         return textStyle;
 
       case 2:
-        var textStyle = Theme.of(context).textTheme.headline2!;
+        var textStyle = Theme.of(context).textTheme.headline2!.copyWith(
+              fontWeight: prevStyle.fontWeight,
+              fontStyle: prevStyle.fontStyle,
+              decoration: prevStyle.decoration,
+            );
+
         return textStyle;
 
       case 3:
-        var textStyle = Theme.of(context).textTheme.headline3!;
+        var textStyle = Theme.of(context).textTheme.headline3!.copyWith(
+              fontWeight: prevStyle.fontWeight,
+              fontStyle: prevStyle.fontStyle,
+              decoration: prevStyle.decoration,
+            );
         return textStyle;
       case 4:
-        var textStyle = Theme.of(context).textTheme.headline4!;
+        var textStyle = Theme.of(context).textTheme.headline4!.copyWith(
+              fontWeight: prevStyle.fontWeight,
+              fontStyle: prevStyle.fontStyle,
+              decoration: prevStyle.decoration,
+            );
         return textStyle;
       case 5:
-        var textStyle = Theme.of(context).textTheme.headline5!;
+        var textStyle = Theme.of(context).textTheme.headline5!.copyWith(
+              fontWeight: prevStyle.fontWeight,
+              fontStyle: prevStyle.fontStyle,
+              decoration: prevStyle.decoration,
+            );
         return textStyle;
       default:
-        var textStyle = Theme.of(context).textTheme.headline6!;
+        var textStyle = Theme.of(context).textTheme.headline6!.copyWith(
+              fontWeight: prevStyle.fontWeight,
+              fontStyle: prevStyle.fontStyle,
+              decoration: prevStyle.decoration,
+            );
         return textStyle;
     }
   }

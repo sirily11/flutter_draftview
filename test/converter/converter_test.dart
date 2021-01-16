@@ -243,103 +243,221 @@ void main() {
       expect(blocks.length, 1);
       expect(blocks[0] is ImageBlock, true);
     });
+  });
+  group("Test convert header", () {
+    test("1", () {
+      var data = {
+        "blocks": [
+          {
+            "key": "37nnb",
+            "text": "最初的世界",
+            "type": "header-one",
+            "depth": 0,
+            "inlineStyleRanges": [
+              {"offset": 0, "length": 6, "style": "BOLD"}
+            ],
+            "entityRanges": [],
+            "data": {}
+          },
+        ],
+        "entityMap": {}
+      };
 
-    group("Test convert blockquote", () {
-      test("convert blockquote", () {
-        var data = {
-          "blocks": [
-            {
-              "key": "37nnb",
-              "text": "最初的世界",
-              "type": "header-one",
-              "depth": 0,
-              "inlineStyleRanges": [],
-              "entityRanges": [],
-              "data": {}
-            },
-            {
-              "key": "aqk4s",
-              "text": "我要灰原哀成为我老婆！",
-              "type": "blockquote",
-              "depth": 0,
-              "inlineStyleRanges": [],
-              "entityRanges": [
-                {"offset": 2, "length": 3, "key": 9}
-              ],
-              "data": {}
-            },
-          ],
-          "entityMap": {
-            "9": {
-              "type": "POST-SETTINGS",
-              "mutability": "SEGMENTED",
-              "data": {"id": "2b5bf9e4-e28d-4710-a0eb-9c0d9bc10679"}
-            },
-          }
-        };
+      var converter = Converter(plugins: [
+        HeaderPlugin(),
+        TextPlugin(),
+      ], draftData: data);
+      var blocks = converter.convert();
 
-        var converter = Converter(
-            plugins: [BlockQuotePlugin(), TextPlugin()], draftData: data);
+      expect(blocks.length, 1);
+      expect(blocks[0] is HeaderBlock, true);
+      expect(blocks[0].children?.length, 1);
+    });
+  });
 
-        var blocks = converter.convert();
-        expect(blocks.length, 3);
-        expect(blocks[2].children?.length, 3);
-      });
+  group("Test convert blockquote", () {
+    test("convert blockquote", () {
+      var data = {
+        "blocks": [
+          {
+            "key": "37nnb",
+            "text": "最初的世界",
+            "type": "header-one",
+            "depth": 0,
+            "inlineStyleRanges": [],
+            "entityRanges": [],
+            "data": {}
+          },
+          {
+            "key": "aqk4s",
+            "text": "我要灰原哀成为我老婆！",
+            "type": "blockquote",
+            "depth": 0,
+            "inlineStyleRanges": [],
+            "entityRanges": [
+              {"offset": 2, "length": 3, "key": 9}
+            ],
+            "data": {}
+          },
+        ],
+        "entityMap": {
+          "9": {
+            "type": "POST-SETTINGS",
+            "mutability": "SEGMENTED",
+            "data": {"id": "2b5bf9e4-e28d-4710-a0eb-9c0d9bc10679"}
+          },
+        }
+      };
 
-      test("convert blockquote 2", () {
-        var data = {
-          "blocks": [
-            {
-              "key": "2u035",
-              "text": "这是哪里？好亮",
-              "type": "blockquote",
-              "depth": 0,
-              "inlineStyleRanges": [],
-              "entityRanges": [],
-              "data": {}
-            },
-          ],
-          "entityMap": {}
-        };
+      var converter = Converter(
+          plugins: [BlockQuotePlugin(), TextPlugin()], draftData: data);
 
-        var converter = Converter(
-            plugins: [BlockQuotePlugin(), TextPlugin()], draftData: data);
-
-        var blocks = converter.convert();
-        expect(blocks.length, 1);
-        expect(blocks[0].children?.length, 0);
-      });
+      var blocks = converter.convert();
+      expect(blocks.length, 3);
+      expect(blocks[2].children?.length, 3);
     });
 
-    group("Test convert header", () {
-      test("1", () {
-        var data = {
-          "blocks": [
-            {
-              "key": "37nnb",
-              "text": "最初的世界",
-              "type": "header-one",
-              "depth": 0,
-              "inlineStyleRanges": [
-                {"offset": 0, "length": 6, "style": "BOLD"}
-              ],
-              "entityRanges": [],
-              "data": {}
-            },
-          ],
-          "entityMap": {}
-        };
+    test("convert blockquote 2", () {
+      var data = {
+        "blocks": [
+          {
+            "key": "2u035",
+            "text": "这是哪里？好亮",
+            "type": "blockquote",
+            "depth": 0,
+            "inlineStyleRanges": [],
+            "entityRanges": [],
+            "data": {}
+          },
+        ],
+        "entityMap": {}
+      };
 
-        var converter = Converter(plugins: [
-          HeaderPlugin(),
-          TextPlugin(),
-        ], draftData: data);
-        var blocks = converter.convert();
+      var converter = Converter(
+          plugins: [BlockQuotePlugin(), TextPlugin()], draftData: data);
 
-        expect(blocks.length, 1);
-        expect(blocks[0] is HeaderBlock, true);
-        expect(blocks[0].children?.length, 1);
-      });
+      var blocks = converter.convert();
+      expect(blocks.length, 1);
+      expect(blocks[0].children?.length, 0);
+    });
+  });
+
+  group("Convert oredered list item", () {
+    test("simple convertion", () {
+      var data = {
+        "blocks": [
+          {
+            "key": "2ipob",
+            "text": "a",
+            "type": "ordered-list-item",
+            "depth": 0,
+            "inlineStyleRanges": [],
+            "entityRanges": [],
+            "data": {}
+          },
+          {
+            "key": "cgv2a",
+            "text": "b",
+            "type": "ordered-list-item",
+            "depth": 0,
+            "inlineStyleRanges": [],
+            "entityRanges": [],
+            "data": {}
+          },
+          {
+            "key": "4ingg",
+            "text": "c",
+            "type": "ordered-list-item",
+            "depth": 0,
+            "inlineStyleRanges": [],
+            "entityRanges": [],
+            "data": {}
+          },
+          {
+            "key": "40nct",
+            "text": "d",
+            "type": "ordered-list-item",
+            "depth": 0,
+            "inlineStyleRanges": [],
+            "entityRanges": [],
+            "data": {}
+          },
+        ],
+        "entityMap": {}
+      };
+
+      var converter = Converter(plugins: [ListPlugin()], draftData: data);
+      var blocks = converter.convert().map((e) => e as ListBlock).toList();
+      expect(blocks.length, 4);
+      expect(blocks[0].order, 1);
+      expect(blocks[1].order, 2);
+      expect(blocks[2].order, 3);
+      expect(blocks[3].order, 4);
+
+      expect(blocks[0].depth, 0);
+      expect(blocks[1].depth, 0);
+      expect(blocks[2].depth, 0);
+      expect(blocks[3].depth, 0);
+    });
+
+    test("Multilevel convertion", () {
+      /// a
+      /// b c
+      /// d
+      var data = {
+        "blocks": [
+          {
+            "key": "2ipob",
+            "text": "a",
+            "type": "ordered-list-item",
+            "depth": 0,
+            "inlineStyleRanges": [],
+            "entityRanges": [],
+            "data": {}
+          },
+          {
+            "key": "cgv2a",
+            "text": "b",
+            "type": "ordered-list-item",
+            "depth": 0,
+            "inlineStyleRanges": [],
+            "entityRanges": [],
+            "data": {}
+          },
+          {
+            "key": "4ingg",
+            "text": "c",
+            "type": "ordered-list-item",
+            "depth": 1,
+            "inlineStyleRanges": [],
+            "entityRanges": [],
+            "data": {}
+          },
+          {
+            "key": "40nct",
+            "text": "d",
+            "type": "ordered-list-item",
+            "depth": 0,
+            "inlineStyleRanges": [],
+            "entityRanges": [],
+            "data": {}
+          },
+        ],
+        "entityMap": {}
+      };
+
+      var converter = Converter(plugins: [ListPlugin()], draftData: data);
+      var blocks = converter.convert().map((e) => e as ListBlock).toList();
+      expect(blocks.length, 4);
+      expect(blocks[0].order, 1);
+      expect(blocks[1].order, 2);
+      expect(blocks[2].order, 1);
+      expect(blocks[3].order, 3);
+
+      expect(blocks[0].depth, 0);
+      expect(blocks[1].depth, 0);
+      expect(blocks[2].depth, 1);
+      expect(blocks[3].depth, 0);
     });
   });
 }

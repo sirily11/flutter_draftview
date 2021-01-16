@@ -6,7 +6,7 @@ import '../../../draft_view.dart';
 
 class HeaderPlugin extends BasePlugin {
   @override
-  blockRenderFn(BaseBlock block) => {
+  blockRenderFn(BaseBlock block, {bool shouldWrite = false}) => {
         "header-one": HeaderBlock(
             depth: 0,
             blockType: '',
