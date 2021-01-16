@@ -1,0 +1,32 @@
+# @format
+
+name: Flutter test
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        flutter: ["dev", "stable", "beta"]
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-java@v1
+        with:
+          java-version: "12.x"
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: ${{ matrix.flutter }}
+      - run: flutter pub get
+      - run: flutter test --coverage
+      - uses: codecov/codecov-action@v1
+        with:
+          file: ./coverage/lcov.info
+          flags: uitests,unittests
+          name: codecov-storage_management
+          fail_ci_if_error: false
+
+      - uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}

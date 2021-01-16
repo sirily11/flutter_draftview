@@ -1,3 +1,7 @@
-## [0.0.1] - TODO: Add release date.
+<!-- @format -->
 
-* TODO: Describe initial release.
+## [0.9.0-nullsafety.0] - Basic functions implemented
+
+- Implemented basic functions
+- A lot of tests
+- Null-safe!

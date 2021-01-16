@@ -1,14 +1,18 @@
-# draft_view
+<!-- @format -->
 
-A new Flutter package project.
+# Draft View
 
-## Getting Started
+A Draft JS renderer written in Dart!
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+This project supports rendering Draft JS object in Flutter natively! It will convert draft js object into Flutter Rich Textspan!
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+It is implemented in a plugable design so that you can create your own plugin easily.
+
+## Supported Plugins
+
+- Image Plugin
+- List Plugin
+- Blockquote Plugin
+- PostSettings Plugin. [Example](https://blog.sirileepage.com/#/post/39)
+- Header Plugin
+- Basic Text Plugin
