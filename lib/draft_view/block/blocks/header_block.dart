@@ -6,6 +6,7 @@ class HeaderBlock extends BaseBlock {
   final int end;
   final String text;
   final int depth;
+  final List<BaseBlock> children;
 
   /// Block Type
   final String blockType;
@@ -28,6 +29,7 @@ class HeaderBlock extends BaseBlock {
     required this.entityTypes,
     required this.blockType,
     required this.level,
+    required this.children,
   }) : super(
           depth: depth,
           start: start,
@@ -37,18 +39,21 @@ class HeaderBlock extends BaseBlock {
           text: text,
           entityTypes: entityTypes,
           blockType: blockType,
+          children: [],
         );
 
   HeaderBlock copyWith({BaseBlock? block}) => HeaderBlock(
-      depth: block?.depth ?? depth,
-      start: block?.start ?? this.start,
-      end: block?.end ?? this.end,
-      inlineStyles: block?.inlineStyles ?? this.inlineStyles,
-      entityTypes: block?.entityTypes ?? this.entityTypes,
-      data: block?.data ?? this.data,
-      text: block?.text ?? this.text,
-      blockType: block?.blockType ?? this.blockType,
-      level: this.level);
+        depth: block?.depth ?? depth,
+        start: block?.start ?? this.start,
+        end: block?.end ?? this.end,
+        inlineStyles: block?.inlineStyles ?? this.inlineStyles,
+        entityTypes: block?.entityTypes ?? this.entityTypes,
+        data: block?.data ?? this.data,
+        text: block?.text ?? this.text,
+        blockType: block?.blockType ?? this.blockType,
+        level: this.level,
+        children: block?.children ?? children,
+      );
 
   @override
   TextStyle renderStyle(BuildContext context) {

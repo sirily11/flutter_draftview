@@ -35,8 +35,10 @@ class Converter {
         blockType: draftBlock.type,
       );
       for (var plugin in plugins) {
-        if (plugin.blockRenderFn?.containsKey(draftBlock.type) ?? false) {
-          var b = plugin.blockRenderFn![draftBlock.type]!.copyWith(block: tmpB);
+        if (plugin.blockRenderFn(tmpB)?.containsKey(draftBlock.type) ?? false) {
+          var b = plugin
+              .blockRenderFn(tmpB)![draftBlock.type]!
+              .copyWith(block: tmpB);
           blocks.add(b);
           hasAdded = true;
           break;

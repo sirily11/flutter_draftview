@@ -310,5 +310,36 @@ void main() {
         expect(blocks[0].children?.length, 0);
       });
     });
+
+    group("Test convert header", () {
+      test("1", () {
+        var data = {
+          "blocks": [
+            {
+              "key": "37nnb",
+              "text": "最初的世界",
+              "type": "header-one",
+              "depth": 0,
+              "inlineStyleRanges": [
+                {"offset": 0, "length": 6, "style": "BOLD"}
+              ],
+              "entityRanges": [],
+              "data": {}
+            },
+          ],
+          "entityMap": {}
+        };
+
+        var converter = Converter(plugins: [
+          HeaderPlugin(),
+          TextPlugin(),
+        ], draftData: data);
+        var blocks = converter.convert();
+
+        expect(blocks.length, 1);
+        expect(blocks[0] is HeaderBlock, true);
+        expect(blocks[0].children?.length, 1);
+      });
+    });
   });
 }

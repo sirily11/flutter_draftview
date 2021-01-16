@@ -5,7 +5,9 @@ var data = {
       "text": "最初的世界",
       "type": "header-one",
       "depth": 0,
-      "inlineStyleRanges": [],
+      "inlineStyleRanges": [
+        {"offset": 0, "length": 6, "style": "BOLD"}
+      ],
       "entityRanges": [],
       "data": {}
     },

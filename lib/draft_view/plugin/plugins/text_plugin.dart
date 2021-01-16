@@ -4,7 +4,7 @@ import 'package:draft_view/draft_view/plugin/base_plugin.dart';
 
 class TextPlugin extends BasePlugin {
   @override
-  get blockRenderFn => {
+  blockRenderFn(BaseBlock block) => {
         "unstyled": TextBlock(
           depth: 0,
           blockType: '',

@@ -28,7 +28,8 @@ class Demo1 extends StatelessWidget {
                   BlockQuotePlugin(),
                   HeaderPlugin(),
                   ImagePlugin(),
-                  PostSettingsPlugin(rawSettings: settings)
+                  PostSettingsPlugin(rawSettings: settings),
+                  ListPlugin(),
                 ],
               ),
             ),

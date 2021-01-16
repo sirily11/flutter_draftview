@@ -249,6 +249,10 @@ class BaseBlock {
   }
 
   InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
-    return TextSpan(text: this.textContent, style: renderStyle(context));
+    return TextSpan(
+      text: this.textContent,
+      style: renderStyle(context),
+      children: children,
+    );
   }
 }
