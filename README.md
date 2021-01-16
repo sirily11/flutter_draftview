@@ -2,6 +2,8 @@
 
 # Draft View
 
+[![codecov](https://codecov.io/gh/sirily11/flutter_draftview/branch/main/graph/badge.svg?token=MGA0BCKL8P)](https://codecov.io/gh/sirily11/flutter_draftview) ![Flutter test](https://github.com/sirily11/flutter_draftview/workflows/Flutter%20test/badge.svg)
+
 A Draft JS renderer written in Dart!
 
 This project supports rendering Draft JS object in Flutter natively! It will convert draft js object into Flutter Rich Textspan!
