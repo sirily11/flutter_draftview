@@ -7,6 +7,8 @@ class BaseBlock {
   final int end;
   final String text;
 
+  final int depth;
+
   /// Block Type
   final String blockType;
 
@@ -20,6 +22,7 @@ class BaseBlock {
   List<BaseBlock>? children;
 
   BaseBlock({
+    required this.depth,
     required this.start,
     required this.end,
     required this.inlineStyles,
@@ -31,6 +34,7 @@ class BaseBlock {
   });
 
   BaseBlock copyWith({BaseBlock? block}) => BaseBlock(
+        depth: block?.depth ?? this.depth,
         start: block?.start ?? this.start,
         end: block?.end ?? this.end,
         inlineStyles: block?.inlineStyles ?? this.inlineStyles,
@@ -126,11 +130,13 @@ class BaseBlock {
       String? style,
       String? entity,
       required Map<String, dynamic> data,
-      required List<BasePlugin> plugins}) {
+      required List<BasePlugin> plugins,
+      int? depth}) {
     List<BaseBlock> blocks = [];
     if (start <= this.start && end >= this.end) {
       blocks = [
         BaseBlock(
+          depth: depth ?? this.depth,
           blockType: this.blockType,
           start: this.start,
           end: this.end,
@@ -142,6 +148,7 @@ class BaseBlock {
       ];
     } else if (start > this.start && end >= this.end) {
       var first = BaseBlock(
+        depth: depth ?? this.depth,
         blockType: this.blockType,
         start: this.start,
         end: start,
@@ -151,6 +158,7 @@ class BaseBlock {
         text: this.text,
       );
       var middle = BaseBlock(
+        depth: depth ?? this.depth,
         blockType: this.blockType,
         start: start,
         end: this.end,
@@ -163,6 +171,7 @@ class BaseBlock {
       blocks = [first, middle];
     } else if (start <= this.start && end < this.end) {
       var first = BaseBlock(
+        depth: depth ?? this.depth,
         blockType: this.blockType,
         start: this.start,
         end: end,
@@ -173,6 +182,7 @@ class BaseBlock {
       );
 
       var middle = BaseBlock(
+        depth: depth ?? this.depth,
         blockType: this.blockType,
         start: end,
         end: this.end,
@@ -185,6 +195,7 @@ class BaseBlock {
       blocks = [first, middle];
     } else if (start > this.start && end < this.end) {
       var first = BaseBlock(
+        depth: depth ?? this.depth,
         blockType: this.blockType,
         start: this.start,
         end: start,
@@ -195,6 +206,7 @@ class BaseBlock {
       );
 
       var middle = BaseBlock(
+        depth: depth ?? this.depth,
         blockType: this.blockType,
         start: start,
         end: end,
@@ -205,6 +217,7 @@ class BaseBlock {
       );
 
       var last = BaseBlock(
+        depth: depth ?? this.depth,
         blockType: this.blockType,
         start: end,
         end: this.end,
@@ -235,7 +248,7 @@ class BaseBlock {
     return textStyle.copyWith(fontWeight: fontWeight, fontStyle: fontStyle);
   }
 
-  InlineSpan render(BuildContext context) {
+  InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
     return TextSpan(text: this.textContent, style: renderStyle(context));
   }
 }

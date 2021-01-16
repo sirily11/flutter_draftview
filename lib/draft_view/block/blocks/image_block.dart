@@ -5,6 +5,7 @@ class ImageBlock extends BaseBlock {
   final int start;
   final int end;
   final String text;
+  final int depth;
 
   /// Block Type
   final String blockType;
@@ -17,6 +18,7 @@ class ImageBlock extends BaseBlock {
   final Map<String, dynamic> data;
 
   ImageBlock({
+    required this.depth,
     required this.start,
     required this.end,
     required this.inlineStyles,
@@ -25,6 +27,7 @@ class ImageBlock extends BaseBlock {
     required this.entityTypes,
     required this.blockType,
   }) : super(
+          depth: depth,
           start: start,
           end: end,
           inlineStyles: inlineStyles,
@@ -35,6 +38,7 @@ class ImageBlock extends BaseBlock {
         );
 
   ImageBlock copyWith({BaseBlock? block}) => ImageBlock(
+        depth: block?.depth ?? this.depth,
         start: block?.start ?? this.start,
         end: block?.end ?? this.end,
         inlineStyles: block?.inlineStyles ?? this.inlineStyles,
@@ -45,7 +49,7 @@ class ImageBlock extends BaseBlock {
       );
 
   @override
-  InlineSpan render(BuildContext context) {
+  InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
     return WidgetSpan(
       child: ImageComponent(
         url: data['src'],

@@ -6,6 +6,7 @@ void main() {
     test("Create a new block and split", () {
       var text = "Hello World";
       var block = BaseBlock(
+        depth: 0,
         blockType: "unstyled",
         start: 0,
         end: text.length,
@@ -24,6 +25,7 @@ void main() {
     test("Create a new block and split 2", () {
       var text = "Hello World";
       var block = BaseBlock(
+        depth: 0,
         blockType: "unstyled",
         start: 0,
         end: text.length,
@@ -43,6 +45,7 @@ void main() {
     test("Create a new block and split 3", () {
       var text = "Hello World";
       var block = BaseBlock(
+        depth: 0,
         blockType: "unstyled",
         start: 0,
         end: text.length,
@@ -62,6 +65,7 @@ void main() {
     test("Create a new block and split 4", () {
       var text = "Hello World";
       var block = BaseBlock(
+        depth: 0,
         blockType: "unstyled",
         start: 0,
         end: text.length,
@@ -82,7 +86,5 @@ void main() {
       newBlocks = blocks[1].split(start: 3, end: 4, data: {}, plugins: []);
       expect(newBlocks.length, 2);
     });
-
-    
   });
 }

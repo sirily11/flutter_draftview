@@ -7,6 +7,7 @@ class ImagePlugin extends BasePlugin {
   @override
   get entityRenderFn => {
         "image": ImageBlock(
+          depth: 0,
           blockType: '',
           data: {},
           end: 0,

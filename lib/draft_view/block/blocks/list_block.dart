@@ -1,7 +1,7 @@
 import 'package:draft_view/draft_view/block/base_block.dart';
 import 'package:flutter/material.dart';
 
-class TextBlock extends BaseBlock {
+class ListBlock extends BaseBlock {
   final int start;
   final int end;
   final String text;
@@ -16,8 +16,10 @@ class TextBlock extends BaseBlock {
   /// Entity type
   final List<String> entityTypes;
   final Map<String, dynamic> data;
+  final int order;
+  final bool isOrderedList;
 
-  TextBlock({
+  ListBlock({
     required this.depth,
     required this.start,
     required this.end,
@@ -26,6 +28,8 @@ class TextBlock extends BaseBlock {
     required this.text,
     required this.entityTypes,
     required this.blockType,
+    required this.order,
+    required this.isOrderedList,
   }) : super(
           depth: depth,
           start: start,
@@ -37,7 +41,7 @@ class TextBlock extends BaseBlock {
           blockType: blockType,
         );
 
-  TextBlock copyWith({BaseBlock? block}) => TextBlock(
+  ListBlock copyWith({BaseBlock? block}) => ListBlock(
         depth: block?.depth ?? depth,
         start: block?.start ?? this.start,
         end: block?.end ?? this.end,
@@ -46,24 +50,15 @@ class TextBlock extends BaseBlock {
         data: block?.data ?? this.data,
         text: block?.text ?? this.text,
         blockType: block?.blockType ?? this.blockType,
+        order: this.order,
+        isOrderedList: isOrderedList,
       );
-}
-
-class NewlineBlock extends BaseBlock {
-  NewlineBlock()
-      : super(
-          depth: 0,
-          start: 0,
-          end: 0,
-          inlineStyles: [],
-          data: {},
-          text: "",
-          entityTypes: [],
-          blockType: "newline",
-        );
 
   @override
   InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
-    return TextSpan(text: "\n\n", style: renderStyle(context));
+    return TextSpan(
+      text: "${isOrderedList ? "$order. " : "- "} $text",
+      style: renderStyle(context),
+    );
   }
 }

@@ -11,6 +11,7 @@ class PostSettingsPlugin extends BasePlugin {
   @override
   get entityRenderFn => {
         "POST-SETTINGS": PostSettingsBlock(
+          depth: 0,
           blockType: '',
           data: {},
           end: 0,

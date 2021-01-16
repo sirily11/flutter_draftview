@@ -5,6 +5,7 @@ class HeaderBlock extends BaseBlock {
   final int start;
   final int end;
   final String text;
+  final int depth;
 
   /// Block Type
   final String blockType;
@@ -18,6 +19,7 @@ class HeaderBlock extends BaseBlock {
   final int level;
 
   HeaderBlock({
+    required this.depth,
     required this.start,
     required this.end,
     required this.inlineStyles,
@@ -27,6 +29,7 @@ class HeaderBlock extends BaseBlock {
     required this.blockType,
     required this.level,
   }) : super(
+          depth: depth,
           start: start,
           end: end,
           inlineStyles: inlineStyles,
@@ -37,6 +40,7 @@ class HeaderBlock extends BaseBlock {
         );
 
   HeaderBlock copyWith({BaseBlock? block}) => HeaderBlock(
+      depth: block?.depth ?? depth,
       start: block?.start ?? this.start,
       end: block?.end ?? this.end,
       inlineStyles: block?.inlineStyles ?? this.inlineStyles,

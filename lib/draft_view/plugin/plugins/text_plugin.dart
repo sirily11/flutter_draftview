@@ -6,6 +6,7 @@ class TextPlugin extends BasePlugin {
   @override
   get blockRenderFn => {
         "unstyled": TextBlock(
+          depth: 0,
           blockType: '',
           data: {},
           end: 0,

@@ -25,6 +25,7 @@ class Converter {
       draftBlocks.add(draftBlock);
       var hasAdded = false;
       var tmpB = BaseBlock(
+        depth: draftBlock.depth.toInt(),
         start: 0,
         end: draftBlock.text.length,
         inlineStyles: [],
@@ -67,17 +68,21 @@ class Converter {
       );
 
       if (block.children != null) {
-        block.children!.addAll(bs);
+        if (bs.length > 0) {
+          if (bs.first != block) {
+            block.children!.addAll(bs);
+          }
+        }
         retBlocks.add(block);
       } else {
         retBlocks.addAll(bs);
-        if (i < draftBlocks.length - 1) {
-          if (curDraftBlock.text.isNotEmpty &&
-              nextDraftBlock!.text.isNotEmpty) {
-            retBlocks.add(NewlineBlock());
-          } else if (curDraftBlock.type != nextDraftBlock!.type) {
-            retBlocks.add(NewlineBlock());
-          }
+      }
+
+      if (i < draftBlocks.length - 1) {
+        if (curDraftBlock.text.isNotEmpty && nextDraftBlock!.text.isNotEmpty) {
+          retBlocks.add(NewlineBlock());
+        } else if (curDraftBlock.type != nextDraftBlock!.type) {
+          retBlocks.add(NewlineBlock());
         }
       }
 
@@ -104,6 +109,7 @@ class Converter {
         if (tmpBlock.withinRange(start, end)) {
           var entityData = entityMap[entity.key];
           var newBlocks = tmpBlock.split(
+            depth: tmpBlock.depth,
             start: start,
             end: end,
             entity: entityData?.type,
@@ -132,6 +138,7 @@ class Converter {
         var tmpBlock = retBlocks[i];
         if (tmpBlock.withinRange(start, end)) {
           var newBlocks = tmpBlock.split(
+            depth: tmpBlock.depth,
             start: start,
             end: end,
             style: inline.style,

@@ -48,7 +48,10 @@ class _DraftViewState extends State<DraftView> {
     while (i < blocks.length) {
       var curBlock = blocks[i];
 
-      var span = curBlock.render(context);
+      var span = curBlock.render(
+        context,
+        children: curBlock.children?.map((e) => e.render(context)).toList(),
+      );
       spans.add(span);
 
       i++;

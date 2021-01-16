@@ -25,6 +25,7 @@ class Demo1 extends StatelessWidget {
                 rawDraftData: data,
                 plugins: [
                   TextPlugin(),
+                  BlockQuotePlugin(),
                   HeaderPlugin(),
                   ImagePlugin(),
                   PostSettingsPlugin(rawSettings: settings)

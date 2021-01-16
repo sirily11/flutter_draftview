@@ -127,6 +127,7 @@ class PostSettingsBlock extends BaseBlock {
   final int start;
   final int end;
   final String text;
+  final int depth;
 
   /// Block Type
   final String blockType;
@@ -140,6 +141,7 @@ class PostSettingsBlock extends BaseBlock {
   final Settings settings;
 
   PostSettingsBlock({
+    required this.depth,
     required this.start,
     required this.end,
     required this.inlineStyles,
@@ -149,6 +151,7 @@ class PostSettingsBlock extends BaseBlock {
     required this.blockType,
     required this.settings,
   }) : super(
+          depth: depth,
           start: start,
           end: end,
           inlineStyles: inlineStyles,
@@ -159,6 +162,7 @@ class PostSettingsBlock extends BaseBlock {
         );
 
   PostSettingsBlock copyWith({BaseBlock? block}) => PostSettingsBlock(
+        depth: block?.depth ?? this.depth,
         start: block?.start ?? this.start,
         end: block?.end ?? this.end,
         inlineStyles: block?.inlineStyles ?? this.inlineStyles,
@@ -170,7 +174,7 @@ class PostSettingsBlock extends BaseBlock {
       );
 
   @override
-  InlineSpan render(BuildContext context) {
+  InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
     late _DetailSettings _detailSettings;
     var textStyle = Theme.of(context).textTheme.bodyText1!.copyWith(
           color: Colors.orange,

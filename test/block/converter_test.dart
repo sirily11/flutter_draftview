@@ -16,6 +16,7 @@ void main() {
     setUp(() {
       var text = "Hello World";
       baseBlock = BaseBlock(
+        depth: 0,
         start: 0,
         end: text.length,
         inlineStyles: [],
@@ -283,6 +284,30 @@ void main() {
         var blocks = converter.convert();
         expect(blocks.length, 3);
         expect(blocks[2].children?.length, 3);
+      });
+
+      test("convert blockquote 2", () {
+        var data = {
+          "blocks": [
+            {
+              "key": "2u035",
+              "text": "这是哪里？好亮",
+              "type": "blockquote",
+              "depth": 0,
+              "inlineStyleRanges": [],
+              "entityRanges": [],
+              "data": {}
+            },
+          ],
+          "entityMap": {}
+        };
+
+        var converter = Converter(
+            plugins: [BlockQuotePlugin(), TextPlugin()], draftData: data);
+
+        var blocks = converter.convert();
+        expect(blocks.length, 1);
+        expect(blocks[0].children?.length, 0);
       });
     });
   });

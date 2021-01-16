@@ -5,6 +5,7 @@ class BlockQuoteBlock extends BaseBlock {
   final int start;
   final int end;
   final String text;
+  final int depth;
 
   /// Block Type
   final String blockType;
@@ -18,6 +19,7 @@ class BlockQuoteBlock extends BaseBlock {
   final List<BaseBlock> children;
 
   BlockQuoteBlock({
+    required this.depth,
     required this.start,
     required this.end,
     required this.inlineStyles,
@@ -27,6 +29,7 @@ class BlockQuoteBlock extends BaseBlock {
     required this.blockType,
     required this.children,
   }) : super(
+          depth: depth,
           start: start,
           end: end,
           inlineStyles: inlineStyles,
@@ -38,6 +41,7 @@ class BlockQuoteBlock extends BaseBlock {
         );
 
   BlockQuoteBlock copyWith({BaseBlock? block}) => BlockQuoteBlock(
+        depth: block?.depth ?? this.depth,
         start: block?.start ?? this.start,
         end: block?.end ?? this.end,
         inlineStyles: block?.inlineStyles ?? this.inlineStyles,
@@ -47,4 +51,31 @@ class BlockQuoteBlock extends BaseBlock {
         blockType: block?.blockType ?? this.blockType,
         children: block?.children ?? this.children,
       );
+
+  @override
+  @override
+  InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
+    var style = Theme.of(context).textTheme.bodyText1;
+
+    return WidgetSpan(
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          border: Border(
+            left: BorderSide(width: 10, color: Theme.of(context).primaryColor),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: RichText(
+            text: TextSpan(
+              text: children?.length == 0 ? text : null,
+              children: children,
+              style: style,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }

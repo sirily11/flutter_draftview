@@ -6,6 +6,7 @@ class HeaderPlugin extends BasePlugin {
   @override
   get blockRenderFn => {
         "header-one": HeaderBlock(
+          depth: 0,
           blockType: '',
           data: {},
           end: 0,
@@ -16,6 +17,7 @@ class HeaderPlugin extends BasePlugin {
           level: 1,
         ),
         "header-two": HeaderBlock(
+          depth: 0,
           blockType: '',
           data: {},
           end: 0,
@@ -26,6 +28,7 @@ class HeaderPlugin extends BasePlugin {
           level: 2,
         ),
         "header-three": HeaderBlock(
+          depth: 0,
           blockType: '',
           data: {},
           end: 0,
@@ -36,6 +39,7 @@ class HeaderPlugin extends BasePlugin {
           level: 3,
         ),
         "header-four": HeaderBlock(
+          depth: 0,
           blockType: '',
           data: {},
           end: 0,
@@ -46,6 +50,7 @@ class HeaderPlugin extends BasePlugin {
           level: 4,
         ),
         "header-five": HeaderBlock(
+          depth: 0,
           blockType: '',
           data: {},
           end: 0,
@@ -56,6 +61,7 @@ class HeaderPlugin extends BasePlugin {
           level: 5,
         ),
         "header-six": HeaderBlock(
+          depth: 0,
           blockType: '',
           data: {},
           end: 0,
