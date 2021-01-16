@@ -242,5 +242,48 @@ void main() {
       expect(blocks.length, 1);
       expect(blocks[0] is ImageBlock, true);
     });
+
+    group("Test convert blockquote", () {
+      test("convert blockquote", () {
+        var data = {
+          "blocks": [
+            {
+              "key": "37nnb",
+              "text": "最初的世界",
+              "type": "header-one",
+              "depth": 0,
+              "inlineStyleRanges": [],
+              "entityRanges": [],
+              "data": {}
+            },
+            {
+              "key": "aqk4s",
+              "text": "我要灰原哀成为我老婆！",
+              "type": "blockquote",
+              "depth": 0,
+              "inlineStyleRanges": [],
+              "entityRanges": [
+                {"offset": 2, "length": 3, "key": 9}
+              ],
+              "data": {}
+            },
+          ],
+          "entityMap": {
+            "9": {
+              "type": "POST-SETTINGS",
+              "mutability": "SEGMENTED",
+              "data": {"id": "2b5bf9e4-e28d-4710-a0eb-9c0d9bc10679"}
+            },
+          }
+        };
+
+        var converter = Converter(
+            plugins: [BlockQuotePlugin(), TextPlugin()], draftData: data);
+
+        var blocks = converter.convert();
+        expect(blocks.length, 3);
+        expect(blocks[2].children?.length, 3);
+      });
+    });
   });
 }

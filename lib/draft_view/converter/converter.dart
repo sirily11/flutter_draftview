@@ -9,7 +9,10 @@ class Converter {
   List<BasePlugin> plugins;
   Map<String, dynamic> draftData;
 
-  Converter({required this.plugins, required this.draftData});
+  Converter({required this.plugins, required this.draftData}) {
+    assert(draftData.containsKey('blocks') == true);
+    assert(draftData.containsKey('entityMap') == true);
+  }
 
   List<BaseBlock> convert() {
     List<BaseBlock> blocks = [];
@@ -63,16 +66,21 @@ class Converter {
         entityMap: entityMap,
       );
 
-      retBlocks.addAll(bs);
-      if (i < draftBlocks.length - 1) {
-        if (curDraftBlock.text.isNotEmpty && nextDraftBlock!.text.isNotEmpty) {
-          retBlocks.add(NewlineBlock());
-        }
-
-        if (curDraftBlock.type != nextDraftBlock!.type) {
-          retBlocks.add(NewlineBlock());
+      if (block.children != null) {
+        block.children!.addAll(bs);
+        retBlocks.add(block);
+      } else {
+        retBlocks.addAll(bs);
+        if (i < draftBlocks.length - 1) {
+          if (curDraftBlock.text.isNotEmpty &&
+              nextDraftBlock!.text.isNotEmpty) {
+            retBlocks.add(NewlineBlock());
+          } else if (curDraftBlock.type != nextDraftBlock!.type) {
+            retBlocks.add(NewlineBlock());
+          }
         }
       }
+
       i += 1;
     }
 

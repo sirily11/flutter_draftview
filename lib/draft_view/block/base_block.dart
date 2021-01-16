@@ -17,6 +17,8 @@ class BaseBlock {
   final List<String> entityTypes;
   final Map<String, dynamic> data;
 
+  List<BaseBlock>? children;
+
   BaseBlock({
     required this.start,
     required this.end,
@@ -25,6 +27,7 @@ class BaseBlock {
     required this.text,
     required this.entityTypes,
     required this.blockType,
+    this.children,
   });
 
   BaseBlock copyWith({BaseBlock? block}) => BaseBlock(
@@ -35,6 +38,7 @@ class BaseBlock {
         data: block?.data ?? this.data,
         text: block?.text ?? this.text,
         blockType: block?.blockType ?? this.blockType,
+        children: block?.children ?? this.children,
       );
 
   bool withinRange(int start, int end) {
