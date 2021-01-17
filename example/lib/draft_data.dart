@@ -5,9 +5,7 @@ var data = {
       "text": "最初的世界",
       "type": "header-one",
       "depth": 0,
-      "inlineStyleRanges": [
-        {"offset": 0, "length": 6, "style": "BOLD"}
-      ],
+      "inlineStyleRanges": [],
       "entityRanges": [],
       "data": {}
     },
@@ -255,6 +253,44 @@ var data = {
       "data": {}
     },
     {
+      "key": "1d7q3",
+      "text": "",
+      "type": "header-one",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
+    },
+    {
+      "key": "7dmqg",
+      "text": "",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
+    },
+    {
+      "key": "44dhu",
+      "text": " ",
+      "type": "atomic",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [
+        {"offset": 0, "length": 1, "key": 54}
+      ],
+      "data": {}
+    },
+    {
+      "key": "5vfsr",
+      "text": "",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
+    },
+    {
       "key": "4rtkt",
       "text": "",
       "type": "unstyled",
@@ -271,16 +307,16 @@ var data = {
       "depth": 0,
       "inlineStyleRanges": [],
       "entityRanges": [
-        {"offset": 19, "length": 4, "key": 54},
-        {"offset": 78, "length": 5, "key": 55},
-        {"offset": 119, "length": 3, "key": 56},
-        {"offset": 141, "length": 3, "key": 57},
-        {"offset": 162, "length": 5, "key": 58},
-        {"offset": 199, "length": 3, "key": 59},
-        {"offset": 210, "length": 3, "key": 60},
-        {"offset": 217, "length": 5, "key": 61},
-        {"offset": 238, "length": 3, "key": 62},
-        {"offset": 285, "length": 5, "key": 63}
+        {"offset": 19, "length": 4, "key": 55},
+        {"offset": 78, "length": 5, "key": 56},
+        {"offset": 119, "length": 3, "key": 57},
+        {"offset": 141, "length": 3, "key": 58},
+        {"offset": 162, "length": 5, "key": 59},
+        {"offset": 199, "length": 3, "key": 60},
+        {"offset": 210, "length": 3, "key": 61},
+        {"offset": 217, "length": 5, "key": 62},
+        {"offset": 238, "length": 3, "key": 63},
+        {"offset": 285, "length": 5, "key": 64}
       ],
       "data": {}
     },
@@ -393,7 +429,7 @@ var data = {
       "key": "fgeh2",
       "text": "《命运石之门》",
       "type": "ordered-list-item",
-      "depth": 0,
+      "depth": 1,
       "inlineStyleRanges": [],
       "entityRanges": [],
       "data": {}
@@ -402,7 +438,7 @@ var data = {
       "key": "28fh6",
       "text": "《刀剑神域》",
       "type": "ordered-list-item",
-      "depth": 0,
+      "depth": 1,
       "inlineStyleRanges": [],
       "entityRanges": [],
       "data": {}
@@ -411,7 +447,7 @@ var data = {
       "key": "bs2hn",
       "text": "《七龙珠》",
       "type": "ordered-list-item",
-      "depth": 0,
+      "depth": 1,
       "inlineStyleRanges": [],
       "entityRanges": [],
       "data": {}
@@ -725,19 +761,26 @@ var data = {
       "data": {"id": "01cd2b84-8867-49a8-8bc8-3c8b8799bfb4"}
     },
     "54": {
-      "type": "POST-SETTINGS",
-      "mutability": "SEGMENTED",
-      "data": {"id": "fcfcbc43-d43d-41ac-8d3b-17c76bb7fd03"}
+      "type": "image",
+      "mutability": "IMMUTABLE",
+      "data": {
+        "src":
+            "https://sirileepage-website-data.s3.amazonaws.com/static/image/2021/01/17/f3942447-fd0a-41d0-a466-b25760115a86.jpeg",
+        "id": 97,
+        "description": "闪烁着光芒的新世界",
+        "alignment": "center",
+        "width": 70
+      }
     },
     "55": {
       "type": "POST-SETTINGS",
       "mutability": "SEGMENTED",
-      "data": {"id": "6221ddf5-81bd-4d23-b0a2-eb10d53397b0"}
+      "data": {"id": "fcfcbc43-d43d-41ac-8d3b-17c76bb7fd03"}
     },
     "56": {
       "type": "POST-SETTINGS",
       "mutability": "SEGMENTED",
-      "data": {"id": "01cd2b84-8867-49a8-8bc8-3c8b8799bfb4"}
+      "data": {"id": "6221ddf5-81bd-4d23-b0a2-eb10d53397b0"}
     },
     "57": {
       "type": "POST-SETTINGS",
@@ -747,12 +790,12 @@ var data = {
     "58": {
       "type": "POST-SETTINGS",
       "mutability": "SEGMENTED",
-      "data": {"id": "6221ddf5-81bd-4d23-b0a2-eb10d53397b0"}
+      "data": {"id": "01cd2b84-8867-49a8-8bc8-3c8b8799bfb4"}
     },
     "59": {
       "type": "POST-SETTINGS",
       "mutability": "SEGMENTED",
-      "data": {"id": "caf9e444-4c71-476a-8635-8e144045ae17"}
+      "data": {"id": "6221ddf5-81bd-4d23-b0a2-eb10d53397b0"}
     },
     "60": {
       "type": "POST-SETTINGS",
@@ -762,14 +805,19 @@ var data = {
     "61": {
       "type": "POST-SETTINGS",
       "mutability": "SEGMENTED",
-      "data": {"id": "6221ddf5-81bd-4d23-b0a2-eb10d53397b0"}
+      "data": {"id": "caf9e444-4c71-476a-8635-8e144045ae17"}
     },
     "62": {
       "type": "POST-SETTINGS",
       "mutability": "SEGMENTED",
-      "data": {"id": "2b5bf9e4-e28d-4710-a0eb-9c0d9bc10679"}
+      "data": {"id": "6221ddf5-81bd-4d23-b0a2-eb10d53397b0"}
     },
     "63": {
+      "type": "POST-SETTINGS",
+      "mutability": "SEGMENTED",
+      "data": {"id": "2b5bf9e4-e28d-4710-a0eb-9c0d9bc10679"}
+    },
+    "64": {
       "type": "POST-SETTINGS",
       "mutability": "SEGMENTED",
       "data": {"id": "6221ddf5-81bd-4d23-b0a2-eb10d53397b0"}

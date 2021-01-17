@@ -1,9 +1,8 @@
 import 'package:draft_view/draft_view/block/base_block.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ImageBlock extends BaseBlock {
-
-
   ImageBlock({
     required int depth,
     required int start,
@@ -46,22 +45,138 @@ class ImageBlock extends BaseBlock {
   }
 }
 
-class ImageComponent extends StatelessWidget {
+class ImageComponent extends StatefulWidget {
   final String url;
   final String caption;
 
   ImageComponent({required this.url, required this.caption});
 
   @override
+  _ImageComponentState createState() => _ImageComponentState();
+}
+
+class _ImageComponentState extends State<ImageComponent> {
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Image.network(
-          url,
-          fit: BoxFit.fitWidth,
+        GestureDetector(
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (c) => ImageDetailView(
+                url: widget.url,
+                caption: widget.caption,
+              ),
+            );
+          },
+          child: Center(
+            child: Image.network(
+              widget.url,
+              fit: BoxFit.fitWidth,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Container(
+                  height: 200,
+                  color: Colors.grey.withOpacity(0.4),
+                  child: Center(
+                    child: CupertinoActivityIndicator(),
+                  ),
+                );
+              },
+            ),
+          ),
         ),
-        Text(caption),
+        Hero(
+          tag: Key(widget.caption),
+          child: Text(widget.caption),
+        ),
       ],
+    );
+  }
+}
+
+class ImageDetailView extends StatefulWidget {
+  final String url;
+  final String caption;
+
+  const ImageDetailView({Key? key, required this.url, required this.caption})
+      : super(key: key);
+
+  @override
+  _ImageDetailViewState createState() => _ImageDetailViewState();
+}
+
+class _ImageDetailViewState extends State<ImageDetailView> {
+  final TransformationController _transformationController =
+      TransformationController();
+
+  TapDownDetails? _doubleTapDetails;
+
+  void _handleDoubleTapDown(TapDownDetails details) {
+    _doubleTapDetails = details;
+  }
+
+  void _handleDoubleTap() {
+    if (_transformationController.value != Matrix4.identity()) {
+      _transformationController.value = Matrix4.identity();
+    } else {
+      if (_doubleTapDetails != null) {
+        final position = _doubleTapDetails!.localPosition;
+        // For a 3x zoom
+        _transformationController.value = Matrix4.identity()
+          ..translate(-position.dx, -position.dy)
+          ..scale(2.0);
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Stack(
+        children: [
+          Center(
+            child: GestureDetector(
+              onDoubleTapDown: _handleDoubleTapDown,
+              onDoubleTap: _handleDoubleTap,
+              child: InteractiveViewer(
+                transformationController: _transformationController,
+                panEnabled: false,
+                boundaryMargin: EdgeInsets.all(100),
+                minScale: 0.5,
+                maxScale: 3,
+                child: Image.network(
+                  widget.url,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              color: Colors.black,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Hero(
+                  tag: Key(widget.caption),
+                  child: Text(
+                    widget.caption,
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            child: IconButton(
+              onPressed: () => Navigator.pop(context),
+              icon: Icon(Icons.close),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
