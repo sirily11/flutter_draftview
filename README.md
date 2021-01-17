@@ -2,6 +2,8 @@
 
 # Draft View
 
+**Note this is non-null-safety branch**
+
 [![codecov](https://codecov.io/gh/sirily11/flutter_draftview/branch/main/graph/badge.svg?token=MGA0BCKL8P)](https://codecov.io/gh/sirily11/flutter_draftview) ![Flutter test](https://github.com/sirily11/flutter_draftview/workflows/Flutter%20test/badge.svg)
 
 A Draft JS renderer written in Dart!
@@ -18,6 +20,7 @@ It is implemented in a plugable design so that you can create your own plugin ea
 - PostSettings Plugin. [Example](https://blog.sirileepage.com/#/post/39)
 - Header Plugin
 - Basic Text Plugin
+- Audio Plugin
 
 ## Demo
 

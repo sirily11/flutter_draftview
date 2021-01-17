@@ -30,6 +30,7 @@ class Demo1 extends StatelessWidget {
                   ImagePlugin(),
                   PostSettingsPlugin(rawSettings: settings),
                   ListPlugin(),
+                  AudioPlugin(),
                 ],
               ),
             ),

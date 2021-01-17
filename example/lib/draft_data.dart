@@ -1,6 +1,17 @@
 var data = {
   "blocks": [
     {
+      "key": "45hi1",
+      "text": " ",
+      "type": "atomic",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [
+        {"offset": 0, "length": 1, "key": -1}
+      ],
+      "data": {}
+    },
+    {
       "key": "37nnb",
       "text": "最初的世界",
       "type": "header-one",
@@ -490,6 +501,14 @@ var data = {
     }
   ],
   "entityMap": {
+    "-1": {
+      "type": "audio",
+      "mutability": "IMMUTABLE",
+      "data": {
+        "src":
+            "https://sirilee-webpage-video-sharing.s3-ap-northeast-1.amazonaws.com/podcast/%E8%BF%94%E7%A8%8B%E8%AE%B0%E5%BD%95/%E6%97%85%E8%A1%8C%E6%B8%B8%E8%AE%B0.wav"
+      }
+    },
     "0": {
       "type": "POST-SETTINGS",
       "mutability": "SEGMENTED",

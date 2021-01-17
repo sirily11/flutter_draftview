@@ -22,7 +22,6 @@ class _DraftViewState extends State<DraftView> {
   void initState() {
     super.initState();
     blocks = _convertToBlocks();
-    print(blocks);
   }
 
   @override
@@ -51,7 +50,7 @@ class _DraftViewState extends State<DraftView> {
 
       var span = curBlock.render(
         context,
-        children: curBlock.children?.map((e) => e.render(context)).toList(),
+        children: curBlock.children?.map((e) => e.render(context))?.toList(),
       );
       spans.add(span);
 
