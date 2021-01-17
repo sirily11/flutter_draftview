@@ -88,8 +88,8 @@ class _ImageComponentState extends State<ImageComponent> {
           ),
         ),
         Hero(
-          tag: Key(widget.caption),
-          child: Text(widget.caption),
+          tag: Key("${widget.caption}"),
+          child: Text("${widget.caption}"),
         ),
       ],
     );

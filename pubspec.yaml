@@ -1,6 +1,6 @@
 name: draft_view
 description: A draft js renderer written in Dart! You can easily render your draft js object in Flutter!
-version: 0.8.0+1
+version: 0.8.2+1
 repository: https://github.com/sirily11/flutter_draftview
 
 environment:
