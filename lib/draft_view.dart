@@ -14,6 +14,7 @@ export './draft_view/block/blocks/settings_block.dart' hide Settings;
 export './draft_view/block/blocks/blockquote_block.dart';
 export './draft_view/block/blocks/list_block.dart';
 export './draft_view/block/blocks/list_block.dart';
+export './draft_view/block/blocks/audio_block.dart';
 
 //plugins
 export './draft_view/plugin/plugins/text_plugin.dart';
@@ -23,3 +24,4 @@ export './draft_view/plugin/plugins/postsettings_plugin.dart';
 export './draft_view/plugin/plugins/blockquote_plugin.dart';
 export './draft_view/plugin/plugins/blockquote_plugin.dart';
 export './draft_view/plugin/plugins/list_plugin.dart';
+export './draft_view/plugin/plugins/audio_plugin.dart';
