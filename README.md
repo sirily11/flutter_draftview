@@ -18,17 +18,23 @@ It is implemented in a plugable design so that you can create your own plugin ea
 - PostSettings Plugin. [Example](https://blog.sirileepage.com/#/post/39)
 - Header Plugin
 - Basic Text Plugin
+- Audio Plugin (cannot play now. Use non-null-safety version!)
 
 ## Demo
 
 1. Header, Postsettings, BlockQuote support
+
    ![image1](./images/1.png)
 
 2. Image and image's caption support
+
    ![image2](./images/2.png)
 
 3. Full screen image support (when clicked)
+
    ![image3](./images/3.png)
 
+
 4. Text inline style and nested list support
+
    ![image4](./images/4.png)
