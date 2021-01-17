@@ -95,6 +95,9 @@ class Converter {
               (prevDraftBlock?.text.isNotEmpty ?? false) &&
               nextDraftBlock.text.isNotEmpty) {
             retBlocks.add(NewlineBlock());
+          } else if (curDraftBlock.text.isEmpty &&
+              nextDraftBlock.text.isEmpty) {
+            retBlocks.add(NewlineBlock());
           }
         }
       }
