@@ -117,7 +117,8 @@ class _AudioComponentState extends State<AudioComponent> {
               child: Column(
                 children: [
                   Spacer(),
-                  Text("${current.toAudioString()} / ${total.toAudioString()}"),
+                  Text(
+                      "${current?.toAudioString() ?? Duration(seconds: 0).toAudioString()} / ${total?.toAudioString()}"),
                   Row(
                     children: [
                       Spacer(),
@@ -158,8 +159,8 @@ class _AudioComponentState extends State<AudioComponent> {
                 children: [
                   Slider(
                     min: 0,
-                    max: total.inMilliseconds.toDouble(),
-                    value: current.inMilliseconds.toDouble(),
+                    max: total?.inMilliseconds?.toDouble() ?? 0,
+                    value: current?.inMilliseconds?.toDouble() ?? 0,
                     onChanged: (double value) async {
                       var duration = Duration(milliseconds: value.toInt());
                       await _seekTo(duration);
@@ -179,6 +180,7 @@ class _AudioComponentState extends State<AudioComponent> {
                               },
                               child: Text(
                                 "${widget.url}",
+                                maxLines: 2,
                                 style: Theme.of(context)
                                     .textTheme
                                     .caption

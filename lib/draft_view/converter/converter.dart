@@ -87,10 +87,13 @@ class Converter {
           /// If the block is above types, then add nothing
         } else {
           /// Add new line
-          if (curDraftBlock.text.isNotEmpty &&
-              nextDraftBlock.text.isNotEmpty) {
+          if (curDraftBlock.text.isNotEmpty && nextDraftBlock.text.isNotEmpty) {
             retBlocks.add(NewlineBlock());
           } else if (curDraftBlock.type != nextDraftBlock.type) {
+            retBlocks.add(NewlineBlock());
+          } else if (curDraftBlock.text.isEmpty &&
+              (prevDraftBlock?.text?.isNotEmpty ?? false) &&
+              nextDraftBlock.text.isNotEmpty) {
             retBlocks.add(NewlineBlock());
           }
         }

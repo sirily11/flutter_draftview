@@ -1,4 +1,6 @@
 import 'package:example/views/Demo1.dart';
+import 'package:example/views/Demo2.dart';
+import 'package:example/views/Demo3.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,7 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Demo1(),
+      home: Demo3(),
     );
   }
 }
