@@ -23,6 +23,7 @@ _DetailSettings detailSettingsFromJson(String str) =>
 
 String detailSettingsToJson(_DetailSettings data) => json.encode(data.toJson());
 
+/// Post Settings object
 class Settings {
   Settings({
     required this.settings,
@@ -123,6 +124,8 @@ class _DetailSettings {
       };
 }
 
+/// Post setting's block. This block will be used to render the keyword (like a hashtag ) in blog.
+/// For example [iPhone] is a post setting's block
 class PostSettingsBlock extends BaseBlock {
   final Settings settings;
 

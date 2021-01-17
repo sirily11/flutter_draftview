@@ -133,6 +133,20 @@ class BaseBlock {
   }
 
   /// Apply inline styles or entity data to the block
+  /// 
+  /// @param [start]: start of the block
+  /// 
+  /// @param [end]: end of the block
+  /// 
+  /// @param [style]: Inline style of the block
+  /// 
+  /// @param [entity]: Entity type of the block
+  /// 
+  /// @param [data]: data of the block
+  /// 
+  /// @param [plugins]: List of plugins
+  /// 
+  /// @param [depth]: depth of the block
   List<BaseBlock> split(
       {required int start,
       required int end,
@@ -270,6 +284,7 @@ class BaseBlock {
   }
 
   /// Render the current block
+  ///
   /// @param [children] List of children
   InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
     return TextSpan(
