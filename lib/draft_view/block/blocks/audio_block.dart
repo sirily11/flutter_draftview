@@ -108,7 +108,7 @@ class _AudioComponentState extends State<AudioComponent> {
     return Card(
       child: Container(
         width: MediaQuery.of(context).size.width,
-        height: 100,
+        constraints: BoxConstraints.expand(height: 100),
         child: Row(
           children: [
             Expanded(
@@ -117,7 +117,9 @@ class _AudioComponentState extends State<AudioComponent> {
                 children: [
                   Spacer(),
                   Text(
-                      "Playback not support! ${current.toAudioString()} / ${total.toAudioString()}"),
+                    "Playback not support! ${current.toAudioString()} / ${total.toAudioString()}",
+                    maxLines: 1,
+                  ),
                   Row(
                     children: [
                       Spacer(),
@@ -179,6 +181,8 @@ class _AudioComponentState extends State<AudioComponent> {
                               },
                               child: Text(
                                 "${widget.url}",
+                                maxLines: 1,
+                                overflow: TextOverflow.clip,
                                 style: Theme.of(context)
                                     .textTheme
                                     .caption!
