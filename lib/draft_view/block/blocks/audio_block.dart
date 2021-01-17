@@ -104,7 +104,7 @@ class _AudioComponentState extends State<AudioComponent> {
     // await audioPlayer.seek(duration);
   }
 
-  Widget _buildPlayer(Duration total, Duration current) {
+  Widget _buildPlayer(Duration? total, Duration? current) {
     return Card(
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -117,7 +117,7 @@ class _AudioComponentState extends State<AudioComponent> {
                 children: [
                   Spacer(),
                   Text(
-                    "Playback not support! ${current.toAudioString()} / ${total.toAudioString()}",
+                    "Playback not support! ${current?.toAudioString()} / ${total?.toAudioString()}",
                     maxLines: 1,
                   ),
                   Row(
@@ -160,8 +160,8 @@ class _AudioComponentState extends State<AudioComponent> {
                 children: [
                   Slider(
                     min: 0,
-                    max: total.inMilliseconds.toDouble(),
-                    value: current.inMilliseconds.toDouble(),
+                    max: total?.inMilliseconds.toDouble() ?? 100,
+                    value: current?.inMilliseconds.toDouble() ?? 0,
                     onChanged: (double value) async {
                       var duration = Duration(milliseconds: value.toInt());
                       await _seekTo(duration);
