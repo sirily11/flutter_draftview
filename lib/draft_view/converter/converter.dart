@@ -91,6 +91,10 @@ class Converter {
             retBlocks.add(NewlineBlock());
           } else if (curDraftBlock.type != nextDraftBlock!.type) {
             retBlocks.add(NewlineBlock());
+          } else if (curDraftBlock.text.isEmpty &&
+              (prevDraftBlock?.text.isNotEmpty ?? false) &&
+              nextDraftBlock.text.isNotEmpty) {
+            retBlocks.add(NewlineBlock());
           }
         }
       }

@@ -203,6 +203,45 @@ void main() {
       expect(blocks.length, 5);
       expect(blocks[0] is TextBlock, true);
     });
+    test("convert with newline 2", () {
+      var data = {
+        "blocks": [
+          {
+            "key": "2mlhr",
+            "text":
+                "主持人： 欢迎各位年轻貌美的女性来到我们创造102的比赛现场。经过这次的激烈较量，选手们能够脱颖而出最后成为一个由24人组成的BKB48（Best king bitch 48) 组合。每个能进入决赛圈的选手，都会受到我们专业的导师的指导，出道。",
+            "type": "unstyled",
+            "depth": 0,
+            "inlineStyleRanges": [],
+            "entityRanges": [],
+            "data": {}
+          },
+          {
+            "key": "4hqr6",
+            "text": "",
+            "type": "unstyled",
+            "depth": 0,
+            "inlineStyleRanges": [],
+            "entityRanges": [],
+            "data": {}
+          },
+          {
+            "key": "2teh1",
+            "text": "各位导师：谢谢，你们都是最棒的女生，要相信自己。我也相信你们。祝好运。",
+            "type": "unstyled",
+            "depth": 0,
+            "inlineStyleRanges": [],
+            "entityRanges": [],
+            "data": {}
+          },
+        ],
+        "entityMap": {}
+      };
+
+      var converter = Converter(plugins: [TextPlugin()], draftData: data);
+      var blocks = converter.convert();
+      expect(blocks.length, 3);
+    });
   });
 
   group("Test convert image", () {
