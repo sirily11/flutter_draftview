@@ -160,9 +160,9 @@ class _ImageDetailViewState extends State<ImageDetailView> {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Hero(
-                  tag: Key(widget.caption),
+                  tag: Key("${widget.caption}"),
                   child: Text(
-                    widget.caption,
+                    "${widget.caption}",
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ),
