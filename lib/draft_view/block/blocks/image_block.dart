@@ -89,7 +89,7 @@ class _ImageComponentState extends State<ImageComponent> {
         ),
         Hero(
           tag: Key("${widget.caption}"),
-          child: Text("${widget.caption}"),
+          child: Text("${widget.caption ?? ""}"),
         ),
       ],
     );
@@ -162,7 +162,7 @@ class _ImageDetailViewState extends State<ImageDetailView> {
                 child: Hero(
                   tag: Key("${widget.caption}"),
                   child: Text(
-                    "${widget.caption}",
+                    "${widget.caption ?? ""}",
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ),
