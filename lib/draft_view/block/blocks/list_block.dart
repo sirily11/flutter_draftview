@@ -10,16 +10,16 @@ class ListBlock extends BaseBlock {
   final int order;
 
   ListBlock({
-    required this.order,
-    required int depth,
-    required int start,
-    required int end,
-    required List<String> inlineStyles,
-    required Map<String, dynamic> data,
-    required String text,
-    required List<String> entityTypes,
-    required String blockType,
-    required this.isOrderedList,
+    @required this.order,
+    @required int depth,
+    @required int start,
+    @required int end,
+    @required List<String> inlineStyles,
+    @required Map<String, dynamic> data,
+    @required String text,
+    @required List<String> entityTypes,
+    @required String blockType,
+    @required this.isOrderedList,
   }) : super(
           depth: depth,
           start: start,
@@ -31,7 +31,7 @@ class ListBlock extends BaseBlock {
           blockType: blockType,
         );
 
-  ListBlock copyWith({BaseBlock? block}) => ListBlock(
+  ListBlock copyWith({BaseBlock block}) => ListBlock(
         depth: this.depth,
         start: block?.start ?? this.start,
         end: block?.end ?? this.end,
@@ -55,7 +55,7 @@ class ListBlock extends BaseBlock {
   }
 
   @override
-  InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
+  InlineSpan render(BuildContext context, {List<InlineSpan> children}) {
     return TextSpan(
       text: "${getDepthSpacing()}${isOrderedList ? "$order." : "-"} $text\n",
       style: renderStyle(context),

@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 
 class ImageBlock extends BaseBlock {
   ImageBlock({
-    required int depth,
-    required int start,
-    required int end,
-    required List<String> inlineStyles,
-    required Map<String, dynamic> data,
-    required String text,
-    required List<String> entityTypes,
-    required String blockType,
+    @required int depth,
+    @required int start,
+    @required int end,
+    @required List<String> inlineStyles,
+    @required Map<String, dynamic> data,
+    @required String text,
+    @required List<String> entityTypes,
+    @required String blockType,
   }) : super(
           depth: depth,
           start: start,
@@ -23,7 +23,7 @@ class ImageBlock extends BaseBlock {
           blockType: blockType,
         );
 
-  ImageBlock copyWith({BaseBlock? block}) => ImageBlock(
+  ImageBlock copyWith({BaseBlock block}) => ImageBlock(
         depth: block?.depth ?? this.depth,
         start: block?.start ?? this.start,
         end: block?.end ?? this.end,
@@ -35,7 +35,7 @@ class ImageBlock extends BaseBlock {
       );
 
   @override
-  InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
+  InlineSpan render(BuildContext context, {List<InlineSpan> children}) {
     return WidgetSpan(
       child: ImageComponent(
         url: data['src'],
@@ -49,7 +49,7 @@ class ImageComponent extends StatefulWidget {
   final String url;
   final String caption;
 
-  ImageComponent({required this.url, required this.caption});
+  ImageComponent({@required this.url, @required this.caption});
 
   @override
   _ImageComponentState createState() => _ImageComponentState();
@@ -100,7 +100,7 @@ class ImageDetailView extends StatefulWidget {
   final String url;
   final String caption;
 
-  const ImageDetailView({Key? key, required this.url, required this.caption})
+  const ImageDetailView({Key key, @required this.url, @required this.caption})
       : super(key: key);
 
   @override
@@ -111,7 +111,7 @@ class _ImageDetailViewState extends State<ImageDetailView> {
   final TransformationController _transformationController =
       TransformationController();
 
-  TapDownDetails? _doubleTapDetails;
+  TapDownDetails _doubleTapDetails;
 
   void _handleDoubleTapDown(TapDownDetails details) {
     _doubleTapDetails = details;
@@ -122,7 +122,7 @@ class _ImageDetailViewState extends State<ImageDetailView> {
       _transformationController.value = Matrix4.identity();
     } else {
       if (_doubleTapDetails != null) {
-        final position = _doubleTapDetails!.localPosition;
+        final position = _doubleTapDetails.localPosition;
         // For a 3x zoom
         _transformationController.value = Matrix4.identity()
           ..translate(-position.dx, -position.dy)

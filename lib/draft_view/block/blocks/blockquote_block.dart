@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 
 class BlockQuoteBlock extends BaseBlock {
   BlockQuoteBlock({
-    required depth,
-    required start,
-    required end,
-    required List<String> inlineStyles,
-    required Map<String, dynamic> data,
-    required String text,
-    required List<String> entityTypes,
-    required String blockType,
-    required List<BaseBlock> children,
+    @required depth,
+    @required start,
+    @required end,
+    @required List<String> inlineStyles,
+    @required Map<String, dynamic> data,
+    @required String text,
+    @required List<String> entityTypes,
+    @required String blockType,
+    @required List<BaseBlock> children,
   }) : super(
           depth: depth,
           start: start,
@@ -24,7 +24,7 @@ class BlockQuoteBlock extends BaseBlock {
           children: children,
         );
 
-  BlockQuoteBlock copyWith({BaseBlock? block}) => BlockQuoteBlock(
+  BlockQuoteBlock copyWith({BaseBlock block}) => BlockQuoteBlock(
         depth: block?.depth ?? this.depth,
         start: block?.start ?? this.start,
         end: block?.end ?? this.end,
@@ -38,7 +38,7 @@ class BlockQuoteBlock extends BaseBlock {
 
   @override
   @override
-  InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
+  InlineSpan render(BuildContext context, {List<InlineSpan> children}) {
     var style = Theme.of(context).textTheme.bodyText1;
 
     return WidgetSpan(

@@ -27,21 +27,21 @@ class BaseBlock {
   /// Block's data. Usually is image's src
   final Map<String, dynamic> data;
 
-  List<BaseBlock>? children;
+  List<BaseBlock> children;
 
   BaseBlock({
-    required this.depth,
-    required this.start,
-    required this.end,
-    required this.inlineStyles,
-    required this.data,
-    required this.text,
-    required this.entityTypes,
-    required this.blockType,
+    @required this.depth,
+    @required this.start,
+    @required this.end,
+    @required this.inlineStyles,
+    @required this.data,
+    @required this.text,
+    @required this.entityTypes,
+    @required this.blockType,
     this.children,
   });
 
-  BaseBlock copyWith({BaseBlock? block}) => BaseBlock(
+  BaseBlock copyWith({BaseBlock block}) => BaseBlock(
         depth: block?.depth ?? this.depth,
         start: block?.start ?? this.start,
         end: block?.end ?? this.end,
@@ -82,7 +82,7 @@ class BaseBlock {
   }
 
   /// Add inline style to the block
-  List<String> addStyle(String? style) {
+  List<String> addStyle(String style) {
     var copiedStyles = (jsonDecode(jsonEncode(this.inlineStyles)) as List)
         .map((e) => e as String)
         .toList();
@@ -94,7 +94,7 @@ class BaseBlock {
   }
 
   /// Add entity type to the block
-  List<String> addEntityType(String? entity) {
+  List<String> addEntityType(String entity) {
     List<String> copiedTypes =
         (jsonDecode(jsonEncode(this.entityTypes)) as List)
             .map((e) => e as String)
@@ -119,12 +119,12 @@ class BaseBlock {
     for (var plugin in plugins) {
       for (var style in block.inlineStyles) {
         if (plugin.inlineStyleRenderFn?.containsKey(style) ?? false) {
-          return plugin.inlineStyleRenderFn![style]!.copyWith(block: block);
+          return plugin.inlineStyleRenderFn[style].copyWith(block: block);
         }
       }
       for (var entity in block.entityTypes) {
         if (plugin.entityRenderFn?.containsKey(entity) ?? false) {
-          return plugin.entityRenderFn![entity]!.copyWith(block: block);
+          return plugin.entityRenderFn[entity].copyWith(block: block);
         }
       }
     }
@@ -148,13 +148,13 @@ class BaseBlock {
   /// 
   /// @param [depth]: depth of the block
   List<BaseBlock> split(
-      {required int start,
-      required int end,
-      String? style,
-      String? entity,
-      required Map<String, dynamic> data,
-      required List<BasePlugin> plugins,
-      int? depth}) {
+      {@required int start,
+      @required int end,
+      String style,
+      String entity,
+      @required Map<String, dynamic> data,
+      @required List<BasePlugin> plugins,
+      int depth}) {
     List<BaseBlock> blocks = [];
     if (start <= this.start && end >= this.end) {
       blocks = [
@@ -274,7 +274,7 @@ class BaseBlock {
 
   /// Render style based on the block's type and inline styles
   TextStyle renderStyle(BuildContext context) {
-    var textStyle = Theme.of(context).textTheme.bodyText1!;
+    var textStyle = Theme.of(context).textTheme.bodyText1;
 
     return textStyle.copyWith(
       fontWeight: fontWeight,
@@ -286,7 +286,7 @@ class BaseBlock {
   /// Render the current block
   ///
   /// @param [children] List of children
-  InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
+  InlineSpan render(BuildContext context, {List<InlineSpan> children}) {
     return TextSpan(
       text: this.textContent,
       style: renderStyle(context),

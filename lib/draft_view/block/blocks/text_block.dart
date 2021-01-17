@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 class TextBlock extends BaseBlock {
 
   TextBlock({
-    required int depth,
-    required int start,
-    required int end,
-    required List<String> inlineStyles,
-    required Map<String, dynamic> data,
-    required String text,
-    required List<String> entityTypes,
-    required String blockType,
+    @required int depth,
+    @required int start,
+    @required int end,
+    @required List<String> inlineStyles,
+    @required Map<String, dynamic> data,
+    @required String text,
+    @required List<String> entityTypes,
+    @required String blockType,
   }) : super(
           depth: depth,
           start: start,
@@ -23,7 +23,7 @@ class TextBlock extends BaseBlock {
           blockType: blockType,
         );
 
-  TextBlock copyWith({BaseBlock? block}) => TextBlock(
+  TextBlock copyWith({BaseBlock block}) => TextBlock(
         depth: block?.depth ?? depth,
         start: block?.start ?? this.start,
         end: block?.end ?? this.end,
@@ -49,7 +49,7 @@ class NewlineBlock extends BaseBlock {
         );
 
   @override
-  InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
+  InlineSpan render(BuildContext context, {List<InlineSpan> children}) {
     return TextSpan(text: "\n\n", style: renderStyle(context));
   }
 }

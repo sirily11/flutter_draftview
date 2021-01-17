@@ -6,16 +6,16 @@ class HeaderBlock extends BaseBlock {
   final int level;
 
   HeaderBlock({
-    required int depth,
-    required int start,
-    required int end,
-    required List<String> inlineStyles,
-    required Map<String, dynamic> data,
-    required String text,
-    required List<String> entityTypes,
-    required String blockType,
-    required this.level,
-    required List<BaseBlock> children,
+    @required int depth,
+    @required int start,
+    @required int end,
+    @required List<String> inlineStyles,
+    @required Map<String, dynamic> data,
+    @required String text,
+    @required List<String> entityTypes,
+    @required String blockType,
+    @required this.level,
+    @required List<BaseBlock> children,
   }) : super(
           depth: depth,
           start: start,
@@ -28,7 +28,7 @@ class HeaderBlock extends BaseBlock {
           children: children,
         );
 
-  HeaderBlock copyWith({BaseBlock? block}) => HeaderBlock(
+  HeaderBlock copyWith({BaseBlock block}) => HeaderBlock(
         depth: block?.depth ?? depth,
         start: block?.start ?? this.start,
         end: block?.end ?? this.end,
@@ -47,7 +47,7 @@ class HeaderBlock extends BaseBlock {
 
     switch (level) {
       case 1:
-        var textStyle = Theme.of(context).textTheme.headline1!.copyWith(
+        var textStyle = Theme.of(context).textTheme.headline1.copyWith(
               fontWeight: prevStyle.fontWeight,
               fontStyle: prevStyle.fontStyle,
               decoration: prevStyle.decoration,
@@ -55,7 +55,7 @@ class HeaderBlock extends BaseBlock {
         return textStyle;
 
       case 2:
-        var textStyle = Theme.of(context).textTheme.headline2!.copyWith(
+        var textStyle = Theme.of(context).textTheme.headline2.copyWith(
               fontWeight: prevStyle.fontWeight,
               fontStyle: prevStyle.fontStyle,
               decoration: prevStyle.decoration,
@@ -64,28 +64,28 @@ class HeaderBlock extends BaseBlock {
         return textStyle;
 
       case 3:
-        var textStyle = Theme.of(context).textTheme.headline3!.copyWith(
+        var textStyle = Theme.of(context).textTheme.headline3.copyWith(
               fontWeight: prevStyle.fontWeight,
               fontStyle: prevStyle.fontStyle,
               decoration: prevStyle.decoration,
             );
         return textStyle;
       case 4:
-        var textStyle = Theme.of(context).textTheme.headline4!.copyWith(
+        var textStyle = Theme.of(context).textTheme.headline4.copyWith(
               fontWeight: prevStyle.fontWeight,
               fontStyle: prevStyle.fontStyle,
               decoration: prevStyle.decoration,
             );
         return textStyle;
       case 5:
-        var textStyle = Theme.of(context).textTheme.headline5!.copyWith(
+        var textStyle = Theme.of(context).textTheme.headline5.copyWith(
               fontWeight: prevStyle.fontWeight,
               fontStyle: prevStyle.fontStyle,
               decoration: prevStyle.decoration,
             );
         return textStyle;
       default:
-        var textStyle = Theme.of(context).textTheme.headline6!.copyWith(
+        var textStyle = Theme.of(context).textTheme.headline6.copyWith(
               fontWeight: prevStyle.fontWeight,
               fontStyle: prevStyle.fontStyle,
               decoration: prevStyle.decoration,
@@ -95,7 +95,7 @@ class HeaderBlock extends BaseBlock {
   }
 
   @override
-  InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
+  InlineSpan render(BuildContext context, {List<InlineSpan> children}) {
     return TextSpan(text: "$text", style: renderStyle(context));
   }
 }

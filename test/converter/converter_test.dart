@@ -10,8 +10,8 @@ import '../test_data.dart';
 
 void main() {
   group("Test converter split block function", () {
-    late BaseBlock baseBlock;
-    late Map<String, RawDraftEntityKeyStringAny> entityMap;
+    BaseBlock baseBlock;
+    Map<String, RawDraftEntityKeyStringAny> entityMap;
 
     setUp(() {
       var text = "Hello World";

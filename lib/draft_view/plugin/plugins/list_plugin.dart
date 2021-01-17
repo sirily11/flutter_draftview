@@ -2,13 +2,14 @@ import 'package:draft_view/draft_view/block/blocks/header_block.dart';
 import 'package:draft_view/draft_view/block/blocks/list_block.dart';
 import 'package:draft_view/draft_view/block/blocks/text_block.dart';
 import 'package:draft_view/draft_view/plugin/base_plugin.dart';
+import 'package:flutter/material.dart';
 
 import '../../../draft_view.dart';
 
 class ListPlugin extends BasePlugin {
   ListTreeNode root = ListTreeNode(isRoot: true);
-  ListTreeNode? prevNode;
-  ListTreeNode? currentLevel;
+  ListTreeNode prevNode;
+  ListTreeNode currentLevel;
 
   @override
   blockRenderFn(BaseBlock block, {bool shouldWrite = false}) {
@@ -19,14 +20,14 @@ class ListPlugin extends BasePlugin {
     if (shouldWrite) {
       if (block.blockType == "ordered-list-item") {
         if (block.depth == prevNode?.depth || prevNode == null) {
-          prevNode = currentLevel!.addChild(block);
+          prevNode = currentLevel.addChild(block);
         } else {
-          if (block.depth > prevNode!.depth) {
+          if (block.depth > prevNode.depth) {
             currentLevel = prevNode;
-            prevNode = prevNode!.addChild(block);
+            prevNode = prevNode.addChild(block);
           } else {
-            currentLevel = currentLevel!.parent;
-            prevNode = currentLevel!.addChild(block);
+            currentLevel = currentLevel.parent;
+            prevNode = currentLevel.addChild(block);
           }
         }
       } else {
@@ -68,15 +69,15 @@ class ListPlugin extends BasePlugin {
 }
 
 class ListTreeNode {
-  final ListTreeNode? parent;
-  final BaseBlock? content;
+  final ListTreeNode parent;
+  final BaseBlock content;
   final List<ListTreeNode> children = [];
   final bool isRoot;
 
   ListTreeNode({
     this.parent,
     this.content,
-    required this.isRoot,
+    @required this.isRoot,
   });
 
   /// Add child to the current node. Return the newly created node
@@ -101,7 +102,7 @@ class ListTreeNode {
   int get order {
     if (this.parent != null) {
       int i = 1;
-      for (var child in this.parent!.children) {
+      for (var child in this.parent.children) {
         if (child == this) {
           return i;
         }
