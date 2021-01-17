@@ -1,0 +1,3 @@
+[submodule "plugins/audioplayers"]
+	path = plugins/audioplayers
+	url = https://github.com/sirily11/audioplayers
