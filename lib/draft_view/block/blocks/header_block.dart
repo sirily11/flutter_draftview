@@ -2,34 +2,20 @@ import 'package:draft_view/draft_view/block/base_block.dart';
 import 'package:flutter/material.dart';
 
 class HeaderBlock extends BaseBlock {
-  final int start;
-  final int end;
-  final String text;
-  final int depth;
-  final List<BaseBlock> children;
-
-  /// Block Type
-  final String blockType;
-
-  /// Inline styles
-  final List<String> inlineStyles;
-
   /// Entity type
-  final List<String> entityTypes;
-  final Map<String, dynamic> data;
   final int level;
 
   HeaderBlock({
-    required this.depth,
-    required this.start,
-    required this.end,
-    required this.inlineStyles,
-    required this.data,
-    required this.text,
-    required this.entityTypes,
-    required this.blockType,
+    required int depth,
+    required int start,
+    required int end,
+    required List<String> inlineStyles,
+    required Map<String, dynamic> data,
+    required String text,
+    required List<String> entityTypes,
+    required String blockType,
     required this.level,
-    required this.children,
+    required List<BaseBlock> children,
   }) : super(
           depth: depth,
           start: start,
@@ -39,7 +25,7 @@ class HeaderBlock extends BaseBlock {
           text: text,
           entityTypes: entityTypes,
           blockType: blockType,
-          children: [],
+          children: children,
         );
 
   HeaderBlock copyWith({BaseBlock? block}) => HeaderBlock(
@@ -52,7 +38,7 @@ class HeaderBlock extends BaseBlock {
         text: block?.text ?? this.text,
         blockType: block?.blockType ?? this.blockType,
         level: this.level,
-        children: block?.children ?? children,
+        children: block?.children ?? children ?? [],
       );
 
   @override

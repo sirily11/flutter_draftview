@@ -3,10 +3,16 @@ import 'package:draft_view/draft_view/plugin/base_plugin.dart';
 import 'package:flutter/material.dart';
 
 class BaseBlock {
+  /// Block's start
   final int start;
+
+  /// block's end
   final int end;
+
+  /// Text content
   final String text;
 
+  /// Draft js property
   final int depth;
 
   /// Block Type
@@ -17,6 +23,8 @@ class BaseBlock {
 
   /// Entity type
   final List<String> entityTypes;
+
+  /// Block's data. Usually is image's src
   final Map<String, dynamic> data;
 
   List<BaseBlock>? children;
@@ -45,6 +53,7 @@ class BaseBlock {
         children: block?.children ?? this.children,
       );
 
+  /// If the range within the current block's range
   bool withinRange(int start, int end) {
     if (start == end) {
       return false;
@@ -235,17 +244,21 @@ class BaseBlock {
     return blocks;
   }
 
+  /// Get fontweight for each block based on their [inline styles]
   FontWeight get fontWeight =>
       this.inlineStyles.contains("BOLD") ? FontWeight.bold : FontWeight.normal;
 
+  /// Get fontstyle for each block based on their [inline styles]
   FontStyle get fontStyle => this.inlineStyles.contains("ITALIC")
       ? FontStyle.italic
       : FontStyle.normal;
 
+  /// Get decoration for each block based on their [inline styles]
   TextDecoration get decoration => this.inlineStyles.contains("UNDERLINE")
       ? TextDecoration.underline
       : TextDecoration.none;
 
+  /// Render style based on the block's type and inline styles
   TextStyle renderStyle(BuildContext context) {
     var textStyle = Theme.of(context).textTheme.bodyText1!;
 
@@ -256,6 +269,8 @@ class BaseBlock {
     );
   }
 
+  /// Render the current block
+  /// @param [children] List of children
   InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
     return TextSpan(
       text: this.textContent,
