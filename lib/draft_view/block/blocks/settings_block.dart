@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:draft_view/draft_view/block/base_block.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 // To parse this JSON data, do
@@ -177,23 +181,82 @@ class PostSettingsBlock extends BaseBlock {
       }
     }
 
-    return TextSpan(text: _detailSettings.name, style: textStyle, children: [
-      WidgetSpan(
-        style: textStyle,
-        alignment: PlaceholderAlignment.middle,
-        child: Tooltip(
-          message: _detailSettings.description,
-          child: InkWell(
-            onHover: (_) {},
-            onTap: () {},
-            child: Icon(
-              Icons.link,
-              color: textStyle.color,
-              size: 20,
+    var recognizer = TapGestureRecognizer()
+      ..onTap = () {
+        showBottomSheet(
+          context: context,
+          builder: (c) => PostSettingsCard(
+            settings: _detailSettings,
+          ),
+        );
+      };
+    bool useTooltip = false;
+
+    if (kIsWeb || Platform.isMacOS || Platform.isLinux || Platform.isWindows) {
+      useTooltip = true;
+    }
+
+    return TextSpan(
+      text: _detailSettings.name,
+      recognizer: recognizer,
+      style: textStyle,
+      children: useTooltip
+          ? [
+              WidgetSpan(
+                style: textStyle,
+                alignment: PlaceholderAlignment.middle,
+                child: Tooltip(
+                  message: _detailSettings.description,
+                  child: InkWell(
+                    onHover: (_) {},
+                    onTap: () {},
+                    child: Icon(
+                      Icons.link,
+                      color: textStyle.color,
+                      size: 20,
+                    ),
+                  ),
+                ),
+              )
+            ]
+          : null,
+    );
+  }
+}
+
+class PostSettingsCard extends StatelessWidget {
+  final _DetailSettings settings;
+
+  const PostSettingsCard({Key key, @required this.settings}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              child: ListTile(
+                title: Text(
+                  "${settings.name}",
+                ),
+                subtitle: Text(
+                  "${settings.description}",
+                ),
+              ),
             ),
           ),
         ),
-      )
-    ]);
+        Positioned(
+          right: 5,
+          child: IconButton(
+            icon: Icon(Icons.close_outlined),
+            onPressed: () => Navigator.pop(context),
+          ),
+        )
+      ],
+    );
   }
 }

@@ -57,7 +57,7 @@ class ListBlock extends BaseBlock {
   @override
   InlineSpan render(BuildContext context, {List<InlineSpan> children}) {
     return TextSpan(
-      text: "${getDepthSpacing()}${isOrderedList ? "$order." : "-"} $text\n",
+      text: "${getDepthSpacing()}${isOrderedList ? "$order." : "-"} $textContent\n",
       style: renderStyle(context),
     );
   }
