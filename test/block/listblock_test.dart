@@ -1,6 +1,9 @@
-import 'package:draft_view/draft_view/block/blocks/list_block.dart';
-import 'package:draft_view/draft_view/plugin/plugins/list_plugin.dart';
+import 'package:draft_view/draft_view.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
+
+class MockBuildContext extends Mock implements BuildContext {}
 
 void main() {
   group("Test listTreeNode", () {
@@ -99,6 +102,102 @@ void main() {
       expect(node2.depth, 0);
       expect(node3.depth, 1);
       expect(node4.depth, 0);
+    });
+  });
+
+  group("Test render list", () {
+    final text = "Hello World";
+    final inlineStyles = ["BOLD", "ITALIC", "UNDERLINE", "#4caf50"];
+    late BuildContext context;
+
+    setUp(() {
+      context = MockBuildContext();
+    });
+    test("Ordered list", () {
+      var block = ListBlock(
+        order: 1,
+        depth: 1,
+        start: 0,
+        end: 5,
+        inlineStyles: inlineStyles,
+        data: {},
+        text: text,
+        entityTypes: [],
+        blockType: "ordered-list-item",
+        isOrderedList: true,
+      );
+
+      var textSpan = block.render(context);
+      expect(textSpan.toPlainText(), "1. ${text.substring(0, 5)}\n");
+      expect(textSpan.style!.decoration, TextDecoration.underline);
+      expect(textSpan.style!.fontWeight, FontWeight.bold);
+      expect(textSpan.style!.fontStyle, FontStyle.italic);
+      expect(textSpan.style!.color, HexColor.fromHex("#4caf50"));
+    });
+    test("Ordered list 2", () {
+      var block = ListBlock(
+        order: 1,
+        depth: 2,
+        start: 0,
+        end: 5,
+        inlineStyles: inlineStyles,
+        data: {},
+        text: text,
+        entityTypes: [],
+        blockType: "ordered-list-item",
+        isOrderedList: true,
+      );
+
+      var textSpan = block.render(context);
+      expect(textSpan.toPlainText(), "      1. ${text.substring(0, 5)}\n");
+      expect(textSpan.style!.decoration, TextDecoration.underline);
+      expect(textSpan.style!.fontWeight, FontWeight.bold);
+      expect(textSpan.style!.fontStyle, FontStyle.italic);
+      expect(textSpan.style!.color, HexColor.fromHex("#4caf50"));
+    });
+
+    test("Unordered list 1", () {
+      var block = ListBlock(
+        order: 1,
+        depth: 1,
+        start: 0,
+        end: 5,
+        inlineStyles: inlineStyles,
+        data: {},
+        text: text,
+        entityTypes: [],
+        blockType: "unordered-list-item",
+        isOrderedList: false,
+      );
+
+      var textSpan = block.render(context);
+      expect(textSpan.toPlainText(), "- ${text.substring(0, 5)}\n");
+      expect(textSpan.style!.decoration, TextDecoration.underline);
+      expect(textSpan.style!.fontWeight, FontWeight.bold);
+      expect(textSpan.style!.fontStyle, FontStyle.italic);
+      expect(textSpan.style!.color, HexColor.fromHex("#4caf50"));
+    });
+
+    test("Unordered list 2", () {
+      var block = ListBlock(
+        order: 1,
+        depth: 2,
+        start: 0,
+        end: 5,
+        inlineStyles: inlineStyles,
+        data: {},
+        text: text,
+        entityTypes: [],
+        blockType: "unordered-list-item",
+        isOrderedList: false,
+      );
+
+      var textSpan = block.render(context);
+      expect(textSpan.toPlainText(), "      - ${text.substring(0, 5)}\n");
+      expect(textSpan.style!.decoration, TextDecoration.underline);
+      expect(textSpan.style!.fontWeight, FontWeight.bold);
+      expect(textSpan.style!.fontStyle, FontStyle.italic);
+      expect(textSpan.style!.color, HexColor.fromHex("#4caf50"));
     });
   });
 }

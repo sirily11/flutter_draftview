@@ -46,7 +46,7 @@ class ListBlock extends BaseBlock {
 
   String getDepthSpacing() {
     String spacing = "";
-    int i = 0;
+    int i = 1;
     while (i < depth) {
       spacing += '      ';
       i += 1;
@@ -57,7 +57,8 @@ class ListBlock extends BaseBlock {
   @override
   InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
     return TextSpan(
-      text: "${getDepthSpacing()}${isOrderedList ? "$order." : "-"} $textContent\n",
+      text:
+          "${getDepthSpacing()}${isOrderedList ? "$order." : "-"} $textContent\n",
       style: renderStyle(context),
     );
   }

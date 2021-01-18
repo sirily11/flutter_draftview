@@ -53,18 +53,30 @@ class LinkBlock extends BaseBlock {
     late GestureRecognizer recognizer;
 
     if (data.containsKey('url')) {
-      recognizer = TapGestureRecognizer()
-        ..onTap = () {
-          showBottomSheet(
-            context: context,
-            builder: (c) => LinkCard(
-              link: data['url']['link'],
-              title: data['url']['title'],
-              image: data['url']['image'],
-              summary: data['url']['summary'],
-            ),
-          );
-        };
+      if (data['url'] is String) {
+        recognizer = TapGestureRecognizer()
+          ..onTap = () {
+            showBottomSheet(
+              context: context,
+              builder: (c) => LinkCard(
+                link: data['url'],
+              ),
+            );
+          };
+      } else {
+        recognizer = TapGestureRecognizer()
+          ..onTap = () {
+            showBottomSheet(
+              context: context,
+              builder: (c) => LinkCard(
+                link: data['url']['link'],
+                title: data['url']['title'],
+                image: data['url']['image'],
+                summary: data['url']['summary'],
+              ),
+            );
+          };
+      }
     }
 
     return TextSpan(

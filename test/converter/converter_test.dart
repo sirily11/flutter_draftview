@@ -499,4 +499,81 @@ void main() {
       expect(blocks[3].depth, 0);
     });
   });
+
+  group("Test Convert link", () {
+    test("Simple link", () {
+      var data = {
+        "blocks": [
+          {
+            "key": "c376o",
+            "text": "Hello world",
+            "type": "unstyled",
+            "depth": 0,
+            "inlineStyleRanges": [
+              {"offset": 0, "length": 40, "style": "#4caf50"}
+            ],
+            "entityRanges": [
+              {"offset": 0, "length": 5, "key": 0},
+            ],
+            "data": {}
+          },
+        ],
+        "entityMap": {
+          "0": {
+            "type": "LINK",
+            "mutability": "MUTABLE",
+            "data": {
+              "url": {
+                "link":
+                    "https://news.delta.com/more-flights-service-return-july-delta-continues-industry-leading-safety-measures",
+                "title":
+                    "More flights, service return in July as Delta continues industry-leading safety measures | Delta News Hub",
+                "image":
+                    "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+                "summary": "Sign up for Delta News"
+              }
+            }
+          },
+        }
+      };
+
+      var converter = Converter(plugins: [LinkPlugin()], draftData: data);
+      var blocks = converter.convert();
+      expect(blocks.length, 2);
+      expect(blocks[0] is LinkBlock, true);
+      expect(blocks[0].data['url']['link'],
+          "https://news.delta.com/more-flights-service-return-july-delta-continues-industry-leading-safety-measures");
+    });
+  });
+
+  group("Test convert audio", () {
+    test("simple convert", () {
+      var data = {
+        "blocks": [
+          {
+            "key": "45hi1",
+            "text": " ",
+            "type": "atomic",
+            "depth": 0,
+            "inlineStyleRanges": [],
+            "entityRanges": [
+              {"offset": 0, "length": 1, "key": 0}
+            ],
+            "data": {}
+          },
+        ],
+        "entityMap": {
+          "0": {
+            "type": "audio",
+            "mutability": "IMMUTABLE",
+            "data": {"src": "abc.com"}
+          },
+        }
+      };
+      var converter = Converter(plugins: [AudioPlugin()], draftData: data);
+      var blocks = converter.convert();
+      expect(blocks.length, 1);
+      expect(blocks[0].data['src'], "abc.com");
+    });
+  });
 }

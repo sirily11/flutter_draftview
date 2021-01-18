@@ -13,7 +13,7 @@ class BaseBlock {
   /// Text content
   final String text;
 
-  /// Draft js property
+  /// Draft js property. Starts at 0;
   final int depth;
 
   /// Block Type
