@@ -35,7 +35,9 @@ var data = {
           "大家好我是\b江户川柯南 ，今天我和我的几个自称是少年侦探队 的同学一起去热带乐园 游玩。突然我目击到了黑衣组织 正在进行交易。当我正在偷看交易的时候，不小心被从后面过来的同伙击晕。他们给我强灌下了毒药。当我醒来的时候发现。",
       "type": "unstyled",
       "depth": 0,
-      "inlineStyleRanges": [],
+      "inlineStyleRanges": [
+        {"offset": 0, "length": 40, "style": "#4caf50"}
+      ],
       "entityRanges": [
         {"offset": 6, "length": 5, "key": 0},
         {"offset": 24, "length": 5, "key": 1},

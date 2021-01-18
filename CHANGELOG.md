@@ -1,7 +1,9 @@
 <!-- @format -->
 
-## [0.9.0-nullsafety.0] - Basic functions implemented
+## [0.8.1] - Basic functions implemented
 
 - Implemented basic functions
-- A lot of tests
-- Null-safe!
+
+## [0.8.3] - Text Color support
+
+- Support color

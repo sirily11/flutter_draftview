@@ -118,7 +118,9 @@ class _AudioComponentState extends State<AudioComponent> {
                 children: [
                   Spacer(),
                   Text(
-                      "${current?.toAudioString() ?? Duration(seconds: 0).toAudioString()} / ${total?.toAudioString()}"),
+                    "${current?.toAudioString() ?? Duration(seconds: 0).toAudioString()} / ${total?.toAudioString()}",
+                    textAlign: TextAlign.center,
+                  ),
                   Row(
                     children: [
                       Spacer(),
