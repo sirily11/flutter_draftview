@@ -40,6 +40,7 @@ var data = {
       ],
       "entityRanges": [
         {"offset": 6, "length": 5, "key": 0},
+        {"offset": 0, "length": 5, "key": -2},
         {"offset": 24, "length": 5, "key": 1},
         {"offset": 36, "length": 4, "key": 2},
         {"offset": 51, "length": 4, "key": 3}
@@ -503,6 +504,21 @@ var data = {
     }
   ],
   "entityMap": {
+    "-2": {
+      "type": "LINK",
+      "mutability": "MUTABLE",
+      "data": {
+        "url": {
+          "link":
+              "https://news.delta.com/more-flights-service-return-july-delta-continues-industry-leading-safety-measures",
+          "title":
+              "More flights, service return in July as Delta continues industry-leading safety measures | Delta News Hub",
+          "image":
+              "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+          "summary": "Sign up for Delta News"
+        }
+      }
+    },
     "-1": {
       "type": "audio",
       "mutability": "IMMUTABLE",

@@ -53,7 +53,7 @@ class BlockQuoteBlock extends BaseBlock {
           padding: const EdgeInsets.all(8.0),
           child: RichText(
             text: TextSpan(
-              text: children?.length == 0 ? text : null,
+              text: children?.length == 0 ? textContent : null,
               children: children,
               style: style,
             ),

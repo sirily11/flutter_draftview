@@ -31,6 +31,7 @@ class Demo1 extends StatelessWidget {
                   PostSettingsPlugin(rawSettings: settings),
                   ListPlugin(),
                   AudioPlugin(),
+                  LinkPlugin(),
                 ],
               ),
             ),
