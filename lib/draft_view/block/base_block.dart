@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:draft_view/draft_view/plugin/base_plugin.dart';
 import 'package:flutter/material.dart';
+import './extensions.dart';
 
 class BaseBlock {
   /// Block's start
@@ -133,19 +134,19 @@ class BaseBlock {
   }
 
   /// Apply inline styles or entity data to the block
-  /// 
+  ///
   /// @param [start]: start of the block
-  /// 
+  ///
   /// @param [end]: end of the block
-  /// 
+  ///
   /// @param [style]: Inline style of the block
-  /// 
+  ///
   /// @param [entity]: Entity type of the block
-  /// 
+  ///
   /// @param [data]: data of the block
-  /// 
+  ///
   /// @param [plugins]: List of plugins
-  /// 
+  ///
   /// @param [depth]: depth of the block
   List<BaseBlock> split(
       {@required int start,
@@ -258,6 +259,18 @@ class BaseBlock {
     return blocks;
   }
 
+  /// get text color
+  Color textColor(context) {
+    var color = Theme.of(context).textTheme.bodyText1.color;
+    var style = inlineStyles.firstWhere((element) => element[0] == "#",
+        orElse: () => "");
+    if (style.isNotEmpty) {
+      color = HexColor.fromHex(style);
+    }
+
+    return color;
+  }
+
   /// Get fontweight for each block based on their [inline styles]
   FontWeight get fontWeight =>
       this.inlineStyles.contains("BOLD") ? FontWeight.bold : FontWeight.normal;
@@ -280,6 +293,7 @@ class BaseBlock {
       fontWeight: fontWeight,
       fontStyle: fontStyle,
       decoration: decoration,
+      color: textColor(context),
     );
   }
 
