@@ -39,7 +39,7 @@ class BlockQuoteBlock extends BaseBlock {
   @override
   @override
   InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
-    var style = Theme.of(context).textTheme.bodyText1;
+    var style = renderStyle(context);
 
     return WidgetSpan(
       child: Container(

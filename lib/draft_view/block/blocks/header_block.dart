@@ -51,6 +51,7 @@ class HeaderBlock extends BaseBlock {
               fontWeight: prevStyle.fontWeight,
               fontStyle: prevStyle.fontStyle,
               decoration: prevStyle.decoration,
+              color: textColor(context),
             );
         return textStyle;
 
@@ -59,6 +60,7 @@ class HeaderBlock extends BaseBlock {
               fontWeight: prevStyle.fontWeight,
               fontStyle: prevStyle.fontStyle,
               decoration: prevStyle.decoration,
+              color: textColor(context),
             );
 
         return textStyle;
@@ -68,6 +70,7 @@ class HeaderBlock extends BaseBlock {
               fontWeight: prevStyle.fontWeight,
               fontStyle: prevStyle.fontStyle,
               decoration: prevStyle.decoration,
+              color: textColor(context),
             );
         return textStyle;
       case 4:
@@ -75,6 +78,7 @@ class HeaderBlock extends BaseBlock {
               fontWeight: prevStyle.fontWeight,
               fontStyle: prevStyle.fontStyle,
               decoration: prevStyle.decoration,
+              color: textColor(context),
             );
         return textStyle;
       case 5:
@@ -82,6 +86,7 @@ class HeaderBlock extends BaseBlock {
               fontWeight: prevStyle.fontWeight,
               fontStyle: prevStyle.fontStyle,
               decoration: prevStyle.decoration,
+              color: textColor(context),
             );
         return textStyle;
       default:
@@ -89,6 +94,7 @@ class HeaderBlock extends BaseBlock {
               fontWeight: prevStyle.fontWeight,
               fontStyle: prevStyle.fontStyle,
               decoration: prevStyle.decoration,
+              color: textColor(context),
             );
         return textStyle;
     }
