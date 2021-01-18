@@ -64,6 +64,7 @@ class _ImageComponentState extends State<ImageComponent> {
           onTap: () {
             showDialog(
               context: context,
+              useSafeArea: false,
               builder: (c) => ImageDetailView(
                 url: widget.url,
                 caption: widget.caption,
