@@ -161,12 +161,15 @@ class _ImageDetailViewState extends State<ImageDetailView> {
                 onDoubleTap: _handleDoubleTap,
                 child: InteractiveViewer(
                   transformationController: _transformationController,
-                  panEnabled: false,
+                  panEnabled: true,
                   boundaryMargin: EdgeInsets.all(100),
                   minScale: 0.5,
                   maxScale: 3,
-                  child: Image.network(
-                    widget.url,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 100),
+                    child: Image.network(
+                      widget.url,
+                    ),
                   ),
                 ),
               ),
