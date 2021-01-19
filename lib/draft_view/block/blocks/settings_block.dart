@@ -13,20 +13,6 @@ import 'package:flutter/material.dart';
 
 import 'dart:convert';
 
-Settings settingsFromJson(String str) => Settings.fromJson(json.decode(str));
-
-String settingsToJson(Settings data) => json.encode(data.toJson());
-
-_PostSettings postSettingsFromJson(String str) =>
-    _PostSettings.fromJson(json.decode(str));
-
-String postSettingsToJson(_PostSettings data) => json.encode(data.toJson());
-
-_DetailSettings detailSettingsFromJson(String str) =>
-    _DetailSettings.fromJson(json.decode(str));
-
-String detailSettingsToJson(_DetailSettings data) => json.encode(data.toJson());
-
 /// Post Settings object
 class Settings {
   Settings({
