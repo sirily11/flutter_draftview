@@ -46,7 +46,7 @@ class ListBlock extends BaseBlock {
 
   String getDepthSpacing() {
     String spacing = "";
-    int i = 0;
+    int i = 1;
     while (i < depth) {
       spacing += '      ';
       i += 1;

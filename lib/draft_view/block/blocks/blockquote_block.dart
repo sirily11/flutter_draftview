@@ -39,7 +39,8 @@ class BlockQuoteBlock extends BaseBlock {
   @override
   @override
   InlineSpan render(BuildContext context, {List<InlineSpan> children}) {
-    var style = Theme.of(context).textTheme.bodyText1;
+    var style = renderStyle(context);
+    var text = children?.length  == 0 ? textContent : null;
 
     return WidgetSpan(
       child: Container(
@@ -52,8 +53,9 @@ class BlockQuoteBlock extends BaseBlock {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: RichText(
+            key: Key("block-quote-content-$textContent"),
             text: TextSpan(
-              text: children?.length == 0 ? textContent : null,
+              text: text,
               children: children,
               style: style,
             ),

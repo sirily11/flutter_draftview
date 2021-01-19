@@ -252,7 +252,7 @@ class PostSettingsCard extends StatelessWidget {
         Positioned(
           right: 5,
           child: IconButton(
-            icon: Icon(Icons.close_outlined),
+            icon: Icon(Icons.close),
             onPressed: () => Navigator.pop(context),
           ),
         )

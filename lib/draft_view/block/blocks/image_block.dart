@@ -71,22 +71,27 @@ class _ImageComponentState extends State<ImageComponent> {
               ),
             );
           },
-          child: Center(
-            child: Image.network(
-              widget.url,
-              fit: BoxFit.fitWidth,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
-                return Container(
+          child: widget.url != null
+              ? Center(
+                  child: Image.network(
+                    widget.url,
+                    fit: BoxFit.fitWidth,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Container(
+                        height: 200,
+                        color: Colors.grey.withOpacity(0.4),
+                        child: Center(
+                          child: CupertinoActivityIndicator(),
+                        ),
+                      );
+                    },
+                  ),
+                )
+              : Container(
                   height: 200,
                   color: Colors.grey.withOpacity(0.4),
-                  child: Center(
-                    child: CupertinoActivityIndicator(),
-                  ),
-                );
-              },
-            ),
-          ),
+                ),
         ),
         Hero(
           tag: Key("${widget.caption}"),
@@ -137,22 +142,23 @@ class _ImageDetailViewState extends State<ImageDetailView> {
     return Material(
       child: Stack(
         children: [
-          Center(
-            child: GestureDetector(
-              onDoubleTapDown: _handleDoubleTapDown,
-              onDoubleTap: _handleDoubleTap,
-              child: InteractiveViewer(
-                transformationController: _transformationController,
-                panEnabled: false,
-                boundaryMargin: EdgeInsets.all(100),
-                minScale: 0.5,
-                maxScale: 3,
-                child: Image.network(
-                  widget.url,
+          if (widget.url != null)
+            Center(
+              child: GestureDetector(
+                onDoubleTapDown: _handleDoubleTapDown,
+                onDoubleTap: _handleDoubleTap,
+                child: InteractiveViewer(
+                  transformationController: _transformationController,
+                  panEnabled: false,
+                  boundaryMargin: EdgeInsets.all(100),
+                  minScale: 0.5,
+                  maxScale: 3,
+                  child: Image.network(
+                    widget.url,
+                  ),
                 ),
               ),
             ),
-          ),
           Positioned(
             bottom: 0,
             child: Container(
