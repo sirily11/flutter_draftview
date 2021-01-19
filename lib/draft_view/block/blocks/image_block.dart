@@ -62,30 +62,34 @@ class _ImageComponentState extends State<ImageComponent> {
       children: [
         GestureDetector(
           onTap: () {
-            showDialog(
-              context: context,
-              useSafeArea: false,
-              builder: (c) => ImageDetailView(
-                url: widget.url,
-                caption: widget.caption,
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (c) => ImageDetailView(
+                  url: widget.url,
+                  caption: widget.caption,
+                ),
               ),
             );
           },
           child: widget.url != null
               ? Center(
-                  child: Image.network(
-                    widget.url,
-                    fit: BoxFit.fitWidth,
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null) return child;
-                      return Container(
-                        height: 200,
-                        color: Colors.grey.withOpacity(0.4),
-                        child: Center(
-                          child: CupertinoActivityIndicator(),
-                        ),
-                      );
-                    },
+                  child: Hero(
+                    tag: "${widget.url}",
+                    child: Image.network(
+                      widget.url,
+                      fit: BoxFit.fitWidth,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Container(
+                          height: 200,
+                          color: Colors.grey.withOpacity(0.4),
+                          child: Center(
+                            child: CupertinoActivityIndicator(),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 )
               : Container(
@@ -116,8 +120,19 @@ class ImageDetailView extends StatefulWidget {
 class _ImageDetailViewState extends State<ImageDetailView> {
   final TransformationController _transformationController =
       TransformationController();
+  bool zoomed = false;
 
   TapDownDetails _doubleTapDetails;
+
+  @override
+  void initState() {
+    super.initState();
+    _transformationController.addListener(() {
+      setState(() {
+        zoomed = _transformationController.value != Matrix4.identity();
+      });
+    });
+  }
 
   void _handleDoubleTapDown(TapDownDetails details) {
     _doubleTapDetails = details;
@@ -155,20 +170,28 @@ class _ImageDetailViewState extends State<ImageDetailView> {
       body: Stack(
         children: [
           if (widget.url != null)
-            Center(
-              child: GestureDetector(
-                onDoubleTapDown: _handleDoubleTapDown,
-                onDoubleTap: _handleDoubleTap,
+            GestureDetector(
+              onDoubleTapDown: _handleDoubleTapDown,
+              onDoubleTap: _handleDoubleTap,
+              onVerticalDragUpdate: (details) {
+                if (details.primaryDelta > 6 && !zoomed) {
+                  Navigator.pop(context);
+                }
+              },
+              child: Center(
                 child: InteractiveViewer(
                   transformationController: _transformationController,
-                  panEnabled: true,
-                  boundaryMargin: EdgeInsets.all(100),
+                  panEnabled: zoomed,
+                  boundaryMargin: EdgeInsets.all(30),
                   minScale: 0.5,
                   maxScale: 3,
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 100),
-                    child: Image.network(
-                      widget.url,
+                    child: Hero(
+                      tag: "${widget.url}",
+                      child: Image.network(
+                        widget.url,
+                      ),
                     ),
                   ),
                 ),
@@ -185,7 +208,7 @@ class _ImageDetailViewState extends State<ImageDetailView> {
                   vertical: 20,
                 ),
                 child: Hero(
-                  tag: Key("${widget.caption}"),
+                  tag: "${widget.caption}",
                   child: Text(
                     "${widget.caption ?? ""}",
                     style: TextStyle(color: Colors.white, fontSize: 20),
