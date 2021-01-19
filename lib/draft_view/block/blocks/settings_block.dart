@@ -231,32 +231,37 @@ class PostSettingsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
+    return Padding(
+      padding: const EdgeInsets.only(
+        bottom: 20,
+      ),
+      child: Stack(
+        children: [
+          Card(
             child: Container(
               width: MediaQuery.of(context).size.width,
-              child: ListTile(
-                title: Text(
-                  "${settings.name}",
-                ),
-                subtitle: Text(
-                  "${settings.description}",
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: ListTile(
+                  title: Text(
+                    "${settings.name}",
+                  ),
+                  subtitle: Text(
+                    "${settings.description}",
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        Positioned(
-          right: 5,
-          child: IconButton(
-            icon: Icon(Icons.close),
-            onPressed: () => Navigator.pop(context),
-          ),
-        )
-      ],
+          Positioned(
+            right: 5,
+            child: IconButton(
+              icon: Icon(Icons.close),
+              onPressed: () => Navigator.pop(context),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

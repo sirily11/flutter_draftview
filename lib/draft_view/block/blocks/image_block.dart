@@ -139,8 +139,20 @@ class _ImageDetailViewState extends State<ImageDetailView> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Stack(
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          color: Theme.of(context).buttonColor,
+          onPressed: () => Navigator.pop(context),
+          icon: Icon(
+            Icons.close,
+            color: Theme.of(context).iconTheme.color,
+          ),
+        ),
+      ),
+      body: Stack(
         children: [
           if (widget.url != null)
             Center(
@@ -165,7 +177,10 @@ class _ImageDetailViewState extends State<ImageDetailView> {
               width: MediaQuery.of(context).size.width,
               color: Colors.black,
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 20,
+                ),
                 child: Hero(
                   tag: Key("${widget.caption}"),
                   child: Text(
@@ -176,12 +191,6 @@ class _ImageDetailViewState extends State<ImageDetailView> {
               ),
             ),
           ),
-          Positioned(
-            child: IconButton(
-              onPressed: () => Navigator.pop(context),
-              icon: Icon(Icons.close),
-            ),
-          )
         ],
       ),
     );

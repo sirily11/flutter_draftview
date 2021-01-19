@@ -104,42 +104,45 @@ class LinkCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-                width: MediaQuery.of(context).size.width,
-                child: ListTile(
-                  leading: image != null
-                      ? Image.network(
-                          image,
-                          height: 50,
-                          width: 150,
-                          fit: BoxFit.fitWidth,
-                          loadingBuilder: (c, child, loadingProgress) {
-                            if (loadingProgress == null) return child;
-                            return Container(
-                              height: 50,
-                              width: 150,
-                              child: Center(
-                                child: CupertinoActivityIndicator(),
-                              ),
-                            );
-                          },
-                        )
-                      : null,
-                  title: Text("${title ?? "No title"}"),
-                  subtitle: Text("${summary ?? ""}"),
-                  trailing: IconButton(
-                    tooltip: "Open in browser",
-                    icon: Icon(Icons.launch),
-                    onPressed: () async {
-                      if (await canLaunch(link)) {
-                        await launch(link);
-                      }
-                    },
-                  ),
-                )),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: ListTile(
+                    leading: image != null
+                        ? Image.network(
+                            image,
+                            height: 50,
+                            width: 150,
+                            fit: BoxFit.fitWidth,
+                            loadingBuilder: (c, child, loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return Container(
+                                height: 50,
+                                width: 150,
+                                child: Center(
+                                  child: CupertinoActivityIndicator(),
+                                ),
+                              );
+                            },
+                          )
+                        : null,
+                    title: Text("${title ?? "No title"}"),
+                    subtitle: Text("${summary ?? ""}"),
+                    trailing: IconButton(
+                      tooltip: "Open in browser",
+                      icon: Icon(Icons.launch),
+                      onPressed: () async {
+                        if (await canLaunch(link)) {
+                          await launch(link);
+                        }
+                      },
+                    ),
+                  )),
+            ),
           ),
         ),
         Positioned(
