@@ -50,7 +50,7 @@ class LinkBlock extends BaseBlock {
 
   @override
   InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
-    late GestureRecognizer recognizer;
+    GestureRecognizer? recognizer = null;
 
     if (data.containsKey('url')) {
       if (data['url'] is String) {

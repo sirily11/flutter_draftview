@@ -46,10 +46,10 @@ class ImageBlock extends BaseBlock {
 }
 
 class ImageComponent extends StatefulWidget {
-  final String url;
-  final String caption;
+  final String? url;
+  final String? caption;
 
-  ImageComponent({required this.url, required this.caption});
+  ImageComponent({this.url, this.caption});
 
   @override
   _ImageComponentState createState() => _ImageComponentState();
@@ -70,22 +70,27 @@ class _ImageComponentState extends State<ImageComponent> {
               ),
             );
           },
-          child: Center(
-            child: Image.network(
-              widget.url,
-              fit: BoxFit.fitWidth,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
-                return Container(
+          child: widget.url != null
+              ? Center(
+                  child: Image.network(
+                    widget.url!,
+                    fit: BoxFit.fitWidth,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Container(
+                        height: 200,
+                        color: Colors.grey.withOpacity(0.4),
+                        child: Center(
+                          child: CupertinoActivityIndicator(),
+                        ),
+                      );
+                    },
+                  ),
+                )
+              : Container(
                   height: 200,
                   color: Colors.grey.withOpacity(0.4),
-                  child: Center(
-                    child: CupertinoActivityIndicator(),
-                  ),
-                );
-              },
-            ),
-          ),
+                ),
         ),
         Hero(
           tag: Key("${widget.caption}"),
@@ -97,11 +102,10 @@ class _ImageComponentState extends State<ImageComponent> {
 }
 
 class ImageDetailView extends StatefulWidget {
-  final String url;
-  final String caption;
+  final String? url;
+  final String? caption;
 
-  const ImageDetailView({Key? key, required this.url, required this.caption})
-      : super(key: key);
+  const ImageDetailView({Key? key, this.url, this.caption}) : super(key: key);
 
   @override
   _ImageDetailViewState createState() => _ImageDetailViewState();
@@ -136,22 +140,23 @@ class _ImageDetailViewState extends State<ImageDetailView> {
     return Material(
       child: Stack(
         children: [
-          Center(
-            child: GestureDetector(
-              onDoubleTapDown: _handleDoubleTapDown,
-              onDoubleTap: _handleDoubleTap,
-              child: InteractiveViewer(
-                transformationController: _transformationController,
-                panEnabled: false,
-                boundaryMargin: EdgeInsets.all(100),
-                minScale: 0.5,
-                maxScale: 3,
-                child: Image.network(
-                  widget.url,
+          if (widget.url != null)
+            Center(
+              child: GestureDetector(
+                onDoubleTapDown: _handleDoubleTapDown,
+                onDoubleTap: _handleDoubleTap,
+                child: InteractiveViewer(
+                  transformationController: _transformationController,
+                  panEnabled: false,
+                  boundaryMargin: EdgeInsets.all(100),
+                  minScale: 0.5,
+                  maxScale: 3,
+                  child: Image.network(
+                    widget.url!,
+                  ),
                 ),
               ),
             ),
-          ),
           Positioned(
             bottom: 0,
             child: Container(
@@ -162,7 +167,7 @@ class _ImageDetailViewState extends State<ImageDetailView> {
                 child: Hero(
                   tag: Key("${widget.caption}"),
                   child: Text(
-                    "${widget.caption}",
+                    "${widget.caption ?? ""}",
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ),
