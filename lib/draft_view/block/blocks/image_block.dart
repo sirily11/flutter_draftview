@@ -14,7 +14,7 @@ class ImageBlock extends ActionBlock {
     @required String text,
     @required List<String> entityTypes,
     @required String blockType,
-    @required List<CupertinoContextMenuAction> actions,
+    @required ActionBuilder actionBuilder,
     @required OnTap onTap,
     @required OnDoubleTap onDoubleTap,
     @required OnLongPress onLongPress,
@@ -30,7 +30,7 @@ class ImageBlock extends ActionBlock {
           onTap: onTap,
           onDoubleTap: onDoubleTap,
           onLongPress: onLongPress,
-          actions: actions,
+          actionBuilder: actionBuilder,
         );
 
   ImageBlock copyWith({BaseBlock block}) => ImageBlock(
@@ -42,7 +42,7 @@ class ImageBlock extends ActionBlock {
         data: block?.data ?? this.data,
         text: block?.text ?? this.text,
         blockType: block?.blockType ?? this.blockType,
-        actions: actions,
+        actionBuilder: actionBuilder,
         onTap: onTap,
         onDoubleTap: onDoubleTap,
         onLongPress: onLongPress,
@@ -50,6 +50,8 @@ class ImageBlock extends ActionBlock {
 
   @override
   InlineSpan render(BuildContext context, {List<InlineSpan> children}) {
+    var actions = actionBuilder != null ? actionBuilder(this) : null;
+
     return WidgetSpan(
       child: ImageComponent(
         url: data['src'],

@@ -10,9 +10,9 @@ class LinkPlugin extends BasePlugin {
   final OnTap onTap;
   final OnDoubleTap onDoubleTap;
   final OnLongPress onLongPress;
-  final List<CupertinoContextMenuAction> actions;
+  final ActionBuilder actionBuilder;
 
-  LinkPlugin({this.onDoubleTap, this.onLongPress, this.onTap, this.actions})
+  LinkPlugin({this.onDoubleTap, this.onLongPress, this.onTap, this.actionBuilder})
       : super();
 
   @override
@@ -30,7 +30,7 @@ class LinkPlugin extends BasePlugin {
           onTap: onTap,
           onDoubleTap: onDoubleTap,
           onLongPress: onLongPress,
-          actions: actions,
+          actionBuilder: actionBuilder,
         )
       };
 }

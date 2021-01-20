@@ -20,7 +20,7 @@ class LinkBlock extends ActionBlock {
     @required List<String> entityTypes,
     @required String blockType,
     @required List<BaseBlock> children,
-    @required List<CupertinoContextMenuAction> actions,
+    @required ActionBuilder actionBuilder,
     @required OnTap onTap,
     @required OnDoubleTap onDoubleTap,
     @required OnLongPress onLongPress,
@@ -37,7 +37,7 @@ class LinkBlock extends ActionBlock {
           onTap: onTap,
           onDoubleTap: onDoubleTap,
           onLongPress: onLongPress,
-          actions: actions,
+          actionBuilder: actionBuilder,
         );
 
   LinkBlock copyWith({BaseBlock block}) => LinkBlock(
@@ -50,7 +50,7 @@ class LinkBlock extends ActionBlock {
         text: block?.text ?? this.text,
         blockType: block?.blockType ?? this.blockType,
         children: block?.children ?? children ?? [],
-        actions: actions,
+        actionBuilder: actionBuilder,
         onTap: onTap,
         onDoubleTap: onDoubleTap,
         onLongPress: onLongPress,

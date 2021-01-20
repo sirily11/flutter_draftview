@@ -9,9 +9,10 @@ class ImagePlugin extends BasePlugin {
   final OnTap onTap;
   final OnDoubleTap onDoubleTap;
   final OnLongPress onLongPress;
-  final List<CupertinoContextMenuAction> actions;
+  final ActionBuilder actionBuilder;
 
-  ImagePlugin({this.onDoubleTap, this.onLongPress, this.onTap, this.actions})
+  ImagePlugin(
+      {this.onDoubleTap, this.onLongPress, this.onTap, this.actionBuilder})
       : super();
 
   @override
@@ -28,7 +29,7 @@ class ImagePlugin extends BasePlugin {
           onTap: onTap,
           onDoubleTap: onDoubleTap,
           onLongPress: onLongPress,
-          actions: actions,
+          actionBuilder: actionBuilder,
         )
       };
 }

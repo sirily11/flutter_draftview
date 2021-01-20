@@ -36,29 +36,22 @@ class Demo1 extends StatelessWidget {
                       TextPlugin(),
                       BlockQuotePlugin(),
                       HeaderPlugin(),
-                      ImagePlugin(actions: [
-                        CupertinoContextMenuAction(
-                          child: Row(
-                            children: [
-                              Icon(Icons.share),
-                              Text("Share"),
-                            ],
-                          ),
-                        )
-                      ]),
+                      ImagePlugin(actionBuilder: (block) {
+                        return [
+                          CupertinoContextMenuAction(
+                            child: Row(
+                              children: [
+                                Icon(Icons.share),
+                                Text("Share"),
+                              ],
+                            ),
+                          )
+                        ];
+                      }),
                       PostSettingsPlugin(rawSettings: settings),
                       ListPlugin(),
                       AudioPlugin(),
-                      LinkPlugin(actions: [
-                        CupertinoContextMenuAction(
-                          child: Row(
-                            children: [
-                              Icon(Icons.share),
-                              Text("Share"),
-                            ],
-                          ),
-                        )
-                      ]),
+                      LinkPlugin(),
                     ],
                   ),
                 ),

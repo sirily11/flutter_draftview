@@ -6,7 +6,7 @@ class ActionBlock extends BaseBlock {
   final OnTap onTap;
   final OnDoubleTap onDoubleTap;
   final OnLongPress onLongPress;
-   final List<CupertinoContextMenuAction> actions;
+  final ActionBuilder actionBuilder;
 
   ActionBlock({
     @required int depth,
@@ -20,7 +20,7 @@ class ActionBlock extends BaseBlock {
     @required this.onTap,
     @required this.onDoubleTap,
     @required this.onLongPress,
-    @required this.actions,
+    @required this.actionBuilder,
     List<BaseBlock> children,
   }) : super(
           depth: depth,
