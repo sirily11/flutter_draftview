@@ -1,12 +1,15 @@
 import 'dart:io';
 
+import 'package:draft_view/draft_view/block/action_block.dart';
 import 'package:draft_view/draft_view/block/base_block.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class LinkBlock extends BaseBlock {
+import '../callbacks.dart';
+
+class LinkBlock extends ActionBlock {
   LinkBlock({
     @required int depth,
     @required int start,
@@ -17,6 +20,10 @@ class LinkBlock extends BaseBlock {
     @required List<String> entityTypes,
     @required String blockType,
     @required List<BaseBlock> children,
+    @required List<CupertinoContextMenuAction> actions,
+    @required OnTap onTap,
+    @required OnDoubleTap onDoubleTap,
+    @required OnLongPress onLongPress,
   }) : super(
           depth: depth,
           start: start,
@@ -27,6 +34,10 @@ class LinkBlock extends BaseBlock {
           entityTypes: entityTypes,
           blockType: blockType,
           children: children,
+          onTap: onTap,
+          onDoubleTap: onDoubleTap,
+          onLongPress: onLongPress,
+          actions: actions,
         );
 
   LinkBlock copyWith({BaseBlock block}) => LinkBlock(
@@ -39,6 +50,10 @@ class LinkBlock extends BaseBlock {
         text: block?.text ?? this.text,
         blockType: block?.blockType ?? this.blockType,
         children: block?.children ?? children ?? [],
+        actions: actions,
+        onTap: onTap,
+        onDoubleTap: onDoubleTap,
+        onLongPress: onLongPress,
       );
   @override
   TextDecoration get decoration => TextDecoration.underline;
@@ -56,27 +71,35 @@ class LinkBlock extends BaseBlock {
       if (data['url'] is String) {
         recognizer = TapGestureRecognizer()
           ..onTap = () {
-            showBottomSheet(
-              context: context,
-              builder: (c) => LinkCard(
-                link: data['url'],
-                title: "No title",
-                summary: "No summary",
-              ),
-            );
+            if (onTap != null) {
+              onTap(this);
+            } else {
+              showBottomSheet(
+                context: context,
+                builder: (c) => LinkCard(
+                  link: data['url'],
+                  title: "No title",
+                  summary: "No summary",
+                ),
+              );
+            }
           };
       } else {
         recognizer = TapGestureRecognizer()
           ..onTap = () {
-            showBottomSheet(
-              context: context,
-              builder: (c) => LinkCard(
-                link: data['url']['link'],
-                title: data['url']['title'],
-                image: data['url']['image'],
-                summary: data['url']['summary'],
-              ),
-            );
+            if (onTap != null) {
+              onTap(this);
+            } else {
+              showBottomSheet(
+                context: context,
+                builder: (c) => LinkCard(
+                  link: data['url']['link'],
+                  title: data['url']['title'],
+                  image: data['url']['image'],
+                  summary: data['url']['summary'],
+                ),
+              );
+            }
           };
       }
     }
@@ -96,9 +119,13 @@ class LinkCard extends StatelessWidget {
   final String summary;
   final String image;
 
-  const LinkCard(
-      {Key key, this.title, @required this.link, this.summary, this.image})
-      : super(key: key);
+  const LinkCard({
+    Key key,
+    this.title,
+    @required this.link,
+    this.summary,
+    this.image,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

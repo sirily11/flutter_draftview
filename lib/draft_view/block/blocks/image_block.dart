@@ -1,8 +1,10 @@
+import 'package:draft_view/draft_view/block/action_block.dart';
 import 'package:draft_view/draft_view/block/base_block.dart';
+import 'package:draft_view/draft_view/block/callbacks.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ImageBlock extends BaseBlock {
+class ImageBlock extends ActionBlock {
   ImageBlock({
     @required int depth,
     @required int start,
@@ -12,6 +14,10 @@ class ImageBlock extends BaseBlock {
     @required String text,
     @required List<String> entityTypes,
     @required String blockType,
+    @required List<CupertinoContextMenuAction> actions,
+    @required OnTap onTap,
+    @required OnDoubleTap onDoubleTap,
+    @required OnLongPress onLongPress,
   }) : super(
           depth: depth,
           start: start,
@@ -21,6 +27,10 @@ class ImageBlock extends BaseBlock {
           text: text,
           entityTypes: entityTypes,
           blockType: blockType,
+          onTap: onTap,
+          onDoubleTap: onDoubleTap,
+          onLongPress: onLongPress,
+          actions: actions,
         );
 
   ImageBlock copyWith({BaseBlock block}) => ImageBlock(
@@ -32,6 +42,10 @@ class ImageBlock extends BaseBlock {
         data: block?.data ?? this.data,
         text: block?.text ?? this.text,
         blockType: block?.blockType ?? this.blockType,
+        actions: actions,
+        onTap: onTap,
+        onDoubleTap: onDoubleTap,
+        onLongPress: onLongPress,
       );
 
   @override
@@ -40,6 +54,11 @@ class ImageBlock extends BaseBlock {
       child: ImageComponent(
         url: data['src'],
         caption: data['description'],
+        onDoubleTap: onDoubleTap,
+        onTap: onTap,
+        onLongPress: onLongPress,
+        actions: actions,
+        imageBlock: this,
       ),
     );
   }
@@ -48,8 +67,21 @@ class ImageBlock extends BaseBlock {
 class ImageComponent extends StatefulWidget {
   final String url;
   final String caption;
+  final OnLongPress onLongPress;
+  final OnTap onTap;
+  final OnDoubleTap onDoubleTap;
+  final List<CupertinoContextMenuAction> actions;
+  final ImageBlock imageBlock;
 
-  ImageComponent({@required this.url, @required this.caption});
+  ImageComponent({
+    @required this.url,
+    @required this.caption,
+    @required this.onTap,
+    @required this.onDoubleTap,
+    @required this.onLongPress,
+    @required this.actions,
+    @required this.imageBlock,
+  });
 
   @override
   _ImageComponentState createState() => _ImageComponentState();
@@ -60,43 +92,14 @@ class _ImageComponentState extends State<ImageComponent> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (c) => ImageDetailView(
-                  url: widget.url,
-                  caption: widget.caption,
-                ),
+        widget.url != null
+            ? Center(
+                child: _buildImage(),
+              )
+            : Container(
+                height: 200,
+                color: Colors.grey.withOpacity(0.4),
               ),
-            );
-          },
-          child: widget.url != null
-              ? Center(
-                  child: Hero(
-                    tag: "${widget.url}",
-                    child: Image.network(
-                      widget.url,
-                      fit: BoxFit.fitWidth,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) return child;
-                        return Container(
-                          height: 200,
-                          color: Colors.grey.withOpacity(0.4),
-                          child: Center(
-                            child: CupertinoActivityIndicator(),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                )
-              : Container(
-                  height: 200,
-                  color: Colors.grey.withOpacity(0.4),
-                ),
-        ),
         Hero(
           tag: Key("${widget.caption}"),
           child: Text("${widget.caption ?? ""}"),
@@ -104,14 +107,65 @@ class _ImageComponentState extends State<ImageComponent> {
       ],
     );
   }
+
+  Widget _buildImage() {
+    var image = GestureDetector(
+      onDoubleTap: () => {
+        if (widget.onDoubleTap != null) widget.onDoubleTap(widget.imageBlock)
+      },
+      onTap: () {
+        if (widget.onTap != null) {
+          widget.onTap(widget.imageBlock);
+        } else {
+          if (widget.actions == null) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (c) =>
+                    ImageDetailView(url: widget.url, caption: widget.caption),
+              ),
+            );
+          }
+        }
+      },
+      child: Hero(
+        tag: "${widget.url}",
+        child: Image.network(
+          widget.url,
+          fit: BoxFit.fitWidth,
+          loadingBuilder: (context, child, loadingProgress) {
+            if (loadingProgress == null) return child;
+            return Container(
+              height: 200,
+              color: Colors.grey.withOpacity(0.4),
+              child: Center(
+                child: CupertinoActivityIndicator(),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+    if (widget.actions == null) {
+      return image;
+    } else {
+      return CupertinoContextMenu(
+        child: image,
+        actions: widget.actions,
+      );
+    }
+  }
 }
 
 class ImageDetailView extends StatefulWidget {
   final String url;
   final String caption;
 
-  const ImageDetailView({Key key, @required this.url, @required this.caption})
-      : super(key: key);
+  const ImageDetailView({
+    Key key,
+    @required this.url,
+    @required this.caption,
+  }) : super(key: key);
 
   @override
   _ImageDetailViewState createState() => _ImageDetailViewState();
@@ -173,11 +227,6 @@ class _ImageDetailViewState extends State<ImageDetailView> {
             GestureDetector(
               onDoubleTapDown: _handleDoubleTapDown,
               onDoubleTap: _handleDoubleTap,
-              onVerticalDragUpdate: (details) {
-                if (details.primaryDelta > 6 && !zoomed) {
-                  Navigator.pop(context);
-                }
-              },
               child: Center(
                 child: InteractiveViewer(
                   transformationController: _transformationController,
