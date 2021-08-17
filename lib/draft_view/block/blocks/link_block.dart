@@ -11,19 +11,19 @@ import '../callbacks.dart';
 
 class LinkBlock extends ActionBlock {
   LinkBlock({
-    @required int depth,
-    @required int start,
-    @required int end,
-    @required List<String> inlineStyles,
-    @required Map<String, dynamic> data,
-    @required String text,
-    @required List<String> entityTypes,
-    @required String blockType,
-    @required List<BaseBlock> children,
-    @required ActionBuilder actionBuilder,
-    @required OnTap onTap,
-    @required OnDoubleTap onDoubleTap,
-    @required OnLongPress onLongPress,
+    required int depth,
+    required int start,
+    required int end,
+    required List<String> inlineStyles,
+    required Map<String, dynamic> data,
+    required String text,
+    required List<String> entityTypes,
+    required String blockType,
+    required List<BaseBlock> children,
+    ActionBuilder? actionBuilder,
+    OnTap? onTap,
+    OnDoubleTap? onDoubleTap,
+    OnLongPress? onLongPress,
   }) : super(
           depth: depth,
           start: start,
@@ -40,7 +40,7 @@ class LinkBlock extends ActionBlock {
           actionBuilder: actionBuilder,
         );
 
-  LinkBlock copyWith({BaseBlock block}) => LinkBlock(
+  LinkBlock copyWith({BaseBlock? block}) => LinkBlock(
         depth: block?.depth ?? depth,
         start: block?.start ?? this.start,
         end: block?.end ?? this.end,
@@ -64,15 +64,15 @@ class LinkBlock extends ActionBlock {
   }
 
   @override
-  InlineSpan render(BuildContext context, {List<InlineSpan> children}) {
-    GestureRecognizer recognizer;
+  InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
+    late GestureRecognizer recognizer;
 
     if (data.containsKey('url')) {
       if (data['url'] is String) {
         recognizer = TapGestureRecognizer()
           ..onTap = () {
             if (onTap != null) {
-              onTap(this);
+              onTap!(this);
             } else {
               showBottomSheet(
                 context: context,
@@ -88,7 +88,7 @@ class LinkBlock extends ActionBlock {
         recognizer = TapGestureRecognizer()
           ..onTap = () {
             if (onTap != null) {
-              onTap(this);
+              onTap!(this);
             } else {
               showBottomSheet(
                 context: context,
@@ -114,15 +114,15 @@ class LinkBlock extends ActionBlock {
 }
 
 class LinkCard extends StatelessWidget {
-  final String title;
+  final String? title;
   final String link;
-  final String summary;
-  final String image;
+  final String? summary;
+  final String? image;
 
   const LinkCard({
-    Key key,
+    Key? key,
     this.title,
-    @required this.link,
+    required this.link,
     this.summary,
     this.image,
   }) : super(key: key);
@@ -141,7 +141,7 @@ class LinkCard extends StatelessWidget {
                   child: ListTile(
                     leading: image != null
                         ? Image.network(
-                            image,
+                            image!,
                             height: 50,
                             width: 150,
                             fit: BoxFit.fitWidth,

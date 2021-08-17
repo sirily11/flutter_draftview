@@ -30,13 +30,13 @@ String detailSettingsToJson(_DetailSettings data) => json.encode(data.toJson());
 /// Post Settings object
 class Settings {
   Settings({
-    @required this.settings,
+    required this.settings,
   });
 
   List<_PostSettings> settings;
 
   Settings copyWith({
-    List<_PostSettings> settings,
+    List<_PostSettings>? settings,
   }) =>
       Settings(
         settings: settings ?? this.settings,
@@ -61,16 +61,16 @@ class Settings {
 
 class _PostSettings {
   _PostSettings({
-    @required this.detailSettings,
-    @required this.id,
+    required this.detailSettings,
+    required this.id,
   });
 
   List<_DetailSettings> detailSettings;
   String id;
 
   _PostSettings copyWith({
-    List<_DetailSettings> detailSettings,
-    String id,
+    List<_DetailSettings>? detailSettings,
+    String? id,
   }) =>
       _PostSettings(
         detailSettings: detailSettings ?? this.detailSettings,
@@ -95,9 +95,9 @@ class _PostSettings {
 
 class _DetailSettings {
   _DetailSettings({
-    @required this.description,
-    @required this.name,
-    @required this.id,
+    required this.description,
+    required this.name,
+    required this.id,
   });
 
   String description;
@@ -105,9 +105,9 @@ class _DetailSettings {
   String id;
 
   _DetailSettings copyWith({
-    String description,
-    String name,
-    String id,
+    String? description,
+    String? name,
+    String? id,
   }) =>
       _DetailSettings(
         description: description ?? this.description,
@@ -134,15 +134,15 @@ class PostSettingsBlock extends BaseBlock {
   final Settings settings;
 
   PostSettingsBlock({
-    @required int depth,
-    @required int start,
-    @required int end,
-    @required List<String> inlineStyles,
-    @required Map<String, dynamic> data,
-    @required String text,
-    @required List<String> entityTypes,
-    @required String blockType,
-    @required this.settings,
+    required int depth,
+    required int start,
+    required int end,
+    required List<String> inlineStyles,
+    required Map<String, dynamic> data,
+    required String text,
+    required List<String> entityTypes,
+    required String blockType,
+    required this.settings,
   }) : super(
           depth: depth,
           start: start,
@@ -154,7 +154,7 @@ class PostSettingsBlock extends BaseBlock {
           blockType: blockType,
         );
 
-  PostSettingsBlock copyWith({BaseBlock block}) => PostSettingsBlock(
+  PostSettingsBlock copyWith({BaseBlock? block}) => PostSettingsBlock(
         depth: block?.depth ?? this.depth,
         start: block?.start ?? this.start,
         end: block?.end ?? this.end,
@@ -167,9 +167,9 @@ class PostSettingsBlock extends BaseBlock {
       );
 
   @override
-  InlineSpan render(BuildContext context, {List<InlineSpan> children}) {
-    _DetailSettings _detailSettings;
-    var textStyle = Theme.of(context).textTheme.bodyText1.copyWith(
+  InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
+    late _DetailSettings _detailSettings;
+    var textStyle = Theme.of(context).textTheme.bodyText1?.copyWith(
           color: Colors.orange,
         );
 
@@ -212,7 +212,7 @@ class PostSettingsBlock extends BaseBlock {
                     onTap: () {},
                     child: Icon(
                       Icons.link,
-                      color: textStyle.color,
+                      color: textStyle?.color,
                       size: 20,
                     ),
                   ),
@@ -227,7 +227,7 @@ class PostSettingsBlock extends BaseBlock {
 class PostSettingsCard extends StatelessWidget {
   final _DetailSettings settings;
 
-  const PostSettingsCard({Key key, @required this.settings}) : super(key: key);
+  const PostSettingsCard({Key? key, required this.settings}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

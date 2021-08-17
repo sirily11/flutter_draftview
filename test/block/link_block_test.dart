@@ -13,7 +13,7 @@ void main() {
   group("Test render link ", () {
     final text = "Hello World";
     final inlineStyles = ["BOLD", "ITALIC", "UNDERLINE", "#4caf50"];
-     BuildContext context;
+    late BuildContext context;
     final key = Key("rich-text");
 
     setUp(() {
@@ -36,9 +36,9 @@ void main() {
 
       var textSpan = block.render(context);
       expect(textSpan.toPlainText(), "${text.substring(0, 5)}");
-      expect(textSpan.style.decoration, TextDecoration.underline);
-      expect(textSpan.style.fontWeight, FontWeight.bold);
-      expect(textSpan.style.fontStyle, FontStyle.italic);
+      expect(textSpan.style!.decoration, TextDecoration.underline);
+      expect(textSpan.style!.fontWeight, FontWeight.bold);
+      expect(textSpan.style!.fontStyle, FontStyle.italic);
     });
 
     testWidgets("click on link without details", (tester) async {

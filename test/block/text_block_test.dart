@@ -7,7 +7,7 @@ class MockBuildContext extends Mock implements BuildContext {}
 
 void main() {
   group("Test without rendering", () {
-    MockBuildContext context;
+    late MockBuildContext context;
 
     setUp(() {
       context = MockBuildContext();
@@ -27,9 +27,9 @@ void main() {
       );
       var textspan = block.render(context);
       expect(textspan.toPlainText(), text);
-      expect(textspan.style.decoration, TextDecoration.none);
-      expect(textspan.style.fontWeight, FontWeight.normal);
-      expect(textspan.style.fontStyle, FontStyle.normal);
+      expect(textspan.style!.decoration, TextDecoration.none);
+      expect(textspan.style!.fontWeight, FontWeight.normal);
+      expect(textspan.style!.fontStyle, FontStyle.normal);
     });
 
     test("Simple test with style", () {
@@ -46,10 +46,10 @@ void main() {
       );
       var textspan = block.render(context);
       expect(textspan.toPlainText(), text.substring(0, 5));
-      expect(textspan.style.decoration, TextDecoration.underline);
-      expect(textspan.style.fontWeight, FontWeight.bold);
-      expect(textspan.style.fontStyle, FontStyle.italic);
-      expect(textspan.style.color, HexColor.fromHex("#4caf50"));
+      expect(textspan.style!.decoration, TextDecoration.underline);
+      expect(textspan.style!.fontWeight, FontWeight.bold);
+      expect(textspan.style!.fontStyle, FontStyle.italic);
+      expect(textspan.style!.color, HexColor.fromHex("#4caf50"));
     });
   });
 }

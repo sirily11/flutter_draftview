@@ -12,7 +12,11 @@ class LinkPlugin extends BasePlugin {
   final OnLongPress onLongPress;
   final ActionBuilder actionBuilder;
 
-  LinkPlugin({this.onDoubleTap, this.onLongPress, this.onTap, this.actionBuilder})
+  LinkPlugin(
+      {required this.onDoubleTap,
+      required this.onLongPress,
+      required this.onTap,
+      required this.actionBuilder})
       : super();
 
   @override

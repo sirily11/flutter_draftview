@@ -59,7 +59,7 @@ void main() {
       order: 0,
     );
 
-    ListTreeNode root;
+    late ListTreeNode root;
 
     setUp(() {
       root = ListTreeNode(isRoot: true);
@@ -108,7 +108,7 @@ void main() {
   group("Test render list", () {
     final text = "Hello World";
     final inlineStyles = ["BOLD", "ITALIC", "UNDERLINE", "#4caf50"];
-    BuildContext context;
+    late BuildContext context;
 
     setUp(() {
       context = MockBuildContext();
@@ -129,10 +129,10 @@ void main() {
 
       var textSpan = block.render(context);
       expect(textSpan.toPlainText(), "1. ${text.substring(0, 5)}\n");
-      expect(textSpan.style.decoration, TextDecoration.underline);
-      expect(textSpan.style.fontWeight, FontWeight.bold);
-      expect(textSpan.style.fontStyle, FontStyle.italic);
-      expect(textSpan.style.color, HexColor.fromHex("#4caf50"));
+      expect(textSpan.style!.decoration, TextDecoration.underline);
+      expect(textSpan.style!.fontWeight, FontWeight.bold);
+      expect(textSpan.style!.fontStyle, FontStyle.italic);
+      expect(textSpan.style!.color, HexColor.fromHex("#4caf50"));
     });
     test("Ordered list 2", () {
       var block = ListBlock(
@@ -150,10 +150,10 @@ void main() {
 
       var textSpan = block.render(context);
       expect(textSpan.toPlainText(), "      1. ${text.substring(0, 5)}\n");
-      expect(textSpan.style.decoration, TextDecoration.underline);
-      expect(textSpan.style.fontWeight, FontWeight.bold);
-      expect(textSpan.style.fontStyle, FontStyle.italic);
-      expect(textSpan.style.color, HexColor.fromHex("#4caf50"));
+      expect(textSpan.style!.decoration, TextDecoration.underline);
+      expect(textSpan.style!.fontWeight, FontWeight.bold);
+      expect(textSpan.style!.fontStyle, FontStyle.italic);
+      expect(textSpan.style!.color, HexColor.fromHex("#4caf50"));
     });
 
     test("Unordered list 1", () {
@@ -172,10 +172,10 @@ void main() {
 
       var textSpan = block.render(context);
       expect(textSpan.toPlainText(), "- ${text.substring(0, 5)}\n");
-      expect(textSpan.style.decoration, TextDecoration.underline);
-      expect(textSpan.style.fontWeight, FontWeight.bold);
-      expect(textSpan.style.fontStyle, FontStyle.italic);
-      expect(textSpan.style.color, HexColor.fromHex("#4caf50"));
+      expect(textSpan.style!.decoration, TextDecoration.underline);
+      expect(textSpan.style!.fontWeight, FontWeight.bold);
+      expect(textSpan.style!.fontStyle, FontStyle.italic);
+      expect(textSpan.style!.color, HexColor.fromHex("#4caf50"));
     });
 
     test("Unordered list 2", () {
@@ -194,10 +194,10 @@ void main() {
 
       var textSpan = block.render(context);
       expect(textSpan.toPlainText(), "      - ${text.substring(0, 5)}\n");
-      expect(textSpan.style.decoration, TextDecoration.underline);
-      expect(textSpan.style.fontWeight, FontWeight.bold);
-      expect(textSpan.style.fontStyle, FontStyle.italic);
-      expect(textSpan.style.color, HexColor.fromHex("#4caf50"));
+      expect(textSpan.style!.decoration, TextDecoration.underline);
+      expect(textSpan.style!.fontWeight, FontWeight.bold);
+      expect(textSpan.style!.fontStyle, FontStyle.italic);
+      expect(textSpan.style!.color, HexColor.fromHex("#4caf50"));
     });
   });
 }

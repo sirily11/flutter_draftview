@@ -43,12 +43,12 @@ void main() {
       var textFinder = find.byKey(key);
       var textWidget = tester.element(textFinder).widget as RichText;
       var textSpan = textWidget.text;
-      expect(textSpan.style.fontSize, 25);
+      expect(textSpan.style!.fontSize, 25);
       expect(textSpan.toPlainText(), text);
-      expect(textSpan.style.decoration, TextDecoration.underline);
-      expect(textSpan.style.fontWeight, FontWeight.bold);
-      expect(textSpan.style.fontStyle, FontStyle.italic);
-      expect(textSpan.style.color, HexColor.fromHex("#4caf50"));
+      expect(textSpan.style!.decoration, TextDecoration.underline);
+      expect(textSpan.style!.fontWeight, FontWeight.bold);
+      expect(textSpan.style!.fontStyle, FontStyle.italic);
+      expect(textSpan.style!.color, HexColor.fromHex("#4caf50"));
     });
 
     testWidgets("Header 2", (tester) async {
@@ -79,12 +79,12 @@ void main() {
       var textFinder = find.byKey(key);
       var textWidget = tester.element(textFinder).widget as RichText;
       var textSpan = textWidget.text;
-      expect(textSpan.style.fontSize, 24);
+      expect(textSpan.style!.fontSize, 24);
       expect(textSpan.toPlainText(), text);
-      expect(textSpan.style.decoration, TextDecoration.underline);
-      expect(textSpan.style.fontWeight, FontWeight.bold);
-      expect(textSpan.style.fontStyle, FontStyle.italic);
-      expect(textSpan.style.color, HexColor.fromHex("#4caf50"));
+      expect(textSpan.style!.decoration, TextDecoration.underline);
+      expect(textSpan.style!.fontWeight, FontWeight.bold);
+      expect(textSpan.style!.fontStyle, FontStyle.italic);
+      expect(textSpan.style!.color, HexColor.fromHex("#4caf50"));
     });
 
     testWidgets("Header 3", (tester) async {
@@ -115,12 +115,12 @@ void main() {
       var textFinder = find.byKey(key);
       var textWidget = tester.element(textFinder).widget as RichText;
       var textSpan = textWidget.text;
-      expect(textSpan.style.fontSize, 23);
+      expect(textSpan.style!.fontSize, 23);
       expect(textSpan.toPlainText(), text);
-      expect(textSpan.style.decoration, TextDecoration.underline);
-      expect(textSpan.style.fontWeight, FontWeight.bold);
-      expect(textSpan.style.fontStyle, FontStyle.italic);
-      expect(textSpan.style.color, HexColor.fromHex("#4caf50"));
+      expect(textSpan.style!.decoration, TextDecoration.underline);
+      expect(textSpan.style!.fontWeight, FontWeight.bold);
+      expect(textSpan.style!.fontStyle, FontStyle.italic);
+      expect(textSpan.style!.color, HexColor.fromHex("#4caf50"));
     });
 
     testWidgets("Header 4", (tester) async {
@@ -151,12 +151,12 @@ void main() {
       var textFinder = find.byKey(key);
       var textWidget = tester.element(textFinder).widget as RichText;
       var textSpan = textWidget.text;
-      expect(textSpan.style.fontSize, 22);
+      expect(textSpan.style!.fontSize, 22);
       expect(textSpan.toPlainText(), text);
-      expect(textSpan.style.decoration, TextDecoration.underline);
-      expect(textSpan.style.fontWeight, FontWeight.bold);
-      expect(textSpan.style.fontStyle, FontStyle.italic);
-      expect(textSpan.style.color, HexColor.fromHex("#4caf50"));
+      expect(textSpan.style!.decoration, TextDecoration.underline);
+      expect(textSpan.style!.fontWeight, FontWeight.bold);
+      expect(textSpan.style!.fontStyle, FontStyle.italic);
+      expect(textSpan.style!.color, HexColor.fromHex("#4caf50"));
     });
 
     testWidgets("Header 5", (tester) async {
@@ -187,12 +187,12 @@ void main() {
       var textFinder = find.byKey(key);
       var textWidget = tester.element(textFinder).widget as RichText;
       var textSpan = textWidget.text;
-      expect(textSpan.style.fontSize, 21);
+      expect(textSpan.style!.fontSize, 21);
       expect(textSpan.toPlainText(), text);
-      expect(textSpan.style.decoration, TextDecoration.underline);
-      expect(textSpan.style.fontWeight, FontWeight.bold);
-      expect(textSpan.style.fontStyle, FontStyle.italic);
-      expect(textSpan.style.color, HexColor.fromHex("#4caf50"));
+      expect(textSpan.style!.decoration, TextDecoration.underline);
+      expect(textSpan.style!.fontWeight, FontWeight.bold);
+      expect(textSpan.style!.fontStyle, FontStyle.italic);
+      expect(textSpan.style!.color, HexColor.fromHex("#4caf50"));
     });
 
     testWidgets("Header 6", (tester) async {
@@ -223,12 +223,12 @@ void main() {
       var textFinder = find.byKey(key);
       var textWidget = tester.element(textFinder).widget as RichText;
       var textSpan = textWidget.text;
-      expect(textSpan.style.fontSize, 20);
+      expect(textSpan.style!.fontSize, 20);
       expect(textSpan.toPlainText(), text);
-      expect(textSpan.style.decoration, TextDecoration.underline);
-      expect(textSpan.style.fontWeight, FontWeight.bold);
-      expect(textSpan.style.fontStyle, FontStyle.italic);
-      expect(textSpan.style.color, HexColor.fromHex("#4caf50"));
+      expect(textSpan.style!.decoration, TextDecoration.underline);
+      expect(textSpan.style!.fontWeight, FontWeight.bold);
+      expect(textSpan.style!.fontStyle, FontStyle.italic);
+      expect(textSpan.style!.color, HexColor.fromHex("#4caf50"));
     });
   });
 }

@@ -7,13 +7,13 @@ class DraftObject {
   final Map<String, RawDraftEntityKeyStringAny> entityMap;
 
   DraftObject({
-    @required this.blocks,
-    @required this.entityMap,
+    required this.blocks,
+    required this.entityMap,
   });
 
   DraftObject copyWith({
-    List<RawDraftContentBlock> blocks,
-    Map<String, RawDraftEntityKeyStringAny> entityMap,
+    List<RawDraftContentBlock>? blocks,
+    Map<String, RawDraftEntityKeyStringAny>? entityMap,
   }) =>
       DraftObject(
         blocks: blocks ?? this.blocks,
@@ -50,23 +50,23 @@ class RawDraftContentBlock {
   final String type;
 
   RawDraftContentBlock({
-    @required this.data,
-    @required this.depth,
-    @required this.entityRanges,
-    @required this.inlineStyleRanges,
-    @required this.key,
-    @required this.text,
-    @required this.type,
+    required this.data,
+    required this.depth,
+    required this.entityRanges,
+    required this.inlineStyleRanges,
+    required this.key,
+    required this.text,
+    required this.type,
   });
 
   RawDraftContentBlock copyWith({
     dynamic data,
-    double depth,
-    List<RawDraftEntityRange> entityRanges,
-    List<RawDraftInlineStyleRange> inlineStyleRanges,
-    String key,
-    String text,
-    String type,
+    double? depth,
+    List<RawDraftEntityRange>? entityRanges,
+    List<RawDraftInlineStyleRange>? inlineStyleRanges,
+    String? key,
+    String? text,
+    String? type,
   }) =>
       RawDraftContentBlock(
         data: data ?? this.data,
@@ -115,15 +115,15 @@ class RawDraftEntityRange {
   final double offset;
 
   RawDraftEntityRange({
-    @required this.key,
-    @required this.length,
-    @required this.offset,
+    required this.key,
+    required this.length,
+    required this.offset,
   });
 
   RawDraftEntityRange copyWith({
-    String key,
-    double length,
-    double offset,
+    String? key,
+    double? length,
+    double? offset,
   }) =>
       RawDraftEntityRange(
         key: key ?? this.key,
@@ -156,15 +156,15 @@ class RawDraftInlineStyleRange {
   final String style;
 
   RawDraftInlineStyleRange({
-    @required this.length,
-    @required this.offset,
-    @required this.style,
+    required this.length,
+    required this.offset,
+    required this.style,
   });
 
   RawDraftInlineStyleRange copyWith({
-    double length,
-    double offset,
-    String style,
+    double? length,
+    double? offset,
+    String? style,
   }) =>
       RawDraftInlineStyleRange(
         length: length ?? this.length,
@@ -197,15 +197,15 @@ class RawDraftEntityKeyStringAny {
   final String type;
 
   RawDraftEntityKeyStringAny({
-    @required this.data,
-    @required this.mutability,
-    @required this.type,
+    required this.data,
+    required this.mutability,
+    required this.type,
   });
 
   RawDraftEntityKeyStringAny copyWith({
-    Map<String, dynamic> data,
-    String mutability,
-    String type,
+    Map<String, dynamic>? data,
+    String? mutability,
+    String? type,
   }) =>
       RawDraftEntityKeyStringAny(
         data: data ?? this.data,
@@ -239,15 +239,15 @@ class RawDraftEntityT {
   final String type;
 
   RawDraftEntityT({
-    @required this.data,
-    @required this.mutability,
-    @required this.type,
+    required this.data,
+    required this.mutability,
+    required this.type,
   });
 
   RawDraftEntityT copyWith({
-    Map<String, dynamic> data,
-    String mutability,
-    String type,
+    Map<String, dynamic>? data,
+    String? mutability,
+    String? type,
   }) =>
       RawDraftEntityT(
         data: data ?? this.data,

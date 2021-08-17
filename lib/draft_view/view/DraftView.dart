@@ -7,8 +7,7 @@ class DraftView extends StatefulWidget {
   final Map<String, dynamic> rawDraftData;
   final List<BasePlugin> plugins;
 
-  const DraftView(
-      {Key key, @required this.rawDraftData, @required this.plugins})
+  const DraftView({Key? key, required this.rawDraftData, required this.plugins})
       : super(key: key);
 
   @override

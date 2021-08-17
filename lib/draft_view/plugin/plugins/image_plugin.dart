@@ -12,7 +12,10 @@ class ImagePlugin extends BasePlugin {
   final ActionBuilder actionBuilder;
 
   ImagePlugin(
-      {this.onDoubleTap, this.onLongPress, this.onTap, this.actionBuilder})
+      {required this.onDoubleTap,
+      required this.onLongPress,
+      required this.onTap,
+      required this.actionBuilder})
       : super();
 
   @override

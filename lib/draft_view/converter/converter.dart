@@ -11,7 +11,7 @@ class Converter {
   List<BasePlugin> plugins;
   Map<String, dynamic> draftData;
 
-  Converter({@required this.plugins, @required this.draftData}) {
+  Converter({required this.plugins, required this.draftData}) {
     assert(draftData.containsKey('blocks') == true);
     assert(draftData.containsKey('entityMap') == true);
   }
@@ -39,9 +39,12 @@ class Converter {
       for (var plugin in plugins) {
         if (plugin.blockRenderFn(tmpB)?.containsKey(draftBlock.type) ?? false) {
           var b = plugin
-              .blockRenderFn(tmpB, shouldWrite: true)[draftBlock.type]
+              .blockRenderFn(tmpB, shouldWrite: true)?[draftBlock.type]!
               .copyWith(block: tmpB);
-          blocks.add(b);
+
+          if (b != null) {
+            blocks.add(b);
+          }
           hasAdded = true;
           break;
         }
@@ -74,7 +77,7 @@ class Converter {
       if (block.children != null) {
         if (bs.length > 0) {
           if (bs.first != block) {
-            block.children.addAll(bs);
+            block.children?.addAll(bs);
           }
         }
         retBlocks.add(block);
@@ -87,16 +90,17 @@ class Converter {
           /// If the block is above types, then add nothing
         } else {
           /// Add new line
-          if (curDraftBlock.text.isNotEmpty && nextDraftBlock.text.isNotEmpty) {
+          if (curDraftBlock.text.isNotEmpty &&
+              nextDraftBlock!.text.isNotEmpty) {
             retBlocks.add(NewlineBlock());
-          } else if (curDraftBlock.type != nextDraftBlock.type) {
-            retBlocks.add(NewlineBlock());
-          } else if (curDraftBlock.text.isEmpty &&
-              (prevDraftBlock?.text?.isNotEmpty ?? false) &&
-              nextDraftBlock.text.isNotEmpty) {
+          } else if (curDraftBlock.type != nextDraftBlock?.type) {
             retBlocks.add(NewlineBlock());
           } else if (curDraftBlock.text.isEmpty &&
-              nextDraftBlock.text.isEmpty) {
+              (prevDraftBlock?.text.isNotEmpty ?? false) &&
+              nextDraftBlock!.text.isNotEmpty) {
+            retBlocks.add(NewlineBlock());
+          } else if (curDraftBlock.text.isEmpty &&
+              nextDraftBlock!.text.isEmpty) {
             retBlocks.add(NewlineBlock());
           }
         }
@@ -110,10 +114,10 @@ class Converter {
 
   /// split content block into multiple blocks by their [entities] and [inline styles]
   List<BaseBlock> splitBlock({
-    @required BaseBlock block,
-    @required List<RawDraftEntityRange> entities,
-    @required List<RawDraftInlineStyleRange> inlines,
-    @required Map<String, RawDraftEntityKeyStringAny> entityMap,
+    required BaseBlock block,
+    required List<RawDraftEntityRange> entities,
+    required List<RawDraftInlineStyleRange> inlines,
+    required Map<String, RawDraftEntityKeyStringAny> entityMap,
   }) {
     List<BaseBlock> retBlocks = [block];
     for (var entity in entities) {
@@ -180,9 +184,9 @@ class Converter {
 
   /// Add [newBlocks] to [blocks] at [index]
   List<BaseBlock> _addBlocksAt({
-    @required int index,
-    @required List<BaseBlock> blocks,
-    @required List<BaseBlock> newBlocks,
+    required int index,
+    required List<BaseBlock> blocks,
+    required List<BaseBlock> newBlocks,
   }) {
     if (newBlocks.length == 1) {
       blocks[index] = newBlocks.first;

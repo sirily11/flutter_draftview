@@ -6,18 +6,19 @@ import 'package:flutter/material.dart';
 
 class ImageBlock extends ActionBlock {
   ImageBlock({
-    @required int depth,
-    @required int start,
-    @required int end,
-    @required List<String> inlineStyles,
-    @required Map<String, dynamic> data,
-    @required String text,
-    @required List<String> entityTypes,
-    @required String blockType,
-    @required ActionBuilder actionBuilder,
-    @required OnTap onTap,
-    @required OnDoubleTap onDoubleTap,
-    @required OnLongPress onLongPress,
+    required int depth,
+    required int start,
+    required int end,
+    required List<String> inlineStyles,
+    required Map<String, dynamic> data,
+    required String text,
+    required List<String> entityTypes,
+    required String blockType,
+    ActionBuilder? actionBuilder,
+    OnTap? onTap,
+    OnDoubleTap? onDoubleTap,
+    OnLongPress? onLongPress,
+    List<BaseBlock>? children,
   }) : super(
           depth: depth,
           start: start,
@@ -31,9 +32,10 @@ class ImageBlock extends ActionBlock {
           onDoubleTap: onDoubleTap,
           onLongPress: onLongPress,
           actionBuilder: actionBuilder,
+          children: children,
         );
 
-  ImageBlock copyWith({BaseBlock block}) => ImageBlock(
+  ImageBlock copyWith({BaseBlock? block}) => ImageBlock(
         depth: block?.depth ?? this.depth,
         start: block?.start ?? this.start,
         end: block?.end ?? this.end,
@@ -49,8 +51,8 @@ class ImageBlock extends ActionBlock {
       );
 
   @override
-  InlineSpan render(BuildContext context, {List<InlineSpan> children}) {
-    var actions = actionBuilder != null ? actionBuilder(this) : null;
+  InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
+    var actions = actionBuilder != null ? actionBuilder!(this) : null;
 
     return WidgetSpan(
       child: ImageComponent(
@@ -69,20 +71,20 @@ class ImageBlock extends ActionBlock {
 class ImageComponent extends StatefulWidget {
   final String url;
   final String caption;
-  final OnLongPress onLongPress;
-  final OnTap onTap;
-  final OnDoubleTap onDoubleTap;
-  final List<CupertinoContextMenuAction> actions;
+  final OnLongPress? onLongPress;
+  final OnTap? onTap;
+  final OnDoubleTap? onDoubleTap;
+  final List<CupertinoContextMenuAction>? actions;
   final ImageBlock imageBlock;
 
   ImageComponent({
-    @required this.url,
-    @required this.caption,
-    @required this.onTap,
-    @required this.onDoubleTap,
-    @required this.onLongPress,
-    @required this.actions,
-    @required this.imageBlock,
+    required this.url,
+    required this.caption,
+    this.onTap,
+    this.onDoubleTap,
+    this.onLongPress,
+    this.actions,
+    required this.imageBlock,
   });
 
   @override
@@ -113,11 +115,11 @@ class _ImageComponentState extends State<ImageComponent> {
   Widget _buildImage() {
     var image = GestureDetector(
       onDoubleTap: () => {
-        if (widget.onDoubleTap != null) widget.onDoubleTap(widget.imageBlock)
+        if (widget.onDoubleTap != null) widget.onDoubleTap!(widget.imageBlock)
       },
       onTap: () {
         if (widget.onTap != null) {
-          widget.onTap(widget.imageBlock);
+          widget.onTap!(widget.imageBlock);
         } else {
           if (widget.actions == null) {
             Navigator.push(
@@ -153,7 +155,7 @@ class _ImageComponentState extends State<ImageComponent> {
     } else {
       return CupertinoContextMenu(
         child: image,
-        actions: widget.actions,
+        actions: widget.actions!,
       );
     }
   }
@@ -164,9 +166,9 @@ class ImageDetailView extends StatefulWidget {
   final String caption;
 
   const ImageDetailView({
-    Key key,
-    @required this.url,
-    @required this.caption,
+    Key? key,
+    required this.url,
+    required this.caption,
   }) : super(key: key);
 
   @override
@@ -178,7 +180,7 @@ class _ImageDetailViewState extends State<ImageDetailView> {
       TransformationController();
   bool zoomed = false;
 
-  TapDownDetails _doubleTapDetails;
+  late TapDownDetails _doubleTapDetails;
 
   @override
   void initState() {

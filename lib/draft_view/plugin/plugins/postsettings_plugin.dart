@@ -3,9 +3,9 @@ import 'package:draft_view/draft_view/plugin/base_plugin.dart';
 import 'package:flutter/foundation.dart';
 
 class PostSettingsPlugin extends BasePlugin {
-  Settings settings;
+  late Settings settings;
 
-  PostSettingsPlugin({@required Map<String, dynamic> rawSettings}) {
+  PostSettingsPlugin({required Map<String, dynamic> rawSettings}) {
     this.settings = Settings.fromJson(rawSettings);
   }
 

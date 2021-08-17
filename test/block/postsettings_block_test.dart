@@ -8,7 +8,7 @@ import 'blockquote_test.dart';
 
 void main() {
   group("Post settings test", () {
-    BuildContext context;
+    late BuildContext context;
     Key key = Key("rich-text");
 
     setUp(() {

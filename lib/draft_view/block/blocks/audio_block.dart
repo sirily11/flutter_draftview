@@ -24,14 +24,14 @@ extension on Duration {
 
 class AudioBlock extends BaseBlock {
   AudioBlock({
-    @required int depth,
-    @required int start,
-    @required int end,
-    @required List<String> inlineStyles,
-    @required Map<String, dynamic> data,
-    @required String text,
-    @required List<String> entityTypes,
-    @required String blockType,
+    required int depth,
+    required int start,
+    required int end,
+    required List<String> inlineStyles,
+    required Map<String, dynamic> data,
+    required String text,
+    required List<String> entityTypes,
+    required String blockType,
   }) : super(
           depth: depth,
           start: start,
@@ -43,7 +43,7 @@ class AudioBlock extends BaseBlock {
           blockType: blockType,
         );
 
-  AudioBlock copyWith({BaseBlock block}) => AudioBlock(
+  AudioBlock copyWith({BaseBlock? block}) => AudioBlock(
         depth: block?.depth ?? this.depth,
         start: block?.start ?? this.start,
         end: block?.end ?? this.end,
@@ -55,7 +55,7 @@ class AudioBlock extends BaseBlock {
       );
 
   @override
-  InlineSpan render(BuildContext context, {List<InlineSpan> children}) {
+  InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
     return WidgetSpan(
       child: AudioComponent(
         url: data['src'],
@@ -67,7 +67,7 @@ class AudioBlock extends BaseBlock {
 class AudioComponent extends StatefulWidget {
   final String url;
 
-  AudioComponent({@required this.url});
+  AudioComponent({required this.url});
 
   @override
   _AudioComponentState createState() => _AudioComponentState();
@@ -186,7 +186,7 @@ class _AudioComponentState extends State<AudioComponent> {
                                 style: Theme.of(context)
                                     .textTheme
                                     .caption
-                                    .copyWith(
+                                    ?.copyWith(
                                       color: Colors.blue,
                                       decoration: TextDecoration.underline,
                                     ),
@@ -214,7 +214,7 @@ class _AudioComponentState extends State<AudioComponent> {
               return StreamBuilder<Duration>(
                   stream: audioPlayer.onAudioPositionChanged,
                   builder: (context, snapshot2) {
-                    return _buildPlayer(snapshot.data, snapshot2.data);
+                    return _buildPlayer(snapshot.data!, snapshot2.data!);
                   });
             }),
       ],

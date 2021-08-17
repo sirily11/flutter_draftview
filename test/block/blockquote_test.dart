@@ -9,7 +9,7 @@ void main() {
   group("Test blockquote", () {
     final text = "Hello World";
     final inlineStyles = ["BOLD", "ITALIC", "UNDERLINE", "#4caf50"];
-     BuildContext context;
+    BuildContext context;
     final themeData = ThemeData(
         textTheme: TextTheme(
       headline1: TextStyle(fontSize: 25),
@@ -53,10 +53,10 @@ void main() {
       var textWidget = tester.element(textFinder).widget as RichText;
       var textSpan = textWidget.text;
       expect(textSpan.toPlainText(), text.substring(0, 5));
-      expect(textSpan.style.decoration, TextDecoration.underline);
-      expect(textSpan.style.fontWeight, FontWeight.bold);
-      expect(textSpan.style.fontStyle, FontStyle.italic);
-      expect(textSpan.style.color, HexColor.fromHex("#4caf50"));
+      expect(textSpan.style!.decoration, TextDecoration.underline);
+      expect(textSpan.style!.fontWeight, FontWeight.bold);
+      expect(textSpan.style!.fontStyle, FontStyle.italic);
+      expect(textSpan.style!.color, HexColor.fromHex("#4caf50"));
     });
   });
 }
