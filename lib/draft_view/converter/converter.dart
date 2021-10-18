@@ -30,7 +30,7 @@ class Converter {
         start: 0,
         end: draftBlock.text.length,
         inlineStyles: [],
-        data: {},
+        data: draftBlock.data,
         text: draftBlock.text,
         entityTypes: [],
         blockType: draftBlock.type,

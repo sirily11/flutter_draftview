@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:draft_view/draft_view/block/base_block.dart';
 import 'package:draft_view/draft_view/converter/converter.dart';
 import 'package:draft_view/draft_view/plugin/base_plugin.dart';
@@ -59,12 +60,24 @@ class _DraftViewState extends State<DraftView> {
     return spans;
   }
 
+  TextAlign _textAlign() {
+    final alignment = blocks.firstOrNull?.data['textAlignment'];
+    switch (alignment) {
+      case 'center':
+        return TextAlign.center;
+      case 'right':
+        return TextAlign.end;
+    }
+    return TextAlign.start;
+  }
+
   @override
   Widget build(BuildContext context) {
     return RichText(
       text: TextSpan(
         children: _renderText(),
       ),
+      textAlign: _textAlign(),
     );
   }
 }
