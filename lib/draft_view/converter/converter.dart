@@ -49,11 +49,6 @@ class Converter {
         blocks.add(tmpB);
       }
     }
-
-    (draftData['entityMap'] as Map).forEach((key, value) {
-      entityMap[key] = RawDraftEntityKeyStringAny.fromJson(value);
-    });
-
     int i = 0;
 
     while (i < draftBlocks.length) {
