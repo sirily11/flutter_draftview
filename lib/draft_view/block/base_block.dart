@@ -55,7 +55,7 @@ class BaseBlock {
       );
 
   /// If the range within the current block's range
-  bool withinRange(int start, int end) {
+  bool withInRange(int start, int end) {
     if (start == end) {
       return false;
     }

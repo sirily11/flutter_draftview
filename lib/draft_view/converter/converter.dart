@@ -122,7 +122,7 @@ class Converter {
       int i = 0;
       while (i < retBlocks.length) {
         var tmpBlock = retBlocks[i];
-        if (tmpBlock.withinRange(start, end)) {
+        if (tmpBlock.withInRange(start, end)) {
           var entityData = entityMap[entity.key];
           var newBlocks = tmpBlock.split(
             depth: tmpBlock.depth,
@@ -152,7 +152,7 @@ class Converter {
       int i = 0;
       while (i < retBlocks.length) {
         var tmpBlock = retBlocks[i];
-        if (tmpBlock.withinRange(start, end)) {
+        if (tmpBlock.withInRange(start, end)) {
           var newBlocks = tmpBlock.split(
             depth: tmpBlock.depth,
             start: start,
