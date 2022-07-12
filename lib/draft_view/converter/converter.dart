@@ -20,10 +20,10 @@ class Converter {
     List<BaseBlock> retBlocks = [];
     List<RawDraftContentBlock> draftBlocks = [];
     Map<String, RawDraftEntityKeyStringAny> entityMap = {};
-
-    for (var block in this.draftData['blocks']) {
-      var draftBlock = RawDraftContentBlock.fromJson(block);
-      draftBlocks.add(draftBlock);
+    DraftObject draftObject = DraftObject.fromJson(draftData);
+    draftBlocks = draftObject.blocks;
+    entityMap = draftObject.entityMap;
+    for (var draftBlock in draftBlocks) {
       var hasAdded = false;
       var tmpB = BaseBlock(
         depth: draftBlock.depth.toInt(),

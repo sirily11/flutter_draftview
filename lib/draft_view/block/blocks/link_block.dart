@@ -1,10 +1,8 @@
-import 'dart:io';
-
 import 'package:draft_view/draft_view/block/base_block.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class LinkBlock extends BaseBlock {
   LinkBlock({
@@ -30,7 +28,7 @@ class LinkBlock extends BaseBlock {
         );
 
   LinkBlock copyWith({BaseBlock? block}) => LinkBlock(
-        depth: block?.depth ?? depth,
+        depth: block?.depth ?? this.depth,
         start: block?.start ?? this.start,
         end: block?.end ?? this.end,
         inlineStyles: block?.inlineStyles ?? this.inlineStyles,
@@ -38,7 +36,7 @@ class LinkBlock extends BaseBlock {
         data: block?.data ?? this.data,
         text: block?.text ?? this.text,
         blockType: block?.blockType ?? this.blockType,
-        children: block?.children ?? children ?? [],
+        children: block?.children ?? this.children ?? [],
       );
   @override
   TextDecoration get decoration => TextDecoration.underline;
@@ -130,8 +128,8 @@ class LinkCard extends StatelessWidget {
                     tooltip: "Open in browser",
                     icon: Icon(Icons.launch),
                     onPressed: () async {
-                      if (await canLaunch(link)) {
-                        await launch(link);
+                      if (await canLaunchUrlString(link)) {
+                        await launchUrlString(link);
                       }
                     },
                   ),

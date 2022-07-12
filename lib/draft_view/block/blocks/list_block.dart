@@ -1,5 +1,4 @@
 import 'package:draft_view/draft_view/block/base_block.dart';
-import 'package:draft_view/draft_view/plugin/plugins/list_plugin.dart';
 import 'package:flutter/material.dart';
 
 class ListBlock extends BaseBlock {
@@ -32,7 +31,7 @@ class ListBlock extends BaseBlock {
         );
 
   ListBlock copyWith({BaseBlock? block}) => ListBlock(
-        depth: this.depth,
+        depth: block?.depth ?? this.depth,
         start: block?.start ?? this.start,
         end: block?.end ?? this.end,
         inlineStyles: block?.inlineStyles ?? this.inlineStyles,
@@ -40,7 +39,7 @@ class ListBlock extends BaseBlock {
         data: block?.data ?? this.data,
         text: block?.text ?? this.text,
         blockType: block?.blockType ?? this.blockType,
-        isOrderedList: isOrderedList,
+        isOrderedList: this.isOrderedList,
         order: this.order,
       );
 

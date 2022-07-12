@@ -2,7 +2,6 @@ import 'package:draft_view/draft_view/block/base_block.dart';
 import 'package:flutter/material.dart';
 
 class TextBlock extends BaseBlock {
-
   TextBlock({
     required int depth,
     required int start,
@@ -24,7 +23,7 @@ class TextBlock extends BaseBlock {
         );
 
   TextBlock copyWith({BaseBlock? block}) => TextBlock(
-        depth: block?.depth ?? depth,
+        depth: block?.depth ?? this.depth,
         start: block?.start ?? this.start,
         end: block?.end ?? this.end,
         inlineStyles: block?.inlineStyles ?? this.inlineStyles,
@@ -50,6 +49,6 @@ class NewlineBlock extends BaseBlock {
 
   @override
   InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
-    return TextSpan(text: "\n\n", style: renderStyle(context));
+    return TextSpan(text: "\n", style: renderStyle(context));
   }
 }

@@ -93,7 +93,7 @@ class _ImageComponentState extends State<ImageComponent> {
                 ),
         ),
         Hero(
-          tag: Key("${widget.caption}"),
+          tag: Key("${widget.url}"),
           child: Text("${widget.caption}"),
         ),
       ],
@@ -165,7 +165,7 @@ class _ImageDetailViewState extends State<ImageDetailView> {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Hero(
-                  tag: Key("${widget.caption}"),
+                  tag: Key("${widget.url}"),
                   child: Text(
                     "${widget.caption ?? ""}",
                     style: TextStyle(color: Colors.white, fontSize: 20),

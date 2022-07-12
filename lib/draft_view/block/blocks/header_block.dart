@@ -29,7 +29,7 @@ class HeaderBlock extends BaseBlock {
         );
 
   HeaderBlock copyWith({BaseBlock? block}) => HeaderBlock(
-        depth: block?.depth ?? depth,
+        depth: block?.depth ?? this.depth,
         start: block?.start ?? this.start,
         end: block?.end ?? this.end,
         inlineStyles: block?.inlineStyles ?? this.inlineStyles,
@@ -38,70 +38,37 @@ class HeaderBlock extends BaseBlock {
         text: block?.text ?? this.text,
         blockType: block?.blockType ?? this.blockType,
         level: this.level,
-        children: block?.children ?? children ?? [],
+        children: block?.children ?? this.children ?? [],
       );
 
   @override
   TextStyle renderStyle(BuildContext context) {
     var prevStyle = super.renderStyle(context);
-
-    switch (level) {
-      case 1:
-        var textStyle = Theme.of(context).textTheme.headline1!.copyWith(
-              fontWeight: prevStyle.fontWeight,
-              fontStyle: prevStyle.fontStyle,
-              decoration: prevStyle.decoration,
-              color: textColor(context),
-            );
-        return textStyle;
-
-      case 2:
-        var textStyle = Theme.of(context).textTheme.headline2!.copyWith(
-              fontWeight: prevStyle.fontWeight,
-              fontStyle: prevStyle.fontStyle,
-              decoration: prevStyle.decoration,
-              color: textColor(context),
-            );
-
-        return textStyle;
-
-      case 3:
-        var textStyle = Theme.of(context).textTheme.headline3!.copyWith(
-              fontWeight: prevStyle.fontWeight,
-              fontStyle: prevStyle.fontStyle,
-              decoration: prevStyle.decoration,
-              color: textColor(context),
-            );
-        return textStyle;
-      case 4:
-        var textStyle = Theme.of(context).textTheme.headline4!.copyWith(
-              fontWeight: prevStyle.fontWeight,
-              fontStyle: prevStyle.fontStyle,
-              decoration: prevStyle.decoration,
-              color: textColor(context),
-            );
-        return textStyle;
-      case 5:
-        var textStyle = Theme.of(context).textTheme.headline5!.copyWith(
-              fontWeight: prevStyle.fontWeight,
-              fontStyle: prevStyle.fontStyle,
-              decoration: prevStyle.decoration,
-              color: textColor(context),
-            );
-        return textStyle;
-      default:
-        var textStyle = Theme.of(context).textTheme.headline6!.copyWith(
-              fontWeight: prevStyle.fontWeight,
-              fontStyle: prevStyle.fontStyle,
-              decoration: prevStyle.decoration,
-              color: textColor(context),
-            );
-        return textStyle;
+    TextStyle headeline;
+    var textTheme = Theme.of(context).textTheme;
+    if (level == 1) {
+      headeline = textTheme.headline1!;
+    } else if (level == 2) {
+      headeline = textTheme.headline2!;
+    } else if (level == 3) {
+      headeline = textTheme.headline3!;
+    } else if (level == 4) {
+      headeline = textTheme.headline4!;
+    } else if (level == 5) {
+      headeline = textTheme.headline5!;
+    } else {
+      headeline = textTheme.headline6!;
     }
+    return headeline.copyWith(
+      fontWeight: prevStyle.fontWeight,
+      fontStyle: prevStyle.fontStyle,
+      decoration: prevStyle.decoration,
+      color: textColor(context),
+    );
   }
 
   @override
   InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
-    return TextSpan(text: "$textContent", style: renderStyle(context));
+    return TextSpan(text: textContent, style: renderStyle(context));
   }
 }
