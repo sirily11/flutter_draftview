@@ -55,7 +55,7 @@ class BaseBlock {
       );
 
   /// If the range within the current block's range
-  bool withinRange(int start, int end) {
+  bool withInRange(int start, int end) {
     if (start == end) {
       return false;
     }
@@ -281,9 +281,18 @@ class BaseBlock {
       : FontStyle.normal;
 
   /// Get decoration for each block based on their [inline styles]
-  TextDecoration get decoration => this.inlineStyles.contains("UNDERLINE")
-      ? TextDecoration.underline
-      : TextDecoration.none;
+  TextDecoration get decoration {
+    TextDecoration decoration = TextDecoration.none;
+    if (inlineStyles.contains("UNDERLINE")) {
+      decoration =
+          TextDecoration.combine([decoration, TextDecoration.underline]);
+    }
+    if (inlineStyles.contains("STRIKETHROUGH")) {
+      decoration =
+          TextDecoration.combine([decoration, TextDecoration.lineThrough]);
+    }
+    return decoration;
+  }
 
   /// Render style based on the block's type and inline styles
   TextStyle renderStyle(BuildContext context) {

@@ -1,8 +1,3 @@
-import 'package:draft_view/draft_view/block/blocks/header_block.dart';
-import 'package:draft_view/draft_view/block/blocks/list_block.dart';
-import 'package:draft_view/draft_view/block/blocks/text_block.dart';
-import 'package:draft_view/draft_view/plugin/base_plugin.dart';
-
 import '../../../draft_view.dart';
 
 class ListPlugin extends BasePlugin {

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:draft_view/draft_view/block/base_block.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +30,7 @@ class HeaderBlock extends BaseBlock {
         );
 
   HeaderBlock copyWith({BaseBlock? block}) => HeaderBlock(
-        depth: block?.depth ?? depth,
+        depth: block?.depth ?? this.depth,
         start: block?.start ?? this.start,
         end: block?.end ?? this.end,
         inlineStyles: block?.inlineStyles ?? this.inlineStyles,
@@ -38,7 +39,7 @@ class HeaderBlock extends BaseBlock {
         text: block?.text ?? this.text,
         blockType: block?.blockType ?? this.blockType,
         level: this.level,
-        children: block?.children ?? children ?? [],
+        children: block?.children ?? this.children ?? [],
       );
 
   @override
@@ -102,6 +103,6 @@ class HeaderBlock extends BaseBlock {
 
   @override
   InlineSpan render(BuildContext context, {List<InlineSpan>? children}) {
-    return TextSpan(text: "$textContent", style: renderStyle(context));
+    return TextSpan(text: textContent, style: renderStyle(context));
   }
 }

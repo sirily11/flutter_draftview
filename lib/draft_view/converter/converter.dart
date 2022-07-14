@@ -20,10 +20,10 @@ class Converter {
     List<BaseBlock> retBlocks = [];
     List<RawDraftContentBlock> draftBlocks = [];
     Map<String, RawDraftEntityKeyStringAny> entityMap = {};
-
-    for (var block in this.draftData['blocks']) {
-      var draftBlock = RawDraftContentBlock.fromJson(block);
-      draftBlocks.add(draftBlock);
+    DraftObject draftObject = DraftObject.fromJson(draftData);
+    draftBlocks = draftObject.blocks;
+    entityMap = draftObject.entityMap;
+    for (var draftBlock in draftBlocks) {
       var hasAdded = false;
       var tmpB = BaseBlock(
         depth: draftBlock.depth.toInt(),
@@ -49,11 +49,6 @@ class Converter {
         blocks.add(tmpB);
       }
     }
-
-    (draftData['entityMap'] as Map).forEach((key, value) {
-      entityMap[key] = RawDraftEntityKeyStringAny.fromJson(value);
-    });
-
     int i = 0;
 
     while (i < draftBlocks.length) {
@@ -122,7 +117,7 @@ class Converter {
       int i = 0;
       while (i < retBlocks.length) {
         var tmpBlock = retBlocks[i];
-        if (tmpBlock.withinRange(start, end)) {
+        if (tmpBlock.withInRange(start, end)) {
           var entityData = entityMap[entity.key];
           var newBlocks = tmpBlock.split(
             depth: tmpBlock.depth,
@@ -152,7 +147,7 @@ class Converter {
       int i = 0;
       while (i < retBlocks.length) {
         var tmpBlock = retBlocks[i];
-        if (tmpBlock.withinRange(start, end)) {
+        if (tmpBlock.withInRange(start, end)) {
           var newBlocks = tmpBlock.split(
             depth: tmpBlock.depth,
             start: start,

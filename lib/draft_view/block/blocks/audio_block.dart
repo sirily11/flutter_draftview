@@ -1,7 +1,6 @@
 import 'package:draft_view/draft_view/block/base_block.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 extension on Duration {
   String toAudioString() {
@@ -14,8 +13,8 @@ extension on Duration {
       return "-${-this}";
     }
     String twoDigitHours = twoDigits(inHours);
-    String twoDigitMinutes = twoDigits(inMinutes.remainder(60) as int);
-    String twoDigitSeconds = twoDigits(inSeconds.remainder(60) as int);
+    String twoDigitMinutes = twoDigits(inMinutes.remainder(60));
+    String twoDigitSeconds = twoDigits(inSeconds.remainder(60));
 
     return "$twoDigitHours:$twoDigitMinutes:$twoDigitSeconds";
   }
@@ -175,8 +174,8 @@ class _AudioComponentState extends State<AudioComponent> {
                           WidgetSpan(
                             child: InkWell(
                               onTap: () async {
-                                if (await canLaunch(widget.url)) {
-                                  await launch(widget.url);
+                                if (await canLaunchUrlString(widget.url)) {
+                                  await launchUrlString(widget.url);
                                 }
                               },
                               child: Text(
